@@ -2,26 +2,31 @@ package com.fonepay.gateway.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-@Data
-public class RegisterRequest {
+import java.time.LocalDate;
 
+@Data
+public class StaffRequest {
     @NotBlank(message = "Name is required")
     private String name;
 
+    @Email(message = "Valid email is required")
     @NotBlank(message = "Email is required")
-    @Email(message = "Email must be a valid email address")
     private String email;
 
     @NotBlank(message = "Password is required")
-    @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
-    @NotBlank(message = "Phone is required")
+    @NotBlank(message = "Phone number is required")
     private String phone;
 
-    @NotBlank(message = "Business name is required")
-    private String businessName;
+    private LocalDate dateOfBirth;
+    private String bloodGroup;
+
+    private String shift;
+    private String specialization;
+    private String assignedRoom;
+    private String designation;
+    private LocalDate hireDate;
 }

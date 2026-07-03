@@ -3,14 +3,17 @@ package com.fonepay.gateway.entity.enums;
 public enum Role {
 
     /**
-     * Standard merchant account.
-     * Can manage their own transactions, view their own data.
+     * Patient receiving treatment.
      */
-    MERCHANT,
+    PATIENT,
 
     /**
-     * Internal Fonepay admin account.
-     * Elevated privileges - can view all merchants, manage platform settings.
+     * Medical staff (Doctor, Nurse, etc.).
+     */
+    STAFF,
+
+    /**
+     * System Administrator.
      */
     ADMIN
 }
