@@ -1,11 +1,11 @@
-package com.fonepay.gateway.service.staff;
+package com.fonepay.gateway.service.admin;
 
-import com.fonepay.gateway.dto.request.StaffRequest;
-import com.fonepay.gateway.dto.response.StaffResponse;
-import com.fonepay.gateway.entity.Staff;
+import com.fonepay.gateway.dto.request.AdminRequest;
+import com.fonepay.gateway.dto.response.AdminResponse;
+import com.fonepay.gateway.entity.Admin;
 import com.fonepay.gateway.exception.AppException;
-import com.fonepay.gateway.factory.StaffFactory;
-import com.fonepay.gateway.repository.StaffRepository;
+import com.fonepay.gateway.factory.AdminFactory;
+import com.fonepay.gateway.repository.AdminRepository;
 import com.fonepay.gateway.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,28 +18,28 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class CreateStaffService {
+public class CreateAdminService {
 
-    private final StaffRepository staffRepository;
+    private final AdminRepository adminRepository;
     private final UserRepository userRepository;
-    private final StaffFactory staffFactory;
+    private final AdminFactory adminFactory;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
-    public StaffResponse createStaff(StaffRequest request) {
+    public AdminResponse createAdmin(AdminRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new AppException(
                     "Email already in use",
                     HttpStatus.CONFLICT,
-                    "STAFF_EMAIL_EXISTS"
+                    "ADMIN_EMAIL_EXISTS"
             );
         }
 
         request.setPassword(passwordEncoder.encode(request.getPassword()));
-        Staff staff = staffFactory.toEntity(request);
-        staff = staffRepository.save(staff);
+        Admin admin = adminFactory.toEntity(request);
+        admin = adminRepository.save(admin);
 
-        log.debug("Staff created with id: {}", staff.getId());
-        return staffFactory.toResponse(staff);
+        log.debug("Admin created with id: {}", admin.getId());
+        return adminFactory.toResponse(admin);
     }
 }

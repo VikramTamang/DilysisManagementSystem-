@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -21,6 +23,7 @@ public class CreatePatientService {
     private final PatientRepository patientRepository;
     private final UserRepository userRepository;
     private final PatientFactory patientFactory;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
     public PatientResponse createPatient(PatientRequest request) {
@@ -32,6 +35,7 @@ public class CreatePatientService {
             );
         }
 
+        request.setPassword(passwordEncoder.encode(request.getPassword()));
         Patient patient = patientFactory.toEntity(request);
         patient = patientRepository.save(patient);
         
