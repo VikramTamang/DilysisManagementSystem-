@@ -2,6 +2,7 @@ package com.fonepay.gateway.service.auth;
 
 import com.fonepay.gateway.dto.request.LoginRequest;
 import com.fonepay.gateway.dto.response.LoginResponse;
+import com.fonepay.gateway.entity.Staff;
 import com.fonepay.gateway.entity.User;
 import com.fonepay.gateway.exception.AppException;
 import com.fonepay.gateway.repository.UserRepository;
@@ -34,11 +35,15 @@ public class LoginService {
             throw new AppException("Invalid credentials", HttpStatus.UNAUTHORIZED, "INVALID_CREDENTIALS");
         }
 
+        // Staff have a designation (Doctor, Nurse, etc.) that plain STAFF role doesn't capture
+        String designation = (user instanceof Staff staff) ? staff.getDesignation() : null;
+
         return LoginResponse.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .email(user.getEmail())
                 .role(user.getRole().name())
+                .designation(designation)
                 .build();
     }
 }

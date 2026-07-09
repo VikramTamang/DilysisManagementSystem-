@@ -9,6 +9,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.fonepay.gateway.constant.ApiConstants;
+import com.fonepay.gateway.entity.User;
+import org.springframework.security.access.method.P;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +28,7 @@ public class StaffController {
     private final UpdateStaffService updateStaffService;
     private final DeleteStaffService deleteStaffService;
 
+    @PreAuthorize("hasRole('ADMIN')") // only admins hire staff
     @PostMapping
     public ResponseEntity<ApiResponse<StaffResponse>> createStaff(
             @Valid @RequestBody StaffRequest request) {
@@ -39,8 +44,29 @@ public class StaffController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    // Any logged-in staff member can fetch their own info — no need to know
+    // their own database ID. authentication.principal is resolved by
+    // CustomUserDetailsService from the Basic Auth credentials on this request.
+    @PreAuthorize("hasRole('STAFF')")
+    @GetMapping("/me")
+    public ResponseEntity<ApiResponse<StaffResponse>> getMyInfo(
+            @AuthenticationPrincipal User currentUser) {
+
+        StaffResponse staff = getStaffService.getStaffById(currentUser.getId());
+
+        ApiResponse<StaffResponse> response = ApiResponse.<StaffResponse>builder()
+                .success(true)
+                .message("Staff retrieved successfully")
+                .data(staff)
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
+
+    // ADMIN can view any staff record; a STAFF member can only view their own
+    @PreAuthorize("hasRole('ADMIN') or authentication.principal.id == #id")
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<StaffResponse>> getStaffById(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<StaffResponse>> getStaffById(@P("id") @PathVariable Long id) {
         StaffResponse staff = getStaffService.getStaffById(id);
 
         ApiResponse<StaffResponse> response = ApiResponse.<StaffResponse>builder()
@@ -52,6 +78,8 @@ public class StaffController {
         return ResponseEntity.ok(response);
     }
 
+    // Only admins should see the full staff roster
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<ApiResponse<List<StaffResponse>>> getAllStaff() {
         List<StaffResponse> staffList = getAllStaffService.getAllStaff();
@@ -65,6 +93,7 @@ public class StaffController {
         return ResponseEntity.ok(response);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<StaffResponse>> updateStaff(
             @PathVariable Long id,
@@ -81,6 +110,7 @@ public class StaffController {
         return ResponseEntity.ok(response);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteStaff(@PathVariable Long id) {
         deleteStaffService.deleteStaff(id);

@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.fonepay.gateway.constant.ApiConstants;
+import org.springframework.security.access.method.P;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +26,7 @@ public class PatientController {
     private final UpdatePatientService updatePatientService;
     private final DeletePatientService deletePatientService;
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     @PostMapping
     public ResponseEntity<ApiResponse<PatientResponse>> createPatient(
             @Valid @RequestBody PatientRequest request) {
@@ -39,8 +42,11 @@ public class PatientController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    // ADMIN/STAFF can view any patient; a PATIENT can only view their own record
+    // (authentication.principal is the logged-in User, since User implements UserDetails)
+    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF') or authentication.principal.id == #id")
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<PatientResponse>> getPatientById(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<PatientResponse>> getPatientById(@P("id") @PathVariable Long id) {
         PatientResponse patient = getPatientService.getPatientById(id);
 
         ApiResponse<PatientResponse> response = ApiResponse.<PatientResponse>builder()
@@ -52,6 +58,7 @@ public class PatientController {
         return ResponseEntity.ok(response);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     @GetMapping
     public ResponseEntity<ApiResponse<List<PatientResponse>>> getAllPatients() {
         List<PatientResponse> patients = getAllPatientsService.getAllPatients();
@@ -65,6 +72,7 @@ public class PatientController {
         return ResponseEntity.ok(response);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<PatientResponse>> updatePatient(
             @PathVariable Long id,
@@ -81,6 +89,7 @@ public class PatientController {
         return ResponseEntity.ok(response);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deletePatient(@PathVariable Long id) {
         deletePatientService.deletePatient(id);
