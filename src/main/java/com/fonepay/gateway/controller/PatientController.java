@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.fonepay.gateway.constant.ApiConstants;
+import com.fonepay.gateway.entity.User;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.access.method.P;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,22 @@ public class PatientController {
     private final GetAllPatientsService getAllPatientsService;
     private final UpdatePatientService updatePatientService;
     private final DeletePatientService deletePatientService;
+
+    @PreAuthorize("hasRole('PATIENT')")
+    @GetMapping("/me")
+    public ResponseEntity<ApiResponse<PatientResponse>> getMyInfo(
+            @AuthenticationPrincipal User currentUser) {
+
+        PatientResponse patient = getPatientService.getPatientById(currentUser.getId());
+
+        ApiResponse<PatientResponse> response = ApiResponse.<PatientResponse>builder()
+                .success(true)
+                .message("Patient profile retrieved successfully")
+                .data(patient)
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     @PostMapping

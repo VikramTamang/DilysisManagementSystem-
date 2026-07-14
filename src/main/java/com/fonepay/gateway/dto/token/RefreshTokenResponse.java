@@ -1,4 +1,4 @@
-package com.fonepay.gateway.dto.response;
+package com.fonepay.gateway.dto.token;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,13 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginResponse {
-    
-    private Long id;
-    private String name;
-    private String email;
-    private String role;
-    private String designation;
+public class RefreshTokenResponse {
+
     private String accessToken;
     private String refreshToken;
 }

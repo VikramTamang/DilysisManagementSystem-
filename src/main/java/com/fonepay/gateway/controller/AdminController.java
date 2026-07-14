@@ -9,6 +9,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import com.fonepay.gateway.entity.User;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +27,21 @@ public class AdminController {
     private final GetAllAdminsService getAllAdminsService;
     private final UpdateAdminService updateAdminService;
     private final DeleteAdminService deleteAdminService;
+
+    @GetMapping("/me")
+    public ResponseEntity<ApiResponse<AdminResponse>> getMyInfo(
+            @AuthenticationPrincipal User currentUser) {
+
+        AdminResponse admin = getAdminService.getAdminById(currentUser.getId());
+
+        ApiResponse<AdminResponse> response = ApiResponse.<AdminResponse>builder()
+                .success(true)
+                .message("Admin profile retrieved successfully")
+                .data(admin)
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
 
     @PostMapping
     public ResponseEntity<ApiResponse<AdminResponse>> createAdmin(

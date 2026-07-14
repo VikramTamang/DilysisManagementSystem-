@@ -40,5 +40,6 @@ public final class ApiConstants {
         
         public static final String BASE = API_BASE + "/auth";
         public static final String LOGIN = BASE + "/login";
+        public static final String REFRESH_TOKEN = BASE + "/refresh-token";
     }
 }
