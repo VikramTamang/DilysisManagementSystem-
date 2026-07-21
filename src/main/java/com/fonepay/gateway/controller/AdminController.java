@@ -5,13 +5,13 @@ import com.fonepay.gateway.dto.ApiResponse;
 import com.fonepay.gateway.dto.request.AdminRequest;
 import com.fonepay.gateway.dto.response.AdminResponse;
 import com.fonepay.gateway.service.admin.*;
+import com.fonepay.gateway.user.entity.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import com.fonepay.gateway.entity.User;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping(ApiConstants.Admin.BASE)
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ADMIN')") // class-level: every endpoint here needs ADMIN
+@PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
 
     private final CreateAdminService createAdminService;

@@ -23,24 +23,13 @@ public class JwtService {
     @Value("${jwt.access-token-expiration}")
     private long accessTokenExpiration;
 
-    @Value("${jwt.refresh-token-expiration}")
-    private long refreshTokenExpiration;
-
     private SecretKey getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
     public String generateAccessToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("type", "ACCESS");
-        return createToken(claims, userDetails.getUsername(), accessTokenExpiration);
-    }
-
-    public String generateRefreshToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("type", "REFRESH");
-        return createToken(claims, userDetails.getUsername(), refreshTokenExpiration);
+        return createToken(new HashMap<>(), userDetails.getUsername(), accessTokenExpiration);
     }
 
     private String createToken(Map<String, Object> claims, String subject, long expirationMs) {
@@ -55,10 +44,6 @@ public class JwtService {
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
-    }
-
-    public String extractTokenType(String token) {
-        return extractClaim(token, claims -> claims.get("type", String.class));
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {

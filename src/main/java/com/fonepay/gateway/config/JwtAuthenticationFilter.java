@@ -44,10 +44,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         jwt = authHeader.substring(7);
         try {
             userEmail = jwtService.extractUsername(jwt);
-            String tokenType = jwtService.extractTokenType(jwt);
 
-            // Enforce that only ACCESS tokens can be used to authenticate requests
-            if (userEmail != null && "ACCESS".equals(tokenType) && SecurityContextHolder.getContext().getAuthentication() == null) {
+            if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
                 
                 if (jwtService.isTokenValid(jwt, userDetails)) {
@@ -59,8 +57,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
-            } else if (userEmail != null && !"ACCESS".equals(tokenType)) {
-                log.warn("Blocked request: JWT of type '{}' used for API access", tokenType);
             }
         } catch (Exception e) {
             log.error("Failed to parse or validate JWT token", e);

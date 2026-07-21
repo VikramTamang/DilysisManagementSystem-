@@ -1,18 +1,19 @@
 package com.fonepay.gateway.controller;
 
+import com.fonepay.gateway.constant.ApiConstants;
 import com.fonepay.gateway.dto.ApiResponse;
 import com.fonepay.gateway.dto.request.PatientRequest;
 import com.fonepay.gateway.dto.response.PatientResponse;
+import com.fonepay.gateway.entity.enums.Role;
+import com.fonepay.gateway.exception.AppException;
 import com.fonepay.gateway.service.patient.*;
+import com.fonepay.gateway.user.entity.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import com.fonepay.gateway.constant.ApiConstants;
-import com.fonepay.gateway.entity.User;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.access.method.P;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,28 +24,12 @@ import java.util.List;
 public class PatientController {
 
     private final CreatePatientService createPatientService;
-    private final GetPatientService getPatientService;
-    private final GetAllPatientsService getAllPatientsService;
     private final UpdatePatientService updatePatientService;
     private final DeletePatientService deletePatientService;
+    private final GetPatientService getPatientService;
+    private final GetAllPatientsService getAllPatientsService;
 
-    @PreAuthorize("hasRole('PATIENT')")
-    @GetMapping("/me")
-    public ResponseEntity<ApiResponse<PatientResponse>> getMyInfo(
-            @AuthenticationPrincipal User currentUser) {
-
-        PatientResponse patient = getPatientService.getPatientById(currentUser.getId());
-
-        ApiResponse<PatientResponse> response = ApiResponse.<PatientResponse>builder()
-                .success(true)
-                .message("Patient profile retrieved successfully")
-                .data(patient)
-                .build();
-
-        return ResponseEntity.ok(response);
-    }
-
-    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR', 'NURSE')")
     @PostMapping
     public ResponseEntity<ApiResponse<PatientResponse>> createPatient(
             @Valid @RequestBody PatientRequest request) {
@@ -60,41 +45,15 @@ public class PatientController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    // ADMIN/STAFF can view any patient; a PATIENT can only view their own record
-    // (authentication.principal is the logged-in User, since User implements UserDetails)
-    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF') or authentication.principal.id == #id")
-    @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<PatientResponse>> getPatientById(@P("id") @PathVariable Long id) {
-        PatientResponse patient = getPatientService.getPatientById(id);
-
-        ApiResponse<PatientResponse> response = ApiResponse.<PatientResponse>builder()
-                .success(true)
-                .message("Patient retrieved successfully")
-                .data(patient)
-                .build();
-
-        return ResponseEntity.ok(response);
-    }
-
-    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
-    @GetMapping
-    public ResponseEntity<ApiResponse<List<PatientResponse>>> getAllPatients() {
-        List<PatientResponse> patients = getAllPatientsService.getAllPatients();
-
-        ApiResponse<List<PatientResponse>> response = ApiResponse.<List<PatientResponse>>builder()
-                .success(true)
-                .message("Patients retrieved successfully")
-                .data(patients)
-                .build();
-
-        return ResponseEntity.ok(response);
-    }
-
-    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<PatientResponse>> updatePatient(
             @PathVariable Long id,
-            @Valid @RequestBody PatientRequest request) {
+            @Valid @RequestBody PatientRequest request,
+            @AuthenticationPrincipal User currentUser) {
+
+        if (currentUser.getRole() == Role.PATIENT && !currentUser.getId().equals(id)) {
+            throw new AppException("Access denied: You can only update your own profile.", HttpStatus.FORBIDDEN, "ACCESS_DENIED");
+        }
 
         PatientResponse updated = updatePatientService.updatePatient(id, request);
 
@@ -115,6 +74,56 @@ public class PatientController {
         ApiResponse<Void> response = ApiResponse.<Void>builder()
                 .success(true)
                 .message("Patient deleted successfully")
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<PatientResponse>> getPatientById(
+            @PathVariable Long id,
+            @AuthenticationPrincipal User currentUser) {
+
+        if (currentUser.getRole() == Role.PATIENT && !currentUser.getId().equals(id)) {
+            throw new AppException("Access denied: You can only view your own profile.", HttpStatus.FORBIDDEN, "ACCESS_DENIED");
+        }
+
+        PatientResponse patient = getPatientService.getPatientById(id);
+
+        ApiResponse<PatientResponse> response = ApiResponse.<PatientResponse>builder()
+                .success(true)
+                .message("Patient retrieved successfully")
+                .data(patient)
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR', 'NURSE')")
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<PatientResponse>>> getAllPatients() {
+        List<PatientResponse> list = getAllPatientsService.getAllPatients();
+
+        ApiResponse<List<PatientResponse>> response = ApiResponse.<List<PatientResponse>>builder()
+                .success(true)
+                .message("Patients retrieved successfully")
+                .data(list)
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PreAuthorize("hasRole('PATIENT')")
+    @GetMapping("/me")
+    public ResponseEntity<ApiResponse<PatientResponse>> getCurrentPatient(
+            @AuthenticationPrincipal User currentUser) {
+
+        PatientResponse patient = getPatientService.getPatientById(currentUser.getId());
+
+        ApiResponse<PatientResponse> response = ApiResponse.<PatientResponse>builder()
+                .success(true)
+                .message("Patient profile retrieved successfully")
+                .data(patient)
                 .build();
 
         return ResponseEntity.ok(response);

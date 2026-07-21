@@ -16,30 +16,43 @@ public final class ApiConstants {
     // --- PATIENT ENDPOINTS ---
     public static final class Patient {
         private Patient() {}
-        
         public static final String BASE = API_BASE + "/patients";
     }
 
-    // --- STAFF ENDPOINTS ---
-    public static final class Staff {
-        private Staff() {}
-        
-        public static final String BASE = API_BASE + "/staff";
+    // --- DOCTOR ENDPOINTS ---
+    public static final class Doctor {
+        private Doctor() {}
+        public static final String BASE = API_BASE + "/doctors";
+    }
+
+    // --- NURSE ENDPOINTS ---
+    public static final class Nurse {
+        private Nurse() {}
+        public static final String BASE = API_BASE + "/nurses";
     }
 
     // --- ADMIN ENDPOINTS ---
     public static final class Admin {
         private Admin() {}
-
         public static final String BASE = API_BASE + "/admins";
+    }
+
+    // --- APPOINTMENT ENDPOINTS ---
+    public static final class Appointment {
+        private Appointment() {}
+        public static final String BASE = API_BASE + "/appointments";
     }
 
     // --- AUTH ENDPOINTS ---
     public static final class Auth {
         private Auth() {}
-        
         public static final String BASE = API_BASE + "/auth";
         public static final String LOGIN = BASE + "/login";
-        public static final String REFRESH_TOKEN = BASE + "/refresh-token";
+    }
+
+    // --- SCHEDULE ENDPOINTS ---
+    public static final class Schedule {
+        private Schedule() {}
+        public static final String BASE = API_BASE + "/schedules";
     }
 }
