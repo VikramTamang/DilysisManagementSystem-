@@ -4,7 +4,7 @@ import com.fonepay.gateway.constant.ApiConstants;
 import com.fonepay.gateway.dto.ApiResponse;
 import com.fonepay.gateway.dto.request.LoginRequest;
 import com.fonepay.gateway.dto.response.LoginResponse;
-import com.fonepay.gateway.service.auth.LoginService;
+import com.fonepay.gateway.user.service.auth.LoginService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,10 +1,19 @@
 package com.fonepay.gateway.controller;
 
-import com.fonepay.gateway.appointment.service.*;
+import com.fonepay.gateway.appointment.service.appointment.CancelAppointmentService;
+import com.fonepay.gateway.appointment.service.appointment.CreateAppointmentService;
+import com.fonepay.gateway.appointment.service.appointment.GetAllAppointmentsService;
+import com.fonepay.gateway.appointment.service.appointment.GetAppointmentService;
+import com.fonepay.gateway.appointment.service.appointment.RescheduleAppointmentService;
+import com.fonepay.gateway.appointment.service.report.GetAuditLogService;
+import com.fonepay.gateway.appointment.service.availability.GetAvailabilityService;
+import com.fonepay.gateway.appointment.service.appointment.UpdateAppointmentService;
 import com.fonepay.gateway.constant.ApiConstants;
 import com.fonepay.gateway.dto.ApiResponse;
 import com.fonepay.gateway.dto.request.AppointmentRequest;
+import com.fonepay.gateway.dto.request.RescheduleAppointmentRequest;
 import com.fonepay.gateway.dto.response.AppointmentResponse;
+import com.fonepay.gateway.dto.response.AuditLogResponse;
 import com.fonepay.gateway.dto.response.AvailabilityResponse;
 import com.fonepay.gateway.entity.enums.Role;
 import com.fonepay.gateway.exception.AppException;
@@ -33,13 +42,17 @@ public class AppointmentController {
     private final GetAppointmentService getAppointmentService;
     private final GetAllAppointmentsService getAllAppointmentsService;
     private final GetAvailabilityService getAvailabilityService;
+    private final RescheduleAppointmentService rescheduleAppointmentService;
+    private final GetAuditLogService getAuditLogService;
 
     @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR', 'NURSE')")
     @PostMapping
     public ResponseEntity<ApiResponse<AppointmentResponse>> createAppointment(
-            @Valid @RequestBody AppointmentRequest request) {
+            @Valid @RequestBody AppointmentRequest request,
+            @AuthenticationPrincipal User currentUser) {
 
-        AppointmentResponse created = createAppointmentService.createAppointment(request);
+        AppointmentResponse created = createAppointmentService.createAppointment(
+                request, currentUser.getId(), currentUser.getRole().name());
 
         ApiResponse<AppointmentResponse> response = ApiResponse.<AppointmentResponse>builder()
                 .success(true)
@@ -54,9 +67,11 @@ public class AppointmentController {
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<AppointmentResponse>> updateAppointment(
             @PathVariable Long id,
-            @Valid @RequestBody AppointmentRequest request) {
+            @Valid @RequestBody AppointmentRequest request,
+            @AuthenticationPrincipal User currentUser) {
 
-        AppointmentResponse updated = updateAppointmentService.updateAppointment(id, request);
+        AppointmentResponse updated = updateAppointmentService.updateAppointment(
+                id, request, currentUser.getId(), currentUser.getRole().name());
 
         ApiResponse<AppointmentResponse> response = ApiResponse.<AppointmentResponse>builder()
                 .success(true)
@@ -68,9 +83,44 @@ public class AppointmentController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR', 'NURSE')")
+    @PatchMapping("/{id}/reschedule")
+    public ResponseEntity<ApiResponse<AppointmentResponse>> rescheduleAppointment(
+            @PathVariable Long id,
+            @Valid @RequestBody RescheduleAppointmentRequest request,
+            @AuthenticationPrincipal User currentUser) {
+
+        AppointmentResponse rescheduled = rescheduleAppointmentService.reschedule(
+                id, request, currentUser.getId(), currentUser.getRole().name());
+
+        ApiResponse<AppointmentResponse> response = ApiResponse.<AppointmentResponse>builder()
+                .success(true)
+                .message("Appointment rescheduled successfully")
+                .data(rescheduled)
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/{id}/history")
+    public ResponseEntity<ApiResponse<List<AuditLogResponse>>> getAppointmentHistory(@PathVariable Long id) {
+        List<AuditLogResponse> history = getAuditLogService.getHistoryForAppointment(id);
+
+        ApiResponse<List<AuditLogResponse>> response = ApiResponse.<List<AuditLogResponse>>builder()
+                .success(true)
+                .message("Appointment history retrieved successfully")
+                .data(history)
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR', 'NURSE')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> cancelAppointment(@PathVariable Long id) {
-        cancelAppointmentService.cancelAppointment(id);
+    public ResponseEntity<ApiResponse<Void>> cancelAppointment(
+            @PathVariable Long id,
+            @AuthenticationPrincipal User currentUser) {
+        cancelAppointmentService.cancelAppointment(id, currentUser.getId(), currentUser.getRole().name());
 
         ApiResponse<Void> response = ApiResponse.<Void>builder()
                 .success(true)

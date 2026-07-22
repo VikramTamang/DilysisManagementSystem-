@@ -1,6 +1,5 @@
 package com.fonepay.gateway.controller;
 
-import com.fonepay.gateway.appointment.service.*;
 import com.fonepay.gateway.constant.ApiConstants;
 import com.fonepay.gateway.dto.ApiResponse;
 import com.fonepay.gateway.dto.request.ScheduleRequest;
@@ -11,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import com.fonepay.gateway.appointment.service.schedule.*;
 
 import java.util.List;
 

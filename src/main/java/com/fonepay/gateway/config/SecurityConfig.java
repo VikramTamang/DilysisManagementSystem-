@@ -2,6 +2,7 @@ package com.fonepay.gateway.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fonepay.gateway.constant.ApiConstants;
+import com.fonepay.gateway.user.service.auth.CustomUserDetailsService;
 import com.fonepay.gateway.dto.ApiResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

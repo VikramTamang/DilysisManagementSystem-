@@ -78,6 +78,23 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * Handles unsupported HTTP methods (405 Method Not Allowed).
+     */
+    @ExceptionHandler(org.springframework.web.HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ApiResponse<Void>> handleMethodNotSupportedException(
+            org.springframework.web.HttpRequestMethodNotSupportedException ex) {
+        logger.warn("HttpRequestMethodNotSupportedException: {}", ex.getMessage());
+
+        ApiResponse<Void> response = ApiResponse.<Void>builder()
+                .success(false)
+                .message("HTTP method '" + ex.getMethod() + "' is not supported for this endpoint. Supported methods: " + ex.getSupportedHttpMethods())
+                .errorCode("METHOD_NOT_ALLOWED")
+                .build();
+
+        return new ResponseEntity<>(response, HttpStatus.METHOD_NOT_ALLOWED);
+    }
+
+    /**
      * Catch-all safety net for any exception we didn't explicitly anticipate.
      * In production, we never expose raw exception details to the client —
      * full details go to logs only, the client just gets a safe generic message.

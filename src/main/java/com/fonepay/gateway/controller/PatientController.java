@@ -6,7 +6,7 @@ import com.fonepay.gateway.dto.request.PatientRequest;
 import com.fonepay.gateway.dto.response.PatientResponse;
 import com.fonepay.gateway.entity.enums.Role;
 import com.fonepay.gateway.exception.AppException;
-import com.fonepay.gateway.service.patient.*;
+import com.fonepay.gateway.user.service.patient.*;
 import com.fonepay.gateway.user.entity.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

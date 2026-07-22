@@ -1,6 +1,6 @@
 package com.fonepay.gateway.user.service;
 
-import com.fonepay.gateway.appointment.service.StaffReportService;
+import com.fonepay.gateway.appointment.service.report.StaffReportService;
 import com.fonepay.gateway.dto.request.DoctorRequest;
 import com.fonepay.gateway.dto.response.DoctorResponse;
 import com.fonepay.gateway.entity.enums.Role;

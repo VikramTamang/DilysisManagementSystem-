@@ -1,6 +1,7 @@
 package com.fonepay.gateway.config;
 
-import com.fonepay.gateway.service.auth.JwtService;
+import com.fonepay.gateway.user.service.auth.JwtService;
+import com.fonepay.gateway.user.service.auth.CustomUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

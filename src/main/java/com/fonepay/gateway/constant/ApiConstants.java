@@ -55,4 +55,10 @@ public final class ApiConstants {
         private Schedule() {}
         public static final String BASE = API_BASE + "/schedules";
     }
+
+    // --- REPORT ENDPOINTS ---
+    public static final class Report {
+        private Report() {}
+        public static final String BASE = API_BASE + "/reports";
+    }
 }

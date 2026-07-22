@@ -4,7 +4,7 @@ import com.fonepay.gateway.constant.ApiConstants;
 import com.fonepay.gateway.dto.ApiResponse;
 import com.fonepay.gateway.dto.request.AdminRequest;
 import com.fonepay.gateway.dto.response.AdminResponse;
-import com.fonepay.gateway.service.admin.*;
+import com.fonepay.gateway.user.service.admin.*;
 import com.fonepay.gateway.user.entity.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

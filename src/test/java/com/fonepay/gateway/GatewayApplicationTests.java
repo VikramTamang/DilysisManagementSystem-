@@ -4,7 +4,7 @@ import com.fonepay.gateway.dto.request.DoctorRequest;
 import com.fonepay.gateway.dto.request.PatientRequest;
 import com.fonepay.gateway.dto.response.DoctorResponse;
 import com.fonepay.gateway.dto.response.PatientResponse;
-import com.fonepay.gateway.service.patient.CreatePatientService;
+import com.fonepay.gateway.user.service.patient.CreatePatientService;
 import com.fonepay.gateway.user.repository.UserRepository;
 import com.fonepay.gateway.user.service.DoctorService;
 import org.junit.jupiter.api.Test;
