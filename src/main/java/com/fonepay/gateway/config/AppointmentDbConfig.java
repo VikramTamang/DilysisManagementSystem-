@@ -65,9 +65,8 @@ public class AppointmentDbConfig {
                 .dataSource(dataSource)
                 .locations("classpath:db/migration/appointmentdb")
                 .baselineOnMigrate(true)
-                .cleanDisabled(false)
+                .cleanDisabled(true)
                 .load();
-        flyway.clean();
         return flyway;
     }
 }

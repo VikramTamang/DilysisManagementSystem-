@@ -46,6 +46,8 @@ public class GetAuditLogService {
                 .newRoomId(log.getNewRoomId())
                 .oldMachineId(log.getOldMachineId())
                 .newMachineId(log.getNewMachineId())
+                .oldStaffId(log.getOldStaffId())
+                .newStaffId(log.getNewStaffId())
                 .createdAt(log.getCreatedAt())
                 .build();
     }

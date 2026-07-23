@@ -10,4 +10,5 @@ import java.util.List;
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     List<Schedule> findByStaffId(Long staffId);
     List<Schedule> findByStaffIdAndDayOfWeek(Long staffId, String dayOfWeek);
+    List<Schedule> findByDayOfWeekAndIsAvailableTrue(String dayOfWeek);
 }

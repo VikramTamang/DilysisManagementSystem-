@@ -28,6 +28,7 @@ public class AppointmentAuditLogService {
                 .newScheduledEnd(appointment.getScheduledEnd())
                 .newRoomId(appointment.getRoomId())
                 .newMachineId(appointment.getMachineId())
+                .newStaffId(appointment.getStaffId())
                 .build();
 
         save(entry);
@@ -46,6 +47,7 @@ public class AppointmentAuditLogService {
                 .oldScheduledEnd(before.getScheduledEnd())
                 .oldRoomId(before.getRoomId())
                 .oldMachineId(before.getMachineId())
+                .oldStaffId(before.getStaffId())
                 .build();
 
         save(entry);
@@ -83,6 +85,56 @@ public class AppointmentAuditLogService {
                 .newRoomId(after.getRoomId())
                 .oldMachineId(before.getMachineId())
                 .newMachineId(after.getMachineId())
+                .oldStaffId(before.getStaffId())
+                .newStaffId(after.getStaffId())
+                .build();
+
+        save(entry);
+    }
+
+    @Transactional("appointmentTransactionManager")
+    public void logReassigned(Appointment before, Appointment after, Long performedByUserId, String performedByRole) {
+        AppointmentAuditLog entry = AppointmentAuditLog.builder()
+                .appointmentId(after.getId())
+                .action(AuditAction.REASSIGNED)
+                .performedByUserId(performedByUserId)
+                .performedByRole(performedByRole)
+                .oldStatus(before.getStatus())
+                .newStatus(after.getStatus())
+                .oldScheduledStart(before.getScheduledStart())
+                .newScheduledStart(after.getScheduledStart())
+                .oldScheduledEnd(before.getScheduledEnd())
+                .newScheduledEnd(after.getScheduledEnd())
+                .oldRoomId(before.getRoomId())
+                .newRoomId(after.getRoomId())
+                .oldMachineId(before.getMachineId())
+                .newMachineId(after.getMachineId())
+                .oldStaffId(before.getStaffId())
+                .newStaffId(after.getStaffId())
+                .build();
+
+        save(entry);
+    }
+
+    @Transactional("appointmentTransactionManager")
+    public void logPendingReassignment(Appointment appointment, Long performedByUserId, String performedByRole) {
+        AppointmentAuditLog entry = AppointmentAuditLog.builder()
+                .appointmentId(appointment.getId())
+                .action(AuditAction.PENDING_REASSIGNMENT)
+                .performedByUserId(performedByUserId)
+                .performedByRole(performedByRole)
+                .oldStatus(appointment.getStatus())
+                .newStatus(com.fonepay.gateway.entity.enums.AppointmentStatus.PENDING_REASSIGNMENT)
+                .oldScheduledStart(appointment.getScheduledStart())
+                .newScheduledStart(appointment.getScheduledStart())
+                .oldScheduledEnd(appointment.getScheduledEnd())
+                .newScheduledEnd(appointment.getScheduledEnd())
+                .oldRoomId(appointment.getRoomId())
+                .newRoomId(appointment.getRoomId())
+                .oldMachineId(appointment.getMachineId())
+                .newMachineId(appointment.getMachineId())
+                .oldStaffId(appointment.getStaffId())
+                .newStaffId(appointment.getStaffId())
                 .build();
 
         save(entry);

@@ -17,4 +17,6 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
            "  AND a.scheduledStart < :end AND a.scheduledEnd > :start" +
            ") ORDER BY r.id ASC")
     List<Room> findAvailableRooms(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
+
+    boolean existsByRoomNumber(String roomNumber);
 }

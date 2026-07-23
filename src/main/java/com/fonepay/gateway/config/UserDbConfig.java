@@ -70,9 +70,8 @@ public class UserDbConfig {
                 .dataSource(dataSource)
                 .locations("classpath:db/migration/userdb")
                 .baselineOnMigrate(true)
-                .cleanDisabled(false)
+                .cleanDisabled(true)
                 .load();
-        flyway.clean();
         return flyway;
     }
 }

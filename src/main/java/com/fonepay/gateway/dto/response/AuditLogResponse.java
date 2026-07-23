@@ -29,5 +29,7 @@ public class AuditLogResponse {
     private Long newRoomId;
     private Long oldMachineId;
     private Long newMachineId;
+    private Long oldStaffId;
+    private Long newStaffId;
     private LocalDateTime createdAt;
 }

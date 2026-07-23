@@ -4,5 +4,7 @@ public enum AuditAction {
     CREATED,
     UPDATED,
     RESCHEDULED,
-    CANCELLED
+    CANCELLED,
+    REASSIGNED,
+    PENDING_REASSIGNMENT
 }

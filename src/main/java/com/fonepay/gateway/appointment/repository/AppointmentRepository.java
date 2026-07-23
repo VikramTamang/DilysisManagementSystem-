@@ -57,6 +57,13 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> findAppointmentsInWindow(@Param("start") LocalDateTime start,
                                                @Param("end") LocalDateTime end);
 
+    @Query("SELECT a FROM Appointment a WHERE a.staffId = :staffId " +
+           "AND a.status NOT IN ('CANCELLED', 'COMPLETED') " +
+           "AND a.scheduledStart < :end AND a.scheduledEnd > :start")
+    List<Appointment> findActiveAppointmentsForStaffInWindow(@Param("staffId") Long staffId,
+                                                               @Param("start") LocalDateTime start,
+                                                               @Param("end") LocalDateTime end);
+
     // Includes every status (SCHEDULED/RESCHEDULED/CANCELLED/COMPLETED) - used for
     // activity/audit-style reporting where cancellations matter, not just occupancy.
     List<Appointment> findByScheduledStartBetween(LocalDateTime start, LocalDateTime end);

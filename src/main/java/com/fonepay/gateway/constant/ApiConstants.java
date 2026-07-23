@@ -61,4 +61,16 @@ public final class ApiConstants {
         private Report() {}
         public static final String BASE = API_BASE + "/reports";
     }
+
+    // --- EMERGENCY ENDPOINTS ---
+    public static final class Emergency {
+        private Emergency() {}
+        public static final String BASE = API_BASE + "/emergency";
+    }
+
+    // --- ROOM ENDPOINTS ---
+    public static final class Room {
+        private Room() {}
+        public static final String BASE = API_BASE + "/rooms";
+    }
 }

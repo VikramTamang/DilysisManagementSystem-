@@ -65,6 +65,12 @@ public class AppointmentAuditLog {
     @Column(name = "new_machine_id")
     private Long newMachineId;
 
+    @Column(name = "old_staff_id")
+    private Long oldStaffId;
+
+    @Column(name = "new_staff_id")
+    private Long newStaffId;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
