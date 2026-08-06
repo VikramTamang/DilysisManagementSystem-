@@ -3,6 +3,7 @@ package com.fonepay.gateway.controller;
 import com.fonepay.gateway.constant.ApiConstants;
 import com.fonepay.gateway.dto.ApiResponse;
 import com.fonepay.gateway.dto.request.NurseRequest;
+import com.fonepay.gateway.dto.request.StaffStatusRequest;
 import com.fonepay.gateway.dto.response.NurseResponse;
 import com.fonepay.gateway.user.entity.User;
 import com.fonepay.gateway.user.service.NurseService;
@@ -48,6 +49,23 @@ public class NurseController {
         ApiResponse<NurseResponse> response = ApiResponse.<NurseResponse>builder()
                 .success(true)
                 .message("Nurse account updated successfully")
+                .data(responseData)
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<ApiResponse<NurseResponse>> updateNurseStatus(
+            @PathVariable Long id,
+            @Valid @RequestBody StaffStatusRequest request) {
+
+        NurseResponse responseData = nurseService.updateNurseStatus(id, request.getAccountStatus());
+
+        ApiResponse<NurseResponse> response = ApiResponse.<NurseResponse>builder()
+                .success(true)
+                .message("Nurse account status updated to " + request.getAccountStatus())
                 .data(responseData)
                 .build();
 

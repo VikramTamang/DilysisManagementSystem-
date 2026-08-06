@@ -48,6 +48,7 @@ public final class ApiConstants {
         private Auth() {}
         public static final String BASE = API_BASE + "/auth";
         public static final String LOGIN = BASE + "/login";
+        public static final String REGISTER = BASE + "/register";
     }
 
     // --- SCHEDULE ENDPOINTS ---
@@ -73,4 +74,5 @@ public final class ApiConstants {
         private Room() {}
         public static final String BASE = API_BASE + "/rooms";
     }
+
 }

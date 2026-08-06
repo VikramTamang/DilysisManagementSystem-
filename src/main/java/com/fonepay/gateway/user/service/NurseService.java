@@ -96,6 +96,23 @@ public class NurseService {
     }
 
     @Transactional("userTransactionManager")
+    public NurseResponse updateNurseStatus(Long id, String accountStatus) {
+        Nurse nurse = nurseRepository.findById(id)
+                .orElseThrow(() -> new AppException("Nurse not found", HttpStatus.NOT_FOUND, "NURSE_NOT_FOUND"));
+
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new AppException("User account not found", HttpStatus.NOT_FOUND, "USER_NOT_FOUND"));
+
+        user.setAccountStatus(accountStatus);
+        userRepository.save(user);
+
+        // Keep AppointmentDB staff_reports in sync
+        staffReportService.syncNurseReport(nurse, accountStatus);
+
+        return mapToResponse(user, nurse);
+    }
+
+    @Transactional("userTransactionManager")
     public void deleteNurse(Long id) {
         Nurse nurse = nurseRepository.findById(id)
                 .orElseThrow(() -> new AppException("Nurse not found", HttpStatus.NOT_FOUND, "NURSE_NOT_FOUND"));

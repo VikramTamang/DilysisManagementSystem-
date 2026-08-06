@@ -2,6 +2,7 @@ package com.fonepay.gateway.user.service.patient;
 
 import com.fonepay.gateway.appointment.entity.PatientOperational;
 import com.fonepay.gateway.appointment.repository.PatientOperationalRepository;
+import com.fonepay.gateway.dto.request.PatientRegistrationRequest;
 import com.fonepay.gateway.dto.request.PatientRequest;
 import com.fonepay.gateway.dto.response.PatientResponse;
 import com.fonepay.gateway.entity.enums.Role;
@@ -28,6 +29,24 @@ public class CreatePatientService {
     private final PatientOperationalRepository patientOperationalRepository;
     private final DoctorRepository doctorRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+
+    @Transactional("userTransactionManager")
+    public PatientResponse registerSelf(PatientRegistrationRequest request) {
+        log.info("Patient self-registering for email: {}", request.getEmail());
+        PatientRequest patientRequest = PatientRequest.builder()
+                .name(request.getName())
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .phone(request.getPhone())
+                .address(request.getAddress())
+                .dateOfBirth(request.getDateOfBirth())
+                .bloodGroup(request.getBloodGroup())
+                .assignedDoctorId(null)
+                .dialysisHistory(null)
+                .treatmentNotes(null)
+                .build();
+        return createPatient(patientRequest);
+    }
 
     @Transactional("userTransactionManager")
     public PatientResponse createPatient(PatientRequest request) {
