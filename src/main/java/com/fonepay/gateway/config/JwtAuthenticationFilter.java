@@ -32,7 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
-        
+
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String userEmail;
@@ -48,8 +48,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-                
-                if (jwtService.isTokenValid(jwt, userDetails)) {
+
+                boolean accountUsable = userDetails.isEnabled() && userDetails.isAccountNonLocked();
+
+                if (jwtService.isTokenValid(jwt, userDetails) && accountUsable) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails,
                             null,
@@ -57,6 +59,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     );
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
+                } else if (!accountUsable) {
+                    // Token is otherwise valid, but the account was suspended after it was issued.
+                    // Leave the SecurityContext unauthenticated so the request is rejected downstream
+                    // (anyRequest().authenticated() -> 401 via the configured entry point).
+                    log.warn("Rejected request from suspended account: {}", userEmail);
                 }
             }
         } catch (Exception e) {

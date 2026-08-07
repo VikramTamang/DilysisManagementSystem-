@@ -24,6 +24,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class DoctorService {
 
+    private static final String DOCTOR_TITLE_PREFIX = "Dr. ";
+
     private final UserRepository userRepository;
     private final DoctorRepository doctorRepository;
     private final BCryptPasswordEncoder passwordEncoder;
@@ -37,8 +39,10 @@ public class DoctorService {
             throw new AppException("Email already exists", HttpStatus.BAD_REQUEST, "EMAIL_ALREADY_EXISTS");
         }
 
+        String displayName = withDoctorTitle(request.getName());
+
         User user = User.builder()
-                .name(request.getName())
+                .name(displayName)
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.DOCTOR)
@@ -49,7 +53,7 @@ public class DoctorService {
 
         Doctor doctor = Doctor.builder()
                 .id(savedUser.getId())
-                .name(request.getName())
+                .name(displayName)
                 .email(request.getEmail())
                 .phone(request.getPhone())
                 .licenseNumber(request.getLicenseNumber())
@@ -74,13 +78,15 @@ public class DoctorService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new AppException("User account not found", HttpStatus.NOT_FOUND, "USER_NOT_FOUND"));
 
-        user.setName(request.getName());
+        String displayName = withDoctorTitle(request.getName());
+
+        user.setName(displayName);
         if (request.getPassword() != null && !request.getPassword().isBlank()) {
             user.setPassword(passwordEncoder.encode(request.getPassword()));
         }
         userRepository.save(user);
 
-        doctor.setName(request.getName());
+        doctor.setName(displayName);
         doctor.setPhone(request.getPhone());
         doctor.setLicenseNumber(request.getLicenseNumber());
         doctor.setSpecialization(request.getSpecialization());
@@ -141,6 +147,22 @@ public class DoctorService {
                     return mapToResponse(user, doctor);
                 })
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Ensures a doctor's display name is prefixed with "Dr. " exactly once.
+     * Trims whitespace and is case-insensitive so "dr sarah", "DR. Sarah",
+     * or "Sarah" all normalize to "Dr. Sarah" without stacking prefixes.
+     */
+    private String withDoctorTitle(String rawName) {
+        if (rawName == null) {
+            return DOCTOR_TITLE_PREFIX.trim();
+        }
+
+        String trimmed = rawName.trim();
+        String withoutExistingTitle = trimmed.replaceFirst("(?i)^dr\\.?\\s+", "");
+
+        return DOCTOR_TITLE_PREFIX + withoutExistingTitle;
     }
 
     private DoctorResponse mapToResponse(User user, Doctor doctor) {

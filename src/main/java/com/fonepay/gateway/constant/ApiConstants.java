@@ -75,4 +75,15 @@ public final class ApiConstants {
         public static final String BASE = API_BASE + "/rooms";
     }
 
+    //--Machine EndPoint--
+    public static final class Machine {
+        private Machine() {}
+        public static final String BASE = API_BASE + "/machines";
+    }
+
+    //--RESCHEDULE--
+    public static final class RescheduleRequest {
+        private RescheduleRequest() {}
+        public static final String BASE = API_BASE + "/reschedule-requests";
+    }
 }

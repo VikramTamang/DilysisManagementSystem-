@@ -30,6 +30,14 @@ public class LoginService {
             throw new AppException("Invalid credentials", HttpStatus.UNAUTHORIZED, "INVALID_CREDENTIALS");
         }
 
+        if (!user.isEnabled() || !user.isAccountNonLocked()) {
+            log.warn("Blocked login attempt for suspended account: {}", request.getUsername());
+            throw new AppException(
+                    "Your account has been suspended. Please contact an administrator.",
+                    HttpStatus.FORBIDDEN,
+                    "ACCOUNT_SUSPENDED");
+        }
+
         String accessToken = jwtService.generateAccessToken(user);
 
         return LoginResponse.builder()
