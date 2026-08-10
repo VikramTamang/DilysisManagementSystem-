@@ -2,6 +2,7 @@ package com.fonepay.gateway.appointment.service.appointment;
 
 import com.fonepay.gateway.appointment.entity.Appointment;
 import com.fonepay.gateway.appointment.repository.AppointmentRepository;
+import com.fonepay.gateway.appointment.service.notification.NotificationService;
 import com.fonepay.gateway.appointment.service.report.AppointmentAuditLogService;
 import com.fonepay.gateway.entity.enums.AppointmentStatus;
 import com.fonepay.gateway.exception.AppException;
@@ -18,6 +19,7 @@ public class CancelAppointmentService {
 
     private final AppointmentRepository appointmentRepository;
     private final AppointmentAuditLogService appointmentAuditLogService;
+    private final NotificationService notificationService;
 
     @Transactional("appointmentTransactionManager")
     public void cancelAppointment(Long id) {
@@ -46,5 +48,6 @@ public class CancelAppointmentService {
         appointmentRepository.save(appointment);
 
         appointmentAuditLogService.logCancelled(before, performedByUserId, performedByRole);
+        notificationService.notifyAppointmentCancelled(before);
     }
 }

@@ -8,6 +8,7 @@ import com.fonepay.gateway.appointment.repository.AppointmentRepository;
 import com.fonepay.gateway.appointment.repository.DialysisMachineRepository;
 import com.fonepay.gateway.appointment.repository.RoomRepository;
 import com.fonepay.gateway.appointment.repository.StaffReportRepository;
+import com.fonepay.gateway.appointment.service.notification.NotificationService;
 import com.fonepay.gateway.appointment.service.report.AppointmentAuditLogService;
 import com.fonepay.gateway.dto.request.RescheduleAppointmentRequest;
 import com.fonepay.gateway.dto.response.AppointmentResponse;
@@ -34,6 +35,7 @@ public class RescheduleAppointmentService {
     private final RoomRepository roomRepository;
     private final DialysisMachineRepository dialysisMachineRepository;
     private final AppointmentAuditLogService appointmentAuditLogService;
+    private final NotificationService notificationService;
 
     @Transactional("appointmentTransactionManager")
     public AppointmentResponse reschedule(Long id, RescheduleAppointmentRequest request,
@@ -107,6 +109,7 @@ public class RescheduleAppointmentService {
         Appointment updated = appointmentRepository.save(appointment);
 
         appointmentAuditLogService.logUpdatedOrRescheduled(before, updated, performedByUserId, performedByRole);
+        notificationService.notifyAppointmentRescheduled(before, updated);
 
         return CreateAppointmentService.mapToResponse(updated, patient.getName(), staff.getName(), room.getRoomNumber(), machine.getSerialNumber());
     }

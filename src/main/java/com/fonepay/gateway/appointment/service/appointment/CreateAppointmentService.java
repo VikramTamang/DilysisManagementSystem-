@@ -4,6 +4,7 @@ import com.fonepay.gateway.appointment.entity.Appointment;
 import com.fonepay.gateway.appointment.entity.DialysisMachine;
 import com.fonepay.gateway.appointment.entity.Room;
 import com.fonepay.gateway.appointment.entity.StaffReport;
+import com.fonepay.gateway.appointment.service.notification.NotificationService;
 import com.fonepay.gateway.appointment.service.report.AppointmentAuditLogService;
 import com.fonepay.gateway.appointment.repository.AppointmentRepository;
 import com.fonepay.gateway.appointment.repository.DialysisMachineRepository;
@@ -36,6 +37,7 @@ public class CreateAppointmentService {
     private final RoomRepository roomRepository;
     private final DialysisMachineRepository dialysisMachineRepository;
     private final AppointmentAuditLogService appointmentAuditLogService;
+    private final NotificationService notificationService;
 
     @Transactional("appointmentTransactionManager")
     public AppointmentResponse createAppointment(AppointmentRequest request) {
@@ -116,6 +118,7 @@ public class CreateAppointmentService {
         Appointment saved = appointmentRepository.save(appointment);
 
         appointmentAuditLogService.logCreated(saved, performedByUserId, performedByRole);
+        notificationService.notifyAppointmentConfirmed(saved);
 
         return mapToResponse(saved, patient.getName(), staff.getName(), room.getRoomNumber(), machine.getSerialNumber());
     }

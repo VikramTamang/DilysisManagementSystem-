@@ -86,4 +86,10 @@ public final class ApiConstants {
         private RescheduleRequest() {}
         public static final String BASE = API_BASE + "/reschedule-requests";
     }
+
+    //--NOTIFICATION--
+    public static final class Notification {
+        private Notification() {}
+        public static final String BASE = API_BASE + "/notifications";
+    }
 }
