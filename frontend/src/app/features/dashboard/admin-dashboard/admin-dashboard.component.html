@@ -1,107 +1,498 @@
-<div class="min-h-screen bg-bg-clinical text-text-clinical flex font-sans selection:bg-accent/20 selection:text-primary">
+﻿<div class="min-h-screen bg-[#060709] text-gray-100 flex font-sans selection:bg-blue-600/30 selection:text-blue-200">
   <!-- Sidebar -->
   <aside
     [class.w-64]="isSidebarExpanded"
     [class.w-16]="!isSidebarExpanded"
-    class="bg-[#08080a] border-r border-white/5 flex flex-col justify-between shrink-0 transition-all duration-300 h-screen sticky top-0 z-30"
+    class="bg-[#0b0d12] border-r border-white/5 flex flex-col justify-between shrink-0 transition-all duration-300 h-screen sticky top-0 z-30 shadow-2xl"
   >
     <div>
       <div class="h-16 border-b border-white/5 flex items-center px-4 gap-3 overflow-hidden">
-        <div class="w-8 h-8 rounded-none bg-blue-600 flex items-center justify-center shrink-0">
-          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center shrink-0 shadow-md shadow-blue-600/30">
+          <svg class="w-4.5 h-4.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
         </div>
         @if (isSidebarExpanded) {
-          <span class="text-xs font-black tracking-wider uppercase text-white truncate font-poppins">DiaCare Console</span>
+          <span class="text-xs font-black tracking-wider uppercase text-white truncate font-poppins">DiaCare Admin</span>
         }
       </div>
 
-      <nav class="py-2 space-y-1">
-        <a routerLink="/dashboard/admin" class="nav-link-console active cursor-pointer">
-          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z" /></svg></span>
-          @if (isSidebarExpanded) { <span>Dashboard</span> }
-        </a>
-        <a routerLink="/appointments" class="nav-link-console cursor-pointer">
-          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg></span>
+      <nav class="py-3 px-2 space-y-1">
+        <button (click)="switchTab('overview')" [class.bg-blue-600]="activeTab === 'overview'" [class.text-white]="activeTab === 'overview'" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white hover:bg-white/5 transition-all text-left">
+          <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z" /></svg>
+          @if (isSidebarExpanded) { <span>Overview</span> }
+        </button>
+
+        <a routerLink="/appointments" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white hover:bg-white/5 transition-all">
+          <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
           @if (isSidebarExpanded) { <span>Appointments</span> }
         </a>
-        <a class="nav-link-console cursor-pointer">
-          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 01-6-6V7zm-9 0V7a4 4 0 11-8 0v4h8z" /></svg></span>
-          @if (isSidebarExpanded) { <span>Patients</span> }
+
+        <a routerLink="/dashboard/admin/staff" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white hover:bg-white/5 transition-all">
+          <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+          @if (isSidebarExpanded) { <span>Medical Staff</span> }
         </a>
-        <a routerLink="/dashboard/admin/staff" class="nav-link-console cursor-pointer">
-          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1z" /></svg></span>
-          @if (isSidebarExpanded) { <span>Doctors & Nurses</span> }
-        </a>
-        <a class="nav-link-console cursor-pointer">
-          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg></span>
+
+        <button (click)="switchTab('resources')" [class.bg-blue-600]="activeTab === 'resources'" [class.text-white]="activeTab === 'resources'" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white hover:bg-white/5 transition-all text-left">
+          <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
           @if (isSidebarExpanded) { <span>Rooms & Machines</span> }
-        </a>
-        <a class="nav-link-console cursor-pointer">
-          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a4 4 0 014-4h4m0 0l-4-4m4 4l-4 4M5 7h5m-5 4h3m-3 4h3" /></svg></span>
-          @if (isSidebarExpanded) { <span>Reports & Audit</span> }
-        </a>
+        </button>
+
+        <button (click)="switchTab('reports')" [class.bg-blue-600]="activeTab === 'reports'" [class.text-white]="activeTab === 'reports'" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white hover:bg-white/5 transition-all text-left">
+          <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+          @if (isSidebarExpanded) { <span>Utilization & Audit</span> }
+        </button>
+
+        <button (click)="switchTab('emergency')" [class.bg-rose-600]="activeTab === 'emergency'" [class.text-white]="activeTab === 'emergency'" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-rose-400 hover:text-white hover:bg-rose-950/40 transition-all text-left">
+          <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+          @if (isSidebarExpanded) { <span>Emergency Console</span> }
+        </button>
       </nav>
     </div>
 
-    <div class="p-2 border-t border-white/5">
-      <button (click)="logout()" class="w-full flex items-center gap-3.5 px-3 py-2 text-xs font-bold text-emergency hover:bg-rose-950/20 transition-all rounded-none">
-        <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg></span>
-        @if (isSidebarExpanded) { <span class="truncate">Sign Out</span> }
+    <div class="p-3 border-t border-white/5">
+      <button (click)="logout()" class="w-full flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-rose-400 hover:bg-rose-950/30 transition-all rounded-lg">
+        <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+        @if (isSidebarExpanded) { <span>Sign Out</span> }
       </button>
     </div>
   </aside>
 
-  <!-- Main content -->
+  <!-- Main content area -->
   <div class="flex-grow flex flex-col min-h-screen">
     <!-- Header -->
-    <header class="h-16 bg-[#08080a] border-b border-white/5 flex items-center justify-between px-6 z-20">
+    <header class="h-16 bg-[#0b0d12] border-b border-white/5 flex items-center justify-between px-6 z-20">
       <div class="flex items-center gap-3">
-        <button (click)="toggleSidebar()" class="p-1.5 rounded-none border border-white/5 hover:border-accent bg-[#121620]/50 text-gray-400 transition-colors cursor-pointer">
-          <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        <button (click)="toggleSidebar()" class="p-2 rounded-lg border border-white/5 bg-[#121620]/50 hover:bg-white/10 text-gray-300 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
         </button>
-        <h1 class="text-sm font-black uppercase text-white tracking-widest font-poppins">Admin Overview</h1>
+        <h1 class="text-sm font-black uppercase text-white tracking-wider font-poppins">
+          Admin Console <span class="text-gray-500 font-normal">/ {{ activeTab | uppercase }}</span>
+        </h1>
       </div>
 
       <div class="flex items-center gap-4">
-        <div class="flex items-center gap-3 border-l border-white/5 pl-4">
-          <div class="w-8 h-8 rounded-none bg-blue-600 flex items-center justify-center font-bold text-white text-xs">
+        <div class="flex items-center gap-3 border-l border-white/10 pl-4">
+          <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white text-xs shadow-md shadow-blue-600/30">
             {{ initials() }}
           </div>
           <div class="hidden md:block text-left leading-tight">
             <div class="text-xs font-bold text-white">{{ currentUser()?.name }}</div>
-            <div class="text-[9px] text-accent font-bold uppercase tracking-wider">{{ currentUser()?.role }}</div>
+            <div class="text-[10px] text-blue-400 font-semibold uppercase tracking-wider">{{ currentUser()?.role }}</div>
           </div>
         </div>
       </div>
     </header>
 
     <main class="flex-grow p-6 space-y-6 max-w-7xl w-full mx-auto">
-      <!-- Welcome Info Panel -->
-      <div class="p-4 border-l-4 border-blue-600 bg-[#0c0d0f] border border-white/5 text-gray-300 text-xs flex items-start gap-3 shadow-none">
-        <div class="w-5 h-5 bg-[#121620]/50 border border-white/5 flex items-center justify-center shrink-0">
-          <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      <!-- Success/Error Alerts -->
+      @if (errorMessage()) {
+        <div class="p-4 rounded-xl border border-rose-500/20 bg-rose-950/40 text-rose-200 text-xs flex items-center justify-between">
+          <span>{{ errorMessage() }}</span>
+          <button (click)="errorMessage.set('')" class="text-rose-400 hover:text-white">&times;</button>
         </div>
-        <div class="leading-relaxed font-semibold">
-          Authorized Session: <span class="text-blue-400 font-black">{{ currentUser()?.name }}</span> is active with system administrator credentials. All actions are logged.
+      }
+      @if (successMessage()) {
+        <div class="p-4 rounded-xl border border-emerald-500/20 bg-emerald-950/40 text-emerald-200 text-xs flex items-center justify-between">
+          <span>{{ successMessage() }}</span>
+          <button (click)="successMessage.set('')" class="text-emerald-400 hover:text-white">&times;</button>
         </div>
-      </div>
+      }
 
-      <!-- Metrics -->
+      <!-- LIVE METRIC CARDS -->
       <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        @for (metric of metrics; track metric.label) {
-          <div class="console-card p-4 rounded-none shadow-none">
-            <p class="text-[9px] font-black text-gray-500 uppercase tracking-widest mb-1">{{ metric.label }}</p>
-            <p class="text-2xl font-bold text-white">{{ metric.value }}</p>
+        <div class="bg-[#0f121a] border border-white/5 rounded-2xl p-5 shadow-lg">
+          <div class="flex items-center justify-between">
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Registered Patients</p>
+            <span class="p-2 rounded-lg bg-blue-600/10 text-blue-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg></span>
           </div>
-        }
+          <p class="text-3xl font-extrabold text-white mt-2">{{ totalPatients() }}</p>
+        </div>
+
+        <div class="bg-[#0f121a] border border-white/5 rounded-2xl p-5 shadow-lg">
+          <div class="flex items-center justify-between">
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Today's Appointments</p>
+            <span class="p-2 rounded-lg bg-emerald-600/10 text-emerald-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg></span>
+          </div>
+          <p class="text-3xl font-extrabold text-white mt-2">{{ todayAppointmentsCount() }}</p>
+        </div>
+
+        <div class="bg-[#0f121a] border border-white/5 rounded-2xl p-5 shadow-lg">
+          <div class="flex items-center justify-between">
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Available Rooms</p>
+            <span class="p-2 rounded-lg bg-purple-600/10 text-purple-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg></span>
+          </div>
+          <p class="text-3xl font-extrabold text-white mt-2">{{ availableRoomsCount() }} <span class="text-sm font-normal text-gray-500">/ {{ totalRoomsCount() }}</span></p>
+        </div>
+
+        <div class="bg-[#0f121a] border border-white/5 rounded-2xl p-5 shadow-lg">
+          <div class="flex items-center justify-between">
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Dialysis Machines</p>
+            <span class="p-2 rounded-lg bg-amber-600/10 text-amber-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg></span>
+          </div>
+          <p class="text-3xl font-extrabold text-white mt-2">{{ availableMachinesCount() }} <span class="text-sm font-normal text-gray-500">/ {{ totalMachinesCount() }}</span></p>
+        </div>
       </section>
 
-      <!-- Panel placeholder -->
-      <section class="console-card p-6 rounded-none shadow-none text-xs text-gray-500 font-semibold border-dashed border-2 border-white/10 text-center">
-        CONSOLE PANEL ACTIVE — Real-time Audit logs, Bed Management, and Patient scheduling tables will render here.
-      </section>
+      <!-- TAB 1: OVERVIEW -->
+      @if (activeTab === 'overview') {
+        <div class="space-y-6">
+          <div class="bg-[#0f121a] border border-white/5 rounded-2xl p-6 shadow-xl">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-sm font-bold uppercase tracking-wider text-white">Today's Appointments Roster</h2>
+              <a routerLink="/appointments" class="text-xs text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-1">
+                View All Appointments &rarr;
+              </a>
+            </div>
+
+            @if (recentAppointments().length === 0) {
+              <p class="text-xs text-gray-500 py-6 text-center">No appointments scheduled for today.</p>
+            } @else {
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead class="text-gray-400 uppercase tracking-wider border-b border-white/5 pb-2">
+                    <tr>
+                      <th class="py-2.5 font-bold">Patient</th>
+                      <th class="py-2.5 font-bold">Assigned Staff</th>
+                      <th class="py-2.5 font-bold">Room / Machine</th>
+                      <th class="py-2.5 font-bold">Time Window</th>
+                      <th class="py-2.5 font-bold">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-white/5 text-gray-300">
+                    @for (appt of recentAppointments(); track appt.id) {
+                      <tr>
+                        <td class="py-3 font-semibold text-white">{{ appt.patientName }}</td>
+                        <td class="py-3">{{ appt.staffName }}</td>
+                        <td class="py-3">{{ appt.roomNumber }} / {{ appt.machineSerialNumber }}</td>
+                        <td class="py-3">{{ formatDate(appt.scheduledStart) }} - {{ formatDate(appt.scheduledEnd) }}</td>
+                        <td class="py-3">
+                          <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold"
+                            [class.bg-blue-950]="appt.status === 'SCHEDULED'"
+                            [class.text-blue-400]="appt.status === 'SCHEDULED'"
+                            [class.bg-amber-950]="appt.status === 'RESCHEDULED'"
+                            [class.text-amber-400]="appt.status === 'RESCHEDULED'"
+                            [class.bg-rose-950]="appt.status === 'CANCELLED'"
+                            [class.text-rose-400]="appt.status === 'CANCELLED'"
+                            [class.bg-emerald-950]="appt.status === 'COMPLETED'"
+                            [class.text-emerald-400]="appt.status === 'COMPLETED'"
+                            [class.bg-orange-950]="appt.status === 'PENDING_REASSIGNMENT'"
+                            [class.text-orange-400]="appt.status === 'PENDING_REASSIGNMENT'">
+                            {{ appt.status }}
+                          </span>
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- TAB 2: ROOMS & MACHINES -->
+      @if (activeTab === 'resources') {
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Rooms Card -->
+          <div class="bg-[#0f121a] border border-white/5 rounded-2xl p-6 shadow-xl space-y-4">
+            <div class="flex items-center justify-between">
+              <h2 class="text-sm font-bold uppercase tracking-wider text-white">Dialysis Rooms</h2>
+              <button (click)="showAddRoomModal = true" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition-all shadow-md shadow-blue-600/20">
+                + Add Room
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              @for (room of rooms(); track room.id) {
+                <div class="bg-[#141824] border border-white/5 rounded-xl p-4 flex items-center justify-between">
+                  <div>
+                    <p class="text-sm font-bold text-white">{{ room.roomNumber }}</p>
+                    <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-md inline-block mt-1"
+                      [class.bg-emerald-950]="room.status === 'AVAILABLE'"
+                      [class.text-emerald-400]="room.status === 'AVAILABLE'"
+                      [class.bg-rose-950]="room.status === 'MAINTENANCE'"
+                      [class.text-rose-400]="room.status === 'MAINTENANCE'">
+                      {{ room.status }}
+                    </span>
+                  </div>
+                  <button (click)="toggleRoomStatus(room)" class="text-[11px] px-2.5 py-1 rounded-lg border border-white/10 hover:bg-white/10 text-gray-300 font-semibold transition-all">
+                    Toggle Status
+                  </button>
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Machines Card -->
+          <div class="bg-[#0f121a] border border-white/5 rounded-2xl p-6 shadow-xl space-y-4">
+            <div class="flex items-center justify-between">
+              <h2 class="text-sm font-bold uppercase tracking-wider text-white">Dialysis Machines</h2>
+              <button (click)="showAddMachineModal = true" class="px-3 py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs font-bold transition-all shadow-md shadow-purple-600/20">
+                + Add Machine
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              @for (machine of machines(); track machine.id) {
+                <div class="bg-[#141824] border border-white/5 rounded-xl p-4 flex items-center justify-between">
+                  <div>
+                    <p class="text-sm font-bold text-white">{{ machine.serialNumber }}</p>
+                    <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-md inline-block mt-1"
+                      [class.bg-emerald-950]="machine.status === 'AVAILABLE'"
+                      [class.text-emerald-400]="machine.status === 'AVAILABLE'"
+                      [class.bg-rose-950]="machine.status === 'MAINTENANCE'"
+                      [class.text-rose-400]="machine.status === 'MAINTENANCE'">
+                      {{ machine.status }}
+                    </span>
+                  </div>
+                  <button (click)="toggleMachineStatus(machine)" class="text-[11px] px-2.5 py-1 rounded-lg border border-white/10 hover:bg-white/10 text-gray-300 font-semibold transition-all">
+                    Toggle Status
+                  </button>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- TAB 3: REPORTS & AUDIT -->
+      @if (activeTab === 'reports') {
+        <div class="space-y-6">
+          <!-- Date Filter Bar -->
+          <div class="bg-[#0f121a] border border-white/5 rounded-2xl p-4 flex flex-wrap items-center gap-4">
+            <div class="flex items-center gap-2">
+              <label class="text-xs font-semibold text-gray-400">Start Date:</label>
+              <input type="date" [(ngModel)]="reportStart" class="bg-[#141824] border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white" />
+            </div>
+            <div class="flex items-center gap-2">
+              <label class="text-xs font-semibold text-gray-400">End Date:</label>
+              <input type="date" [(ngModel)]="reportEnd" class="bg-[#141824] border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white" />
+            </div>
+            <button (click)="loadReports()" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition-all shadow-md shadow-blue-600/20">
+              Apply Filters
+            </button>
+          </div>
+
+          <!-- Utilization Statistics -->
+          @if (utilizationReport()) {
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <!-- Room Utilization -->
+              <div class="bg-[#0f121a] border border-white/5 rounded-2xl p-6 shadow-xl space-y-4">
+                <h3 class="text-sm font-bold uppercase tracking-wider text-white">Room Occupancy & Utilization</h3>
+                <div class="space-y-3">
+                  @for (r of utilizationReport()?.roomUtilization; track r.roomId) {
+                    <div>
+                      <div class="flex justify-between text-xs font-semibold mb-1">
+                        <span class="text-white">{{ r.roomNumber }}</span>
+                        <span class="text-blue-400">{{ r.utilizationPercentage | number:'1.1-1' }}% ({{ r.utilizedMinutes }} min)</span>
+                      </div>
+                      <div class="w-full h-2.5 rounded-full bg-white/5 overflow-hidden">
+                        <div class="h-full bg-blue-500 rounded-full transition-all duration-500" [style.width.%]="r.utilizationPercentage"></div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+
+              <!-- Machine Utilization -->
+              <div class="bg-[#0f121a] border border-white/5 rounded-2xl p-6 shadow-xl space-y-4">
+                <h3 class="text-sm font-bold uppercase tracking-wider text-white">Machine Usage Rate</h3>
+                <div class="space-y-3">
+                  @for (m of utilizationReport()?.machineUtilization; track m.machineId) {
+                    <div>
+                      <div class="flex justify-between text-xs font-semibold mb-1">
+                        <span class="text-white">{{ m.serialNumber }}</span>
+                        <span class="text-purple-400">{{ m.utilizationPercentage | number:'1.1-1' }}% ({{ m.utilizedMinutes }} min)</span>
+                      </div>
+                      <div class="w-full h-2.5 rounded-full bg-white/5 overflow-hidden">
+                        <div class="h-full bg-purple-500 rounded-full transition-all duration-500" [style.width.%]="m.utilizationPercentage"></div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- Global Audit Logs -->
+          <div class="bg-[#0f121a] border border-white/5 rounded-2xl p-6 shadow-xl space-y-4">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-white">System Audit & Action Logs</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead class="text-gray-400 uppercase tracking-wider border-b border-white/5 pb-2">
+                  <tr>
+                    <th class="py-2.5 font-bold">Appt #</th>
+                    <th class="py-2.5 font-bold">Action</th>
+                    <th class="py-2.5 font-bold">Role</th>
+                    <th class="py-2.5 font-bold">Status Change</th>
+                    <th class="py-2.5 font-bold">Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5 text-gray-300">
+                  @for (log of auditLogs(); track log.id) {
+                    <tr>
+                      <td class="py-2.5 font-bold text-white">#{{ log.appointmentId }}</td>
+                      <td class="py-2.5">
+                        <span class="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase bg-blue-950 text-blue-300">
+                          {{ log.action }}
+                        </span>
+                      </td>
+                      <td class="py-2.5 text-gray-400">{{ log.performedByRole || 'SYSTEM' }}</td>
+                      <td class="py-2.5">
+                        @if (log.oldStatus || log.newStatus) {
+                          <span class="text-gray-500">{{ log.oldStatus || 'NONE' }}</span> &rarr; <span class="text-white font-semibold">{{ log.newStatus }}</span>
+                        } @else {
+                          <span class="text-gray-500">—</span>
+                        }
+                      </td>
+                      <td class="py-2.5 text-gray-400">{{ formatDate(log.createdAt) }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- TAB 4: EMERGENCY CONSOLE -->
+      @if (activeTab === 'emergency') {
+        <div class="bg-[#0f121a] border border-rose-500/20 rounded-2xl p-6 shadow-xl space-y-6">
+          <div>
+            <h2 class="text-base font-bold text-white flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse"></span>
+              Emergency Staff Unavailability Trigger
+            </h2>
+            <p class="text-xs text-gray-400 mt-1">
+              When a doctor or nurse suddenly becomes unavailable, this engine finds active appointments within the window and automatically shifts them to vacant replacement staff.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-gray-300 mb-1.5">Unavailable Staff Member *</label>
+              <select [(ngModel)]="emergencyStaffId" class="w-full bg-[#141824] border border-white/10 rounded-xl px-3 py-2 text-xs text-white">
+                <option [ngValue]="null">Select Staff Member</option>
+                @for (staff of staffList(); track staff.id) {
+                  <option [ngValue]="staff.id">{{ staff.name }} ({{ staff.staffType }})</option>
+                }
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-gray-300 mb-1.5">Start Time *</label>
+              <input type="datetime-local" [(ngModel)]="emergencyStart" class="w-full bg-[#141824] border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-gray-300 mb-1.5">End Time *</label>
+              <input type="datetime-local" [(ngModel)]="emergencyEnd" class="w-full bg-[#141824] border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1.5">Emergency Reason / Note</label>
+            <input type="text" [(ngModel)]="emergencyReason" placeholder="e.g. Medical emergency / unexpected leave" class="w-full bg-[#141824] border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
+          </div>
+
+          <button (click)="submitEmergencyLeave()" [disabled]="isProcessingEmergency()" class="px-6 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:opacity-50 text-white rounded-xl text-xs font-bold transition-all shadow-lg shadow-rose-600/30 flex items-center gap-2">
+            @if (isProcessingEmergency()) {
+              <span>Executing Reassignment Engine...</span>
+            } @else {
+              <span>Execute Emergency Auto-Reassignment</span>
+            }
+          </button>
+
+          <!-- Emergency Results Output -->
+          @if (emergencyResult()) {
+            <div class="border border-white/10 rounded-xl p-5 bg-[#141824] space-y-4">
+              <h3 class="text-sm font-bold text-white">Reassignment Outcome Summary</h3>
+              <div class="grid grid-cols-3 gap-4 text-center">
+                <div class="bg-black/30 p-3 rounded-lg">
+                  <p class="text-[10px] text-gray-400 font-bold uppercase">Total Affected</p>
+                  <p class="text-xl font-bold text-white">{{ emergencyResult()?.totalAffected }}</p>
+                </div>
+                <div class="bg-emerald-950/40 p-3 rounded-lg">
+                  <p class="text-[10px] text-emerald-400 font-bold uppercase">Reassigned</p>
+                  <p class="text-xl font-bold text-emerald-300">{{ emergencyResult()?.reassignedCount }}</p>
+                </div>
+                <div class="bg-amber-950/40 p-3 rounded-lg">
+                  <p class="text-[10px] text-amber-400 font-bold uppercase">Pending Manual Review</p>
+                  <p class="text-xl font-bold text-amber-300">{{ emergencyResult()?.pendingCount }}</p>
+                </div>
+              </div>
+
+              @if ((emergencyResult()?.results ?? []).length > 0) {
+                <div class="overflow-x-auto mt-4">
+                  <table class="w-full text-left text-xs">
+                    <thead class="text-gray-400 uppercase tracking-wider border-b border-white/5 pb-2">
+                      <tr>
+                        <th class="py-2 font-bold">Appt #</th>
+                        <th class="py-2 font-bold">Outcome</th>
+                        <th class="py-2 font-bold">Assigned Replacement</th>
+                        <th class="py-2 font-bold">Details</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5 text-gray-300">
+                      @for (res of emergencyResult()?.results; track res.appointmentId) {
+                        <tr>
+                          <td class="py-2.5 font-bold text-white">#{{ res.appointmentId }}</td>
+                          <td class="py-2.5">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold"
+                              [class.bg-emerald-950]="res.outcome === 'REASSIGNED'"
+                              [class.text-emerald-400]="res.outcome === 'REASSIGNED'"
+                              [class.bg-amber-950]="res.outcome === 'PENDING_REASSIGNMENT'"
+                              [class.text-amber-400]="res.outcome === 'PENDING_REASSIGNMENT'">
+                              {{ res.outcome }}
+                            </span>
+                          </td>
+                          <td class="py-2.5 font-semibold text-white">{{ res.newStaffName || 'None Available' }}</td>
+                          <td class="py-2.5 text-gray-400">{{ res.note }}</td>
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
     </main>
   </div>
 </div>
+
+<!-- Modal: Add Room -->
+@if (showAddRoomModal) {
+  <div class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-[#0f121a] border border-white/10 rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl">
+      <h3 class="text-sm font-bold text-white uppercase tracking-wider">Add New Dialysis Room</h3>
+      <div>
+        <label class="block text-xs font-semibold text-gray-400 mb-1">Room Number *</label>
+        <input type="text" [(ngModel)]="newRoomNumber" placeholder="e.g. Room-104" class="w-full bg-[#141824] border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button (click)="showAddRoomModal = false" class="px-3 py-1.5 rounded-lg border border-white/10 text-gray-400 text-xs font-semibold hover:bg-white/5">Cancel</button>
+        <button (click)="createRoom()" class="px-4 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold">Save Room</button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Modal: Add Machine -->
+@if (showAddMachineModal) {
+  <div class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-[#0f121a] border border-white/10 rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl">
+      <h3 class="text-sm font-bold text-white uppercase tracking-wider">Add New Dialysis Machine</h3>
+      <div>
+        <label class="block text-xs font-semibold text-gray-400 mb-1">Machine Serial Number *</label>
+        <input type="text" [(ngModel)]="newMachineSerial" placeholder="e.g. DM-004" class="w-full bg-[#141824] border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button (click)="showAddMachineModal = false" class="px-3 py-1.5 rounded-lg border border-white/10 text-gray-400 text-xs font-semibold hover:bg-white/5">Cancel</button>
+        <button (click)="createMachine()" class="px-4 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold">Save Machine</button>
+      </div>
+    </div>
+  </div>
+}

@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ApiResponse } from '../models/api-response.model';
-import { NotificationItem } from '../models/notification.model';
+import { DelayNotificationRequest, NotificationItem } from '../models/notification.model';
 
 @Injectable({ providedIn: 'root' })
 export class NotificationService {
@@ -25,5 +25,9 @@ export class NotificationService {
 
   markAllAsRead(): Observable<ApiResponse<void>> {
     return this.http.patch<ApiResponse<void>>(`${this.baseUrl}/read-all`, {});
+  }
+
+  sendDelayNotice(request: DelayNotificationRequest): Observable<ApiResponse<NotificationItem>> {
+    return this.http.post<ApiResponse<NotificationItem>>(`${this.baseUrl}/delay`, request);
   }
 }

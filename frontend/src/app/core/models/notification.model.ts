@@ -1,4 +1,4 @@
-export type NotificationType =
+﻿export type NotificationType =
   | 'APPOINTMENT_CONFIRMED'
   | 'APPOINTMENT_RESCHEDULED'
   | 'APPOINTMENT_CANCELLED'
@@ -10,6 +10,13 @@ export interface NotificationItem {
   appointmentId: number | null;
   type: NotificationType;
   message: string;
-  read: boolean; // note: backend serializes the boolean field `isRead` as JSON key "read"
+  read: boolean;
   createdAt: string;
+}
+
+export interface DelayNotificationRequest {
+  patientId: number;
+  appointmentId: number;
+  delayMinutes: number;
+  reason?: string;
 }
