@@ -1,29 +1,29 @@
-﻿<div class="min-h-screen bg-[#060709] text-gray-100 flex font-sans selection:bg-blue-600/30 selection:text-blue-200">
+<div class="min-h-screen bg-[#07090e] text-slate-100 flex font-sans selection:bg-blue-600/30 selection:text-blue-200">
   <!-- Sidebar -->
   <aside
     [class.w-64]="isSidebarExpanded"
-    [class.w-16]="!isSidebarExpanded"
-    class="bg-[#0b0d12] border-r border-white/5 flex flex-col justify-between shrink-0 transition-all duration-300 h-screen sticky top-0 z-30 shadow-2xl"
+    [class.w-20]="!isSidebarExpanded"
+    class="bg-[#0b0e17] border-r border-white/5 flex flex-col justify-between shrink-0 transition-all duration-300 h-screen sticky top-0 z-30 shadow-2xl"
   >
     <div>
       <div class="h-16 border-b border-white/5 flex items-center px-4 gap-3 overflow-hidden">
-        <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center shrink-0 shadow-md shadow-blue-600/30">
-          <svg class="w-4.5 h-4.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
-          </svg>
+        <div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/20 font-poppins font-black text-white text-base">
+          D
         </div>
         @if (isSidebarExpanded) {
-          <span class="text-xs font-black tracking-wider uppercase text-white truncate font-poppins">DiaCare Manager</span>
+          <span class="text-sm font-extrabold tracking-tight text-white font-poppins truncate animate-fade-in">
+            DiaCare <span class="text-blue-400 font-normal text-xs uppercase tracking-wider ml-1">Portal</span>
+          </span>
         }
       </div>
 
-      <nav class="py-3 px-2 space-y-1">
-        <a [routerLink]="dashboardPath()" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white hover:bg-white/5 transition-all">
+      <nav class="py-4 px-3 space-y-1.5">
+        <a [routerLink]="dashboardPath()" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all">
           <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z" /></svg>
           @if (isSidebarExpanded) { <span>Dashboard</span> }
         </a>
 
-        <a routerLink="/appointments" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold bg-blue-600 text-white transition-all">
+        <a routerLink="/appointments" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-blue-600/20 text-blue-400 border border-blue-500/30 transition-all shadow-sm">
           <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
           @if (isSidebarExpanded) { <span>Appointments</span> }
         </a>
@@ -31,7 +31,7 @@
     </div>
 
     <div class="p-3 border-t border-white/5">
-      <button (click)="logout()" class="w-full flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-rose-400 hover:bg-rose-950/30 transition-all rounded-lg">
+      <button (click)="logout()" class="w-full flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-rose-400 hover:bg-rose-950/30 transition-all rounded-xl">
         <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
         @if (isSidebarExpanded) { <span>Sign Out</span> }
       </button>
@@ -41,24 +41,26 @@
   <!-- Main content area -->
   <div class="flex-grow flex flex-col min-h-screen">
     <!-- Header -->
-    <header class="h-16 bg-[#0b0d12] border-b border-white/5 flex items-center justify-between px-6 z-20">
+    <header class="h-16 bg-[#0b0e17]/80 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-6 z-20 sticky top-0">
       <div class="flex items-center gap-3">
-        <button (click)="toggleSidebar()" class="p-2 rounded-lg border border-white/5 bg-[#121620]/50 hover:bg-white/10 text-gray-300 transition-colors">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        <button (click)="toggleSidebar()" class="p-2 rounded-xl border border-white/5 hover:border-blue-500/30 bg-[#121824]/50 hover:bg-[#121824] text-slate-300 transition-colors cursor-pointer">
+          <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
         </button>
-        <h1 class="text-sm font-black uppercase text-white tracking-wider font-poppins">Dialysis Appointments Console</h1>
+        <h1 class="text-sm font-extrabold uppercase text-white tracking-wider font-poppins">Dialysis Appointments Console</h1>
       </div>
 
       <div class="flex items-center gap-4">
         @if (canManage()) {
-          <button (click)="openBookModal()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-blue-600/30 flex items-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+          <button (click)="openBookModal()" class="px-4 py-2 btn-primary text-xs font-bold flex items-center gap-2 shadow-lg shadow-blue-500/25">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" /></svg>
             <span>Book Appointment</span>
           </button>
         }
 
+        <app-notification-bell></app-notification-bell>
+
         <div class="flex items-center gap-3 border-l border-white/10 pl-4">
-          <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white text-xs shadow-md shadow-blue-600/30">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center font-bold text-white text-xs shadow-md shadow-blue-500/20">
             {{ initials() }}
           </div>
           <div class="hidden md:block text-left leading-tight">
@@ -69,27 +71,27 @@
       </div>
     </header>
 
-    <main class="flex-grow p-6 space-y-6 max-w-7xl w-full mx-auto">
+    <main class="flex-grow p-6 space-y-6 max-w-7xl w-full mx-auto animate-fade-in">
       <!-- Alerts -->
       @if (errorMessage()) {
-        <div class="p-4 rounded-xl border border-rose-500/20 bg-rose-950/40 text-rose-200 text-xs flex items-center justify-between">
+        <div class="p-4 rounded-xl border border-rose-500/20 bg-rose-950/40 text-rose-300 text-xs font-medium flex items-center justify-between animate-shake">
           <span>{{ errorMessage() }}</span>
           <button (click)="errorMessage.set('')" class="text-rose-400 hover:text-white">&times;</button>
         </div>
       }
       @if (successMessage()) {
-        <div class="p-4 rounded-xl border border-emerald-500/20 bg-emerald-950/40 text-emerald-200 text-xs flex items-center justify-between">
+        <div class="p-4 rounded-xl border border-emerald-500/20 bg-emerald-950/40 text-emerald-300 text-xs font-medium flex items-center justify-between">
           <span>{{ successMessage() }}</span>
           <button (click)="successMessage.set('')" class="text-emerald-400 hover:text-white">&times;</button>
         </div>
       }
 
       <!-- Filter Controls -->
-      <div class="bg-[#0f121a] border border-white/5 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-4 shadow-md">
+      <div class="glass-card p-4 flex flex-wrap items-center justify-between gap-4 shadow-md">
         <div class="flex flex-wrap items-center gap-4">
           <div class="flex items-center gap-2">
-            <label class="text-xs font-semibold text-gray-400">Status:</label>
-            <select [(ngModel)]="statusFilter" (change)="onFilterChange()" class="bg-[#141824] border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white">
+            <label class="text-xs font-bold text-slate-400">Status Filter:</label>
+            <select [(ngModel)]="statusFilter" (change)="onFilterChange()" class="bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white">
               <option value="ALL">All Statuses</option>
               <option value="SCHEDULED">Scheduled</option>
               <option value="RESCHEDULED">Rescheduled</option>
@@ -100,68 +102,64 @@
           </div>
 
           <div class="flex items-center gap-2">
-            <label class="text-xs font-semibold text-gray-400">Date:</label>
-            <input type="date" [(ngModel)]="dateFilter" (change)="onFilterChange()" class="bg-[#141824] border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white" />
+            <label class="text-xs font-bold text-slate-400">Date:</label>
+            <input type="date" [(ngModel)]="dateFilter" (change)="onFilterChange()" class="bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
           </div>
 
           @if (dateFilter) {
-            <button (click)="dateFilter = ''; onFilterChange()" class="text-xs text-gray-400 hover:text-white underline">
-              Clear Date
+            <button (click)="dateFilter = ''; onFilterChange()" class="text-xs text-slate-400 hover:text-white underline">
+              Clear Date Filter
             </button>
           }
         </div>
 
-        <button (click)="loadAppointments()" class="text-xs text-blue-400 hover:text-blue-300 font-semibold">
-          Refresh List
+        <button (click)="loadAppointments()" class="text-xs text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+          Refresh Roster
         </button>
       </div>
 
       <!-- Appointments Table -->
-      <div class="bg-[#0f121a] border border-white/5 rounded-2xl p-6 shadow-xl space-y-4">
+      <div class="glass-card p-6 shadow-xl space-y-4">
         @if (isLoading()) {
-          <div class="py-12 text-center text-xs text-gray-400">Loading appointments...</div>
+          <div class="py-12 text-center text-xs text-slate-400 font-medium">Loading dialysis appointments...</div>
         } @else if (appointments().length === 0) {
-          <div class="py-12 text-center text-xs text-gray-500">No appointments found matching your filters.</div>
+          <div class="py-12 text-center text-xs text-slate-500 font-medium">No appointments found matching your filters.</div>
         } @else {
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs">
-              <thead class="text-gray-400 uppercase tracking-wider border-b border-white/5 pb-2">
+              <thead class="text-slate-400 uppercase tracking-wider border-b border-white/5 pb-2 text-[10px] font-bold">
                 <tr>
-                  <th class="py-2.5 font-bold">Appt #</th>
-                  <th class="py-2.5 font-bold">Patient</th>
-                  <th class="py-2.5 font-bold">Staff Member</th>
-                  <th class="py-2.5 font-bold">Room & Machine</th>
-                  <th class="py-2.5 font-bold">Time Window</th>
-                  <th class="py-2.5 font-bold">Status</th>
-                  <th class="py-2.5 font-bold text-right">Actions</th>
+                  <th class="py-3 px-3">Appt #</th>
+                  <th class="py-3 px-3">Patient</th>
+                  <th class="py-3 px-3">Staff Member</th>
+                  <th class="py-3 px-3">Room & Machine</th>
+                  <th class="py-3 px-3">Time Window</th>
+                  <th class="py-3 px-3">Status</th>
+                  <th class="py-3 px-3 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-white/5 text-gray-300">
+              <tbody class="divide-y divide-white/5 text-slate-300">
                 @for (appt of appointments(); track appt.id) {
-                  <tr>
-                    <td class="py-3 font-bold text-white">#{{ appt.id }}</td>
-                    <td class="py-3 font-semibold text-white">{{ appt.patientName }}</td>
-                    <td class="py-3">{{ appt.staffName }}</td>
-                    <td class="py-3 font-mono">{{ appt.roomNumber }} | {{ appt.machineSerialNumber }}</td>
-                    <td class="py-3">{{ formatDate(appt.scheduledStart) }} - {{ formatDate(appt.scheduledEnd) }}</td>
-                    <td class="py-3">
-                      <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold"
-                        [class.bg-blue-950]="appt.status === 'SCHEDULED'"
-                        [class.text-blue-400]="appt.status === 'SCHEDULED'"
-                        [class.bg-amber-950]="appt.status === 'RESCHEDULED'"
-                        [class.text-amber-400]="appt.status === 'RESCHEDULED'"
-                        [class.bg-rose-950]="appt.status === 'CANCELLED'"
-                        [class.text-rose-400]="appt.status === 'CANCELLED'"
-                        [class.bg-emerald-950]="appt.status === 'COMPLETED'"
-                        [class.text-emerald-400]="appt.status === 'COMPLETED'"
-                        [class.bg-orange-950]="appt.status === 'PENDING_REASSIGNMENT'"
-                        [class.text-orange-400]="appt.status === 'PENDING_REASSIGNMENT'">
+                  <tr class="hover:bg-white/[0.02] transition-colors">
+                    <td class="py-3.5 px-3 font-bold text-white">#{{ appt.id }}</td>
+                    <td class="py-3.5 px-3 font-semibold text-white">{{ appt.patientName }}</td>
+                    <td class="py-3.5 px-3 text-slate-300">{{ appt.staffName }}</td>
+                    <td class="py-3.5 px-3 font-mono text-slate-400">{{ appt.roomNumber }} | {{ appt.machineSerialNumber }}</td>
+                    <td class="py-3.5 px-3 text-slate-400">{{ formatDate(appt.scheduledStart) }} - {{ formatDate(appt.scheduledEnd) }}</td>
+                    <td class="py-3.5 px-3">
+                      <span class="badge"
+                        [class.badge-scheduled]="appt.status === 'SCHEDULED'"
+                        [class.badge-rescheduled]="appt.status === 'RESCHEDULED'"
+                        [class.badge-cancelled]="appt.status === 'CANCELLED'"
+                        [class.badge-completed]="appt.status === 'COMPLETED'"
+                        [class.badge-reassignment]="appt.status === 'PENDING_REASSIGNMENT'">
                         {{ appt.status }}
                       </span>
                     </td>
-                    <td class="py-3 text-right space-x-2">
-                      <button (click)="openHistoryModal(appt)" class="text-xs text-gray-400 hover:text-white font-semibold underline">
-                        History
+                    <td class="py-3.5 px-3 text-right space-x-2">
+                      <button (click)="openHistoryModal(appt)" class="text-xs text-slate-400 hover:text-white font-semibold underline">
+                        Audit
                       </button>
 
                       @if (canManage() && appt.status !== 'CANCELLED' && appt.status !== 'COMPLETED') {
@@ -186,14 +184,14 @@
 
 <!-- Modal: Book New Appointment -->
 @if (showBookModal) {
-  <div class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-[#0f121a] border border-white/10 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
-      <h3 class="text-sm font-bold text-white uppercase tracking-wider">Book New Dialysis Session</h3>
+  <div class="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="glass-card max-w-lg w-full p-6 space-y-4 shadow-2xl border border-white/10 animate-fade-in">
+      <h3 class="text-sm font-extrabold text-white uppercase tracking-wider font-poppins">Book New Dialysis Session</h3>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
-          <label class="block text-xs font-semibold text-gray-300 mb-1">Patient *</label>
-          <select [(ngModel)]="bookPatientId" class="w-full bg-[#141824] border border-white/10 rounded-xl px-3 py-2 text-xs text-white">
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Patient *</label>
+          <select [(ngModel)]="bookPatientId" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white">
             <option [ngValue]="null">Select Patient</option>
             @for (p of patients(); track p.id) {
               <option [ngValue]="p.id">{{ p.name }} (ID: {{ p.id }})</option>
@@ -202,8 +200,8 @@
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-gray-300 mb-1">Attending Staff (Doctor/Nurse) *</label>
-          <select [(ngModel)]="bookStaffId" class="w-full bg-[#141824] border border-white/10 rounded-xl px-3 py-2 text-xs text-white">
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Attending Staff (Doctor/Nurse) *</label>
+          <select [(ngModel)]="bookStaffId" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white">
             <option [ngValue]="null">Select Staff</option>
             @for (s of staffList(); track s.id) {
               <option [ngValue]="s.id">{{ s.name }} ({{ s.staffType }})</option>
@@ -214,23 +212,23 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
-          <label class="block text-xs font-semibold text-gray-300 mb-1">Start Date & Time *</label>
-          <input type="datetime-local" [(ngModel)]="bookStart" class="w-full bg-[#141824] border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Start Date & Time *</label>
+          <input type="datetime-local" [(ngModel)]="bookStart" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
         </div>
         <div>
-          <label class="block text-xs font-semibold text-gray-300 mb-1">End Date & Time *</label>
-          <input type="datetime-local" [(ngModel)]="bookEnd" class="w-full bg-[#141824] border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">End Date & Time *</label>
+          <input type="datetime-local" [(ngModel)]="bookEnd" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
         </div>
       </div>
 
       <div class="flex items-center justify-between pt-1">
-        <button (click)="checkSlotAvailability()" [disabled]="isCheckingAvailability()" class="px-3 py-1.5 rounded-lg border border-blue-500/30 text-blue-400 text-xs font-semibold hover:bg-blue-600/10">
+        <button (click)="checkSlotAvailability()" [disabled]="isCheckingAvailability()" class="px-3.5 py-1.5 rounded-xl border border-blue-500/30 text-blue-400 text-xs font-semibold hover:bg-blue-600/10">
           @if (isCheckingAvailability()) { <span>Checking slot...</span> } @else { <span>Check Slot Availability</span> }
         </button>
       </div>
 
       @if (availability()) {
-        <div class="bg-[#141824] p-3 rounded-xl text-xs space-y-1 text-gray-300">
+        <div class="bg-black/30 p-3.5 rounded-xl text-xs space-y-1 text-slate-300 border border-white/5">
           <p class="font-bold text-white mb-1">Slot Availability Result:</p>
           <div class="flex gap-4">
             <span>Available Rooms: <b class="text-emerald-400">{{ (availability()?.rooms || []).filter(r => r.available).length }}</b></span>
@@ -241,9 +239,9 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
-          <label class="block text-xs font-semibold text-gray-300 mb-1">Room (Optional - Auto-assigned if empty)</label>
-          <select [(ngModel)]="bookRoomId" class="w-full bg-[#141824] border border-white/10 rounded-xl px-3 py-2 text-xs text-white">
-            <option [ngValue]="null">Auto Assign Next Available Room</option>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Room (Optional - Auto-assigned)</label>
+          <select [(ngModel)]="bookRoomId" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white">
+            <option [ngValue]="null">Auto Assign Available Room</option>
             @for (r of rooms(); track r.id) {
               <option [ngValue]="r.id">{{ r.roomNumber }} ({{ r.status }})</option>
             }
@@ -251,9 +249,9 @@
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-gray-300 mb-1">Machine (Optional - Auto-assigned if empty)</label>
-          <select [(ngModel)]="bookMachineId" class="w-full bg-[#141824] border border-white/10 rounded-xl px-3 py-2 text-xs text-white">
-            <option [ngValue]="null">Auto Assign Next Available Machine</option>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Machine (Optional - Auto-assigned)</label>
+          <select [(ngModel)]="bookMachineId" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white">
+            <option [ngValue]="null">Auto Assign Available Machine</option>
             @for (m of machines(); track m.id) {
               <option [ngValue]="m.id">{{ m.serialNumber }} ({{ m.status }})</option>
             }
@@ -261,9 +259,9 @@
         </div>
       </div>
 
-      <div class="flex justify-end gap-2 pt-2">
-        <button (click)="showBookModal = false" class="px-3 py-1.5 rounded-lg border border-white/10 text-gray-400 text-xs font-semibold hover:bg-white/5">Cancel</button>
-        <button (click)="createAppointment()" [disabled]="isBooking()" class="px-5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-md shadow-blue-600/30">
+      <div class="flex justify-end gap-2.5 pt-2">
+        <button (click)="showBookModal = false" class="px-4 py-2 rounded-xl btn-secondary text-xs font-bold">Cancel</button>
+        <button (click)="createAppointment()" [disabled]="isBooking()" class="px-5 py-2 rounded-xl btn-primary text-xs font-bold">
           @if (isBooking()) { <span>Creating...</span> } @else { <span>Confirm Booking</span> }
         </button>
       </div>
@@ -273,24 +271,24 @@
 
 <!-- Modal: Direct Reschedule -->
 @if (showRescheduleModal && selectedAppointment) {
-  <div class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-[#0f121a] border border-white/10 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
-      <h3 class="text-sm font-bold text-white uppercase tracking-wider">Reschedule Appointment #{{ selectedAppointment.id }}</h3>
+  <div class="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="glass-card max-w-md w-full p-6 space-y-4 shadow-2xl border border-white/10 animate-fade-in">
+      <h3 class="text-sm font-extrabold text-white uppercase tracking-wider font-poppins">Reschedule Appointment #{{ selectedAppointment.id }}</h3>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
-          <label class="block text-xs font-semibold text-gray-300 mb-1">New Start Time *</label>
-          <input type="datetime-local" [(ngModel)]="rescheduleStart" class="w-full bg-[#141824] border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">New Start Time *</label>
+          <input type="datetime-local" [(ngModel)]="rescheduleStart" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
         </div>
         <div>
-          <label class="block text-xs font-semibold text-gray-300 mb-1">New End Time *</label>
-          <input type="datetime-local" [(ngModel)]="rescheduleEnd" class="w-full bg-[#141824] border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">New End Time *</label>
+          <input type="datetime-local" [(ngModel)]="rescheduleEnd" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
         </div>
       </div>
 
-      <div class="flex justify-end gap-2 pt-2">
-        <button (click)="showRescheduleModal = false" class="px-3 py-1.5 rounded-lg border border-white/10 text-gray-400 text-xs font-semibold hover:bg-white/5">Cancel</button>
-        <button (click)="submitDirectReschedule()" [disabled]="isRescheduling()" class="px-4 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold shadow-md shadow-amber-600/20">
+      <div class="flex justify-end gap-2.5 pt-2">
+        <button (click)="showRescheduleModal = false" class="px-4 py-2 rounded-xl btn-secondary text-xs font-bold">Cancel</button>
+        <button (click)="submitDirectReschedule()" [disabled]="isRescheduling()" class="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition-all shadow-md shadow-amber-600/20">
           @if (isRescheduling()) { <span>Updating...</span> } @else { <span>Confirm Reschedule</span> }
         </button>
       </div>
@@ -300,31 +298,31 @@
 
 <!-- Modal: Appointment Audit History -->
 @if (showHistoryModal) {
-  <div class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-[#0f121a] border border-white/10 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl max-h-[85vh] overflow-y-auto">
+  <div class="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="glass-card max-w-lg w-full p-6 space-y-4 shadow-2xl border border-white/10 max-h-[85vh] overflow-y-auto animate-fade-in">
       <div class="flex items-center justify-between">
-        <h3 class="text-sm font-bold text-white uppercase tracking-wider">Audit Timeline for Appt #{{ selectedApptId }}</h3>
-        <button (click)="showHistoryModal = false" class="text-gray-400 hover:text-white">&times;</button>
+        <h3 class="text-sm font-extrabold text-white uppercase tracking-wider font-poppins">Audit Timeline for Appt #{{ selectedApptId }}</h3>
+        <button (click)="showHistoryModal = false" class="text-slate-400 hover:text-white">&times;</button>
       </div>
 
       @if (isLoadingHistory()) {
-        <p class="text-xs text-gray-400 py-6 text-center">Loading audit records...</p>
+        <p class="text-xs text-slate-400 py-8 text-center font-medium">Loading audit records...</p>
       } @else if (historyLogs().length === 0) {
-        <p class="text-xs text-gray-500 py-6 text-center">No history logs recorded for this appointment.</p>
+        <p class="text-xs text-slate-500 py-8 text-center font-medium">No history logs recorded for this appointment.</p>
       } @else {
         <div class="space-y-3">
           @for (log of historyLogs(); track log.id) {
-            <div class="bg-[#141824] border border-white/5 rounded-xl p-3.5 space-y-1 text-xs">
+            <div class="bg-black/30 border border-white/5 rounded-xl p-3.5 space-y-1.5 text-xs">
               <div class="flex items-center justify-between">
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-blue-950 text-blue-300">{{ log.action }}</span>
-                <span class="text-gray-500">{{ formatDate(log.createdAt) }}</span>
+                <span class="px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase bg-blue-950/80 border border-blue-800 text-blue-300">{{ log.action }}</span>
+                <span class="text-slate-500 font-mono">{{ formatDate(log.createdAt) }}</span>
               </div>
-              <p class="text-gray-300">Performed by: <b class="text-white">{{ log.performedByRole || 'SYSTEM' }}</b> (User #{{ log.performedByUserId }})</p>
+              <p class="text-slate-300">Performed by: <b class="text-white">{{ log.performedByRole || 'SYSTEM' }}</b> (User #{{ log.performedByUserId }})</p>
               @if (log.oldStatus || log.newStatus) {
-                <p class="text-gray-400">Status: {{ log.oldStatus || 'NONE' }} &rarr; <span class="text-emerald-400 font-semibold">{{ log.newStatus }}</span></p>
+                <p class="text-slate-400">Status: {{ log.oldStatus || 'NONE' }} &rarr; <span class="text-emerald-400 font-semibold">{{ log.newStatus }}</span></p>
               }
               @if (log.newScheduledStart) {
-                <p class="text-gray-400">Time: {{ formatDate(log.newScheduledStart) }} - {{ formatDate(log.newScheduledEnd) }}</p>
+                <p class="text-slate-400">Time: {{ formatDate(log.newScheduledStart) }} - {{ formatDate(log.newScheduledEnd) }}</p>
               }
             </div>
           }

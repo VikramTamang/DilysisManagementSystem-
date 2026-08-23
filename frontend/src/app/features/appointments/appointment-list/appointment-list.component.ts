@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -16,11 +16,12 @@ import { AuditLogResponse } from '../../../core/models/report.model';
 import { NormalizedError } from '../../../core/interceptors/error.interceptor';
 import { getDashboardPathForRole } from '../../../core/utils/dashboard-route.util';
 import { Role } from '../../../core/models/enums';
+import { NotificationBellComponent } from '../../../components/notification-bell/notification-bell.component';
 
 @Component({
   selector: 'app-appointment-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, RouterLink, FormsModule, NotificationBellComponent],
   templateUrl: './appointment-list.component.html',
   styleUrl: './appointment-list.component.css',
 })

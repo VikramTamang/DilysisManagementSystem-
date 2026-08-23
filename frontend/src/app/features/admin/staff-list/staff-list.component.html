@@ -1,54 +1,44 @@
-<div class="min-h-screen bg-bg-clinical text-text-clinical flex font-sans selection:bg-accent/20 selection:text-primary">
+<div class="min-h-screen bg-[#07090e] text-slate-100 flex font-sans selection:bg-blue-600/30 selection:text-blue-200">
   <!-- Sidebar -->
   <aside
     [class.w-64]="isSidebarExpanded"
-    [class.w-16]="!isSidebarExpanded"
-    class="bg-[#08080a] border-r border-white/5 flex flex-col justify-between shrink-0 transition-all duration-300 h-screen sticky top-0 z-30"
+    [class.w-20]="!isSidebarExpanded"
+    class="bg-[#0b0e17] border-r border-white/5 flex flex-col justify-between shrink-0 transition-all duration-300 h-screen sticky top-0 z-30 shadow-2xl"
   >
     <div>
       <div class="h-16 border-b border-white/5 flex items-center px-4 gap-3 overflow-hidden">
-        <div class="w-8 h-8 rounded-none bg-blue-600 flex items-center justify-center shrink-0">
-          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
-          </svg>
+        <div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/20 font-poppins font-black text-white text-base">
+          D
         </div>
         @if (isSidebarExpanded) {
-          <span class="text-xs font-black tracking-wider uppercase text-white truncate font-poppins">DiaCare Console</span>
+          <span class="text-sm font-extrabold tracking-tight text-white font-poppins truncate animate-fade-in">
+            DiaCare <span class="text-blue-400 font-normal text-xs uppercase tracking-wider ml-1">Admin</span>
+          </span>
         }
       </div>
 
-      <nav class="py-2 space-y-1">
-        <a routerLink="/dashboard/admin" class="nav-link-console cursor-pointer">
-          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z" /></svg></span>
-          @if (isSidebarExpanded) { <span>Dashboard</span> }
+      <nav class="py-4 px-3 space-y-1.5">
+        <a routerLink="/dashboard/admin" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+          <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z" /></svg>
+          @if (isSidebarExpanded) { <span>Overview</span> }
         </a>
-        <a class="nav-link-console cursor-pointer">
-          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg></span>
+
+        <a routerLink="/appointments" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+          <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
           @if (isSidebarExpanded) { <span>Appointments</span> }
         </a>
-        <a class="nav-link-console cursor-pointer">
-          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 01-6-6V7zm-9 0V7a4 4 0 11-8 0v4h8z" /></svg></span>
-          @if (isSidebarExpanded) { <span>Patients</span> }
-        </a>
-        <a routerLink="/dashboard/admin/staff" class="nav-link-console active cursor-pointer">
-          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1z" /></svg></span>
-          @if (isSidebarExpanded) { <span>Doctors & Nurses</span> }
-        </a>
-        <a class="nav-link-console cursor-pointer">
-          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg></span>
-          @if (isSidebarExpanded) { <span>Rooms & Machines</span> }
-        </a>
-        <a class="nav-link-console cursor-pointer">
-          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a4 4 0 014-4h4m0 0l-4-4m4 4l-4 4M5 7h5m-5 4h3m-3 4h3" /></svg></span>
-          @if (isSidebarExpanded) { <span>Reports & Audit</span> }
+
+        <a routerLink="/dashboard/admin/staff" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-blue-600/20 text-blue-400 border border-blue-500/30 transition-all shadow-sm">
+          <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+          @if (isSidebarExpanded) { <span>Medical Staff</span> }
         </a>
       </nav>
     </div>
 
-    <div class="p-2 border-t border-white/5">
-      <button (click)="logout()" class="w-full flex items-center gap-3.5 px-3 py-2 text-xs font-bold text-emergency hover:bg-rose-950/20 transition-all rounded-none">
-        <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg></span>
-        @if (isSidebarExpanded) { <span class="truncate">Sign Out</span> }
+    <div class="p-3 border-t border-white/5">
+      <button (click)="logout()" class="w-full flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-rose-400 hover:bg-rose-950/30 transition-all rounded-xl">
+        <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+        @if (isSidebarExpanded) { <span>Sign Out</span> }
       </button>
     </div>
   </aside>
@@ -56,132 +46,168 @@
   <!-- Main content -->
   <div class="flex-grow flex flex-col min-h-screen">
     <!-- Header -->
-    <header class="h-16 bg-[#08080a] border-b border-white/5 flex items-center justify-between px-6 z-20">
+    <header class="h-16 bg-[#0b0e17]/80 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-6 z-20 sticky top-0">
       <div class="flex items-center gap-3">
-        <button (click)="toggleSidebar()" class="p-1.5 rounded-none border border-white/5 hover:border-accent bg-[#121620]/50 text-gray-400 transition-colors cursor-pointer">
+        <button (click)="toggleSidebar()" class="p-2 rounded-xl border border-white/5 hover:border-blue-500/30 bg-[#121824]/50 hover:bg-[#121824] text-slate-300 transition-colors cursor-pointer">
           <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
         </button>
-        <h1 class="text-sm font-black uppercase text-white tracking-widest font-poppins">Doctors & Nurses</h1>
+        <h1 class="text-sm font-extrabold uppercase text-white tracking-wider font-poppins">
+          Medical Staff Directory
+        </h1>
       </div>
 
       <div class="flex items-center gap-4">
-        <div class="flex items-center gap-3 border-l border-white/5 pl-4">
-          <div class="w-8 h-8 rounded-none bg-blue-600 flex items-center justify-center font-bold text-white text-xs">
+        <app-notification-bell></app-notification-bell>
+        <div class="flex items-center gap-3 border-l border-white/10 pl-4">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center font-bold text-white text-xs shadow-md shadow-blue-500/20">
             {{ initials() }}
           </div>
           <div class="hidden md:block text-left leading-tight">
             <div class="text-xs font-bold text-white">{{ currentUser()?.name }}</div>
-            <div class="text-[9px] text-accent font-bold uppercase tracking-wider">{{ currentUser()?.role }}</div>
+            <div class="text-[10px] text-blue-400 font-semibold uppercase tracking-wider">{{ currentUser()?.role }}</div>
           </div>
         </div>
       </div>
     </header>
 
-    <main class="flex-grow p-6 space-y-4 max-w-7xl w-full mx-auto">
+    <main class="flex-grow p-6 space-y-6 max-w-7xl w-full mx-auto animate-fade-in">
       <!-- Toolbar -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 glass-card p-4">
         <div class="flex items-center gap-2 flex-wrap">
           <button
             (click)="setTypeFilter('ALL')"
-            [class.bg-blue-600]="typeFilter === 'ALL'"
-            [class.text-white]="typeFilter === 'ALL'"
-            class="px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-white/5 text-gray-400 hover:text-white transition-colors"
+            [class.btn-primary]="typeFilter === 'ALL'"
+            [class.btn-secondary]="typeFilter !== 'ALL'"
+            class="px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-xl transition-all"
           >
-            All
+            All Staff ({{ allStaff().length }})
           </button>
           <button
             (click)="setTypeFilter('DOCTOR')"
-            [class.bg-blue-600]="typeFilter === 'DOCTOR'"
-            [class.text-white]="typeFilter === 'DOCTOR'"
-            class="px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-white/5 text-gray-400 hover:text-white transition-colors"
+            [class.btn-primary]="typeFilter === 'DOCTOR'"
+            [class.btn-secondary]="typeFilter !== 'DOCTOR'"
+            class="px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-xl transition-all"
           >
             Doctors
           </button>
           <button
             (click)="setTypeFilter('NURSE')"
-            [class.bg-blue-600]="typeFilter === 'NURSE'"
-            [class.text-white]="typeFilter === 'NURSE'"
-            class="px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-white/5 text-gray-400 hover:text-white transition-colors"
+            [class.btn-primary]="typeFilter === 'NURSE'"
+            [class.btn-secondary]="typeFilter !== 'NURSE'"
+            class="px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-xl transition-all"
           >
             Nurses
           </button>
 
-          <input
-            type="text"
-            [(ngModel)]="searchTerm"
-            placeholder="Search name or email..."
-            class="ml-2 px-3 py-1.5 bg-[#0c0d0f] border border-white/5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 w-56"
-          />
+          <div class="relative ml-1">
+            <input
+              type="text"
+              [(ngModel)]="searchTerm"
+              placeholder="Search by name, email..."
+              class="pl-9 pr-4 py-2 bg-white/5 hover:bg-white/8 border border-white/10 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 w-64 transition-all"
+            />
+            <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
         </div>
 
-        <a routerLink="/dashboard/admin/staff/new" class="px-4 py-2 text-xs font-bold uppercase tracking-wider bg-blue-600 hover:bg-blue-700 text-white transition-colors text-center">
-          + Add Staff
+        <a routerLink="/dashboard/admin/staff/new" class="px-5 py-2.5 text-xs font-bold rounded-xl btn-primary flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+          </svg>
+          Add New Staff
         </a>
       </div>
 
       @if (errorMessage()) {
-        <div class="p-3 border border-rose-950 bg-rose-950/20 text-rose-400 text-xs font-medium">
-          {{ errorMessage() }}
+        <div class="p-4 rounded-xl border border-rose-500/20 bg-rose-950/40 text-rose-300 text-xs font-medium flex items-center gap-2 animate-shake">
+          <svg class="w-4 h-4 text-rose-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+          <span>{{ errorMessage() }}</span>
         </div>
       }
 
-      <!-- Table -->
-      <div class="console-card overflow-x-auto">
+      <!-- Table Card -->
+      <div class="glass-card overflow-hidden shadow-xl">
         @if (isLoading()) {
-          <div class="p-8 text-center text-xs text-gray-500 font-semibold">Loading staff...</div>
+          <div class="p-12 text-center text-xs text-slate-400 font-medium">Loading medical staff directory...</div>
         } @else if (filteredStaff().length === 0) {
-          <div class="p-8 text-center text-xs text-gray-500 font-semibold">No staff members found.</div>
+          <div class="p-12 text-center text-xs text-slate-500 font-medium">No medical staff found matching your criteria.</div>
         } @else {
-          <table class="w-full text-left">
-            <thead>
-            <tr class="border-b border-white/5">
-              <th class="p-3 text-[9px] font-black text-gray-500 uppercase tracking-widest">Name</th>
-              <th class="p-3 text-[9px] font-black text-gray-500 uppercase tracking-widest">Type</th>
-              <th class="p-3 text-[9px] font-black text-gray-500 uppercase tracking-widest">Email</th>
-              <th class="p-3 text-[9px] font-black text-gray-500 uppercase tracking-widest">Phone</th>
-              <th class="p-3 text-[9px] font-black text-gray-500 uppercase tracking-widest">Status</th>
-              <th class="p-3 text-[9px] font-black text-gray-500 uppercase tracking-widest text-right">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-              @for (member of filteredStaff(); track member.staffType + '-' + member.id) {
-                <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
-                  <td class="p-3 text-xs font-bold text-white">{{ member.name }}</td>
-                  <td class="p-3 text-xs text-gray-400">{{ member.staffType === 'DOCTOR' ? 'Doctor' : 'Nurse' }}</td>
-                  <td class="p-3 text-xs text-gray-400">{{ member.email }}</td>
-                  <td class="p-3 text-xs text-gray-400">{{ member.phone || '—' }}</td>
-                  <td class="p-3">
-                    <span
-                      [class.text-emerald-400]="member.accountStatus === 'ACTIVE'"
-                      [class.bg-emerald-950]="member.accountStatus === 'ACTIVE'"
-                      [class.text-rose-400]="member.accountStatus === 'SUSPENDED'"
-                      [class.bg-rose-950]="member.accountStatus === 'SUSPENDED'"
-                      class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider"
-                    >
-                      {{ member.accountStatus }}
-                    </span>
-                  </td>
-                  <td class="p-3 text-right space-x-2 whitespace-nowrap">
-                    <button
-                      (click)="editStaff(member)"
-                      class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider border border-white/10 text-gray-300 hover:text-white hover:border-white/30 transition-colors"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      (click)="toggleStatus(member)"
-                      [disabled]="updatingId() === member.id"
-                      [class.text-rose-400]="member.accountStatus === 'ACTIVE'"
-                      [class.text-emerald-400]="member.accountStatus === 'SUSPENDED'"
-                      class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider border border-white/10 hover:border-white/30 transition-colors disabled:opacity-40"
-                    >
-                      {{ updatingId() === member.id ? '...' : (member.accountStatus === 'ACTIVE' ? 'Deactivate' : 'Activate') }}
-                    </button>
-                  </td>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="border-b border-white/5 text-slate-400 uppercase tracking-wider text-[10px] font-bold bg-white/[0.02]">
+                <tr>
+                  <th class="py-3.5 px-5">Name & Profile</th>
+                  <th class="py-3.5 px-5">Staff Type</th>
+                  <th class="py-3.5 px-5">Email Address</th>
+                  <th class="py-3.5 px-5">Phone</th>
+                  <th class="py-3.5 px-5">Account Status</th>
+                  <th class="py-3.5 px-5 text-right">Actions</th>
                 </tr>
-              }
-            </tbody>
-          </table>
+              </thead>
+              <tbody class="divide-y divide-white/5 text-slate-300">
+                @for (member of filteredStaff(); track member.staffType + '-' + member.id) {
+                  <tr class="hover:bg-white/[0.03] transition-colors">
+                    <td class="py-4 px-5">
+                      <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-blue-600/20 text-blue-400 border border-blue-500/20 flex items-center justify-center font-bold text-xs">
+                          {{ member.name.charAt(0) }}
+                        </div>
+                        <div>
+                          <div class="font-bold text-white">{{ member.name }}</div>
+                          <div class="text-[10px] text-slate-500 font-mono">ID: #{{ member.id }}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="py-4 px-5">
+                      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider"
+                        [class.bg-blue-950]="member.staffType === 'DOCTOR'"
+                        [class.text-blue-300]="member.staffType === 'DOCTOR'"
+                        [class.border-blue-800]="member.staffType === 'DOCTOR'"
+                        [class.bg-purple-950]="member.staffType === 'NURSE'"
+                        [class.text-purple-300]="member.staffType === 'NURSE'"
+                        [class.border-purple-800]="member.staffType === 'NURSE'">
+                        {{ member.staffType }}
+                      </span>
+                    </td>
+                    <td class="py-4 px-5 text-slate-300 font-medium">{{ member.email }}</td>
+                    <td class="py-4 px-5 text-slate-400 font-mono">{{ member.phone || '—' }}</td>
+                    <td class="py-4 px-5">
+                      <span
+                        [class.text-emerald-400]="member.accountStatus === 'ACTIVE'"
+                        [class.bg-emerald-950]="member.accountStatus === 'ACTIVE'"
+                        [class.text-rose-400]="member.accountStatus === 'SUSPENDED'"
+                        [class.bg-rose-950]="member.accountStatus === 'SUSPENDED'"
+                        class="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider rounded-full"
+                      >
+                        {{ member.accountStatus }}
+                      </span>
+                    </td>
+                    <td class="py-4 px-5 text-right space-x-2 whitespace-nowrap">
+                      <button
+                        (click)="editStaff(member)"
+                        class="px-3 py-1.5 text-xs font-bold rounded-lg btn-secondary"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        (click)="toggleStatus(member)"
+                        [disabled]="updatingId() === member.id"
+                        [class.text-rose-400]="member.accountStatus === 'ACTIVE'"
+                        [class.hover:bg-rose-950/40]="member.accountStatus === 'ACTIVE'"
+                        [class.text-emerald-400]="member.accountStatus === 'SUSPENDED'"
+                        [class.hover:bg-emerald-950/40]="member.accountStatus === 'SUSPENDED'"
+                        class="px-3 py-1.5 text-xs font-bold rounded-lg border border-white/10 transition-colors disabled:opacity-40"
+                      >
+                        {{ updatingId() === member.id ? '...' : (member.accountStatus === 'ACTIVE' ? 'Deactivate' : 'Activate') }}
+                      </button>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
         }
       </div>
     </main>

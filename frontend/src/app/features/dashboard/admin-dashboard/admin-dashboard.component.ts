@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -19,11 +19,12 @@ import {
 } from '../../../core/models/report.model';
 import { EmergencyReassignmentResponse } from '../../../core/models/emergency.model';
 import { NormalizedError } from '../../../core/interceptors/error.interceptor';
+import { NotificationBellComponent } from '../../../components/notification-bell/notification-bell.component';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, RouterLink, FormsModule, NotificationBellComponent],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css',
 })

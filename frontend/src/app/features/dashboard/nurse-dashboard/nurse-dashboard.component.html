@@ -1,29 +1,29 @@
-﻿<div class="min-h-screen bg-[#060709] text-gray-100 flex font-sans selection:bg-blue-600/30 selection:text-blue-200">
+<div class="min-h-screen bg-[#07090e] text-slate-100 flex font-sans selection:bg-blue-600/30 selection:text-blue-200">
   <!-- Sidebar -->
   <aside
     [class.w-64]="isSidebarExpanded"
-    [class.w-16]="!isSidebarExpanded"
-    class="bg-[#0b0d12] border-r border-white/5 flex flex-col justify-between shrink-0 transition-all duration-300 h-screen sticky top-0 z-30 shadow-2xl"
+    [class.w-20]="!isSidebarExpanded"
+    class="bg-[#0b0e17] border-r border-white/5 flex flex-col justify-between shrink-0 transition-all duration-300 h-screen sticky top-0 z-30 shadow-2xl"
   >
     <div>
       <div class="h-16 border-b border-white/5 flex items-center px-4 gap-3 overflow-hidden">
-        <div class="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center shrink-0 shadow-md shadow-emerald-600/30">
-          <svg class="w-4.5 h-4.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-          </svg>
+        <div class="w-9 h-9 rounded-xl bg-emerald-600 flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/20 font-poppins font-black text-white text-base">
+          D
         </div>
         @if (isSidebarExpanded) {
-          <span class="text-xs font-black tracking-wider uppercase text-white truncate font-poppins">Nurse Station</span>
+          <span class="text-sm font-extrabold tracking-tight text-white font-poppins truncate animate-fade-in">
+            DiaCare <span class="text-emerald-400 font-normal text-xs uppercase tracking-wider ml-1">Nurse</span>
+          </span>
         }
       </div>
 
-      <nav class="py-3 px-2 space-y-1">
-        <button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white text-left">
+      <nav class="py-4 px-3 space-y-1.5">
+        <button class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 transition-all shadow-sm text-left">
           <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
           @if (isSidebarExpanded) { <span>Dialysis Roster</span> }
         </button>
 
-        <a routerLink="/appointments" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white hover:bg-white/5 transition-all">
+        <a routerLink="/appointments" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all">
           <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
           @if (isSidebarExpanded) { <span>All Appointments</span> }
         </a>
@@ -31,7 +31,7 @@
     </div>
 
     <div class="p-3 border-t border-white/5">
-      <button (click)="logout()" class="w-full flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-rose-400 hover:bg-rose-950/30 transition-all rounded-lg">
+      <button (click)="logout()" class="w-full flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-rose-400 hover:bg-rose-950/30 transition-all rounded-xl">
         <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
         @if (isSidebarExpanded) { <span>Sign Out</span> }
       </button>
@@ -41,17 +41,18 @@
   <!-- Main Content -->
   <div class="flex-grow flex flex-col min-h-screen">
     <!-- Header -->
-    <header class="h-16 bg-[#0b0d12] border-b border-white/5 flex items-center justify-between px-6 z-20">
+    <header class="h-16 bg-[#0b0e17]/80 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-6 z-20 sticky top-0">
       <div class="flex items-center gap-3">
-        <button (click)="toggleSidebar()" class="p-2 rounded-lg border border-white/5 bg-[#121620]/50 hover:bg-white/10 text-gray-300 transition-colors">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        <button (click)="toggleSidebar()" class="p-2 rounded-xl border border-white/5 hover:border-emerald-500/30 bg-[#121824]/50 hover:bg-[#121824] text-slate-300 transition-colors cursor-pointer">
+          <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
         </button>
-        <h1 class="text-sm font-black uppercase text-white tracking-wider font-poppins">Nurse Station Console</h1>
+        <h1 class="text-sm font-extrabold uppercase text-white tracking-wider font-poppins">Nurse Station Dashboard</h1>
       </div>
 
       <div class="flex items-center gap-4">
+        <app-notification-bell></app-notification-bell>
         <div class="flex items-center gap-3 border-l border-white/10 pl-4">
-          <div class="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center font-bold text-white text-xs shadow-md shadow-emerald-600/30">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-600 flex items-center justify-center font-bold text-white text-xs shadow-md shadow-emerald-500/20">
             {{ initials() }}
           </div>
           <div class="hidden md:block text-left leading-tight">
@@ -62,94 +63,89 @@
       </div>
     </header>
 
-    <main class="flex-grow p-6 space-y-6 max-w-7xl w-full mx-auto">
+    <main class="flex-grow p-6 space-y-6 max-w-7xl w-full mx-auto animate-fade-in">
       <!-- Alerts -->
       @if (errorMessage()) {
-        <div class="p-4 rounded-xl border border-rose-500/20 bg-rose-950/40 text-rose-200 text-xs flex items-center justify-between">
+        <div class="p-4 rounded-xl border border-rose-500/20 bg-rose-950/40 text-rose-300 text-xs font-medium flex items-center justify-between animate-shake">
           <span>{{ errorMessage() }}</span>
           <button (click)="errorMessage.set('')" class="text-rose-400 hover:text-white">&times;</button>
         </div>
       }
       @if (successMessage()) {
-        <div class="p-4 rounded-xl border border-emerald-500/20 bg-emerald-950/40 text-emerald-200 text-xs flex items-center justify-between">
+        <div class="p-4 rounded-xl border border-emerald-500/20 bg-emerald-950/40 text-emerald-300 text-xs font-medium flex items-center justify-between">
           <span>{{ successMessage() }}</span>
           <button (click)="successMessage.set('')" class="text-emerald-400 hover:text-white">&times;</button>
         </div>
       }
 
       <!-- Metric Cards -->
-      <section class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="bg-[#0f121a] border border-white/5 rounded-2xl p-5 shadow-lg">
+      <section class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        <div class="glass-card glass-card-hover p-6">
           <div class="flex items-center justify-between">
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Today's Treatments</p>
-            <span class="p-2 rounded-lg bg-emerald-600/10 text-emerald-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg></span>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Today's Treatments</p>
+            <span class="p-2.5 rounded-xl bg-emerald-600/10 text-emerald-400 border border-emerald-500/20"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg></span>
           </div>
-          <p class="text-3xl font-extrabold text-white mt-2">{{ todayTreatmentsCount() }}</p>
+          <p class="text-3xl font-black text-white mt-3">{{ todayTreatmentsCount() }}</p>
         </div>
 
-        <div class="bg-[#0f121a] border border-white/5 rounded-2xl p-5 shadow-lg">
+        <div class="glass-card glass-card-hover p-6">
           <div class="flex items-center justify-between">
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Active Patient Sessions</p>
-            <span class="p-2 rounded-lg bg-blue-600/10 text-blue-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></span>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Patient Sessions</p>
+            <span class="p-2.5 rounded-xl bg-blue-600/10 text-blue-400 border border-blue-500/20"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></span>
           </div>
-          <p class="text-3xl font-extrabold text-white mt-2">{{ activeSessionsCount() }}</p>
+          <p class="text-3xl font-black text-white mt-3">{{ activeSessionsCount() }}</p>
         </div>
 
-        <div class="bg-[#0f121a] border border-white/5 rounded-2xl p-5 shadow-lg">
+        <div class="glass-card glass-card-hover p-6">
           <div class="flex items-center justify-between">
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Dialysis Patients Today</p>
-            <span class="p-2 rounded-lg bg-purple-600/10 text-purple-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg></span>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Dialysis Patients Today</p>
+            <span class="p-2.5 rounded-xl bg-purple-600/10 text-purple-400 border border-purple-500/20"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg></span>
           </div>
-          <p class="text-3xl font-extrabold text-white mt-2">{{ totalAssignedPatientsCount() }}</p>
+          <p class="text-3xl font-black text-white mt-3">{{ totalAssignedPatientsCount() }}</p>
         </div>
       </section>
 
       <!-- Nurse Treatment Table -->
-      <div class="bg-[#0f121a] border border-white/5 rounded-2xl p-6 shadow-xl space-y-4">
+      <div class="glass-card p-6 shadow-xl space-y-4">
         <div class="flex items-center justify-between">
           <h2 class="text-sm font-bold uppercase tracking-wider text-white">Today's Treatment Schedule</h2>
           <button (click)="loadNurseData()" class="text-xs text-emerald-400 hover:text-emerald-300 font-semibold">Refresh</button>
         </div>
 
         @if (nurseAppointments().length === 0) {
-          <p class="text-xs text-gray-500 py-6 text-center">No treatments scheduled for today.</p>
+          <p class="text-xs text-slate-500 py-8 text-center font-medium">No treatments scheduled for today.</p>
         } @else {
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs">
-              <thead class="text-gray-400 uppercase tracking-wider border-b border-white/5 pb-2">
+              <thead class="text-slate-400 uppercase tracking-wider border-b border-white/5 pb-2 text-[10px] font-bold">
                 <tr>
-                  <th class="py-2.5 font-bold">Patient</th>
-                  <th class="py-2.5 font-bold">Staff / Doctor</th>
-                  <th class="py-2.5 font-bold">Room & Machine</th>
-                  <th class="py-2.5 font-bold">Time Window</th>
-                  <th class="py-2.5 font-bold">Status</th>
-                  <th class="py-2.5 font-bold text-right">Actions</th>
+                  <th class="py-3 px-3">Patient</th>
+                  <th class="py-3 px-3">Staff / Doctor</th>
+                  <th class="py-3 px-3">Room & Machine</th>
+                  <th class="py-3 px-3">Time Window</th>
+                  <th class="py-3 px-3">Status</th>
+                  <th class="py-3 px-3 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-white/5 text-gray-300">
+              <tbody class="divide-y divide-white/5 text-slate-300">
                 @for (appt of nurseAppointments(); track appt.id) {
-                  <tr>
-                    <td class="py-3 font-semibold text-white">{{ appt.patientName }}</td>
-                    <td class="py-3">{{ appt.staffName }}</td>
-                    <td class="py-3 font-mono">{{ appt.roomNumber }} | {{ appt.machineSerialNumber }}</td>
-                    <td class="py-3">{{ formatDate(appt.scheduledStart) }} - {{ formatDate(appt.scheduledEnd) }}</td>
-                    <td class="py-3">
-                      <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold"
-                        [class.bg-blue-950]="appt.status === 'SCHEDULED'"
-                        [class.text-blue-400]="appt.status === 'SCHEDULED'"
-                        [class.bg-amber-950]="appt.status === 'RESCHEDULED'"
-                        [class.text-amber-400]="appt.status === 'RESCHEDULED'"
-                        [class.bg-rose-950]="appt.status === 'CANCELLED'"
-                        [class.text-rose-400]="appt.status === 'CANCELLED'"
-                        [class.bg-emerald-950]="appt.status === 'COMPLETED'"
-                        [class.text-emerald-400]="appt.status === 'COMPLETED'"
-                        [class.bg-orange-950]="appt.status === 'PENDING_REASSIGNMENT'"
-                        [class.text-orange-400]="appt.status === 'PENDING_REASSIGNMENT'">
+                  <tr class="hover:bg-white/[0.02] transition-colors">
+                    <td class="py-3.5 px-3 font-semibold text-white">{{ appt.patientName }}</td>
+                    <td class="py-3.5 px-3 text-slate-300">{{ appt.staffName }}</td>
+                    <td class="py-3.5 px-3 font-mono text-slate-400">{{ appt.roomNumber }} | {{ appt.machineSerialNumber }}</td>
+                    <td class="py-3.5 px-3 text-slate-400">{{ formatDate(appt.scheduledStart) }} - {{ formatDate(appt.scheduledEnd) }}</td>
+                    <td class="py-3.5 px-3">
+                      <span class="badge"
+                        [class.badge-scheduled]="appt.status === 'SCHEDULED'"
+                        [class.badge-rescheduled]="appt.status === 'RESCHEDULED'"
+                        [class.badge-cancelled]="appt.status === 'CANCELLED'"
+                        [class.badge-completed]="appt.status === 'COMPLETED'"
+                        [class.badge-reassignment]="appt.status === 'PENDING_REASSIGNMENT'">
                         {{ appt.status }}
                       </span>
                     </td>
-                    <td class="py-3 text-right">
-                      <button (click)="openDelayModal(appt)" class="px-3 py-1 bg-amber-600/20 hover:bg-amber-600/30 text-amber-300 border border-amber-500/30 rounded-lg text-[11px] font-bold transition-all">
+                    <td class="py-3.5 px-3 text-right">
+                      <button (click)="openDelayModal(appt)" class="px-3.5 py-1.5 bg-amber-600/20 hover:bg-amber-600/30 text-amber-300 border border-amber-500/30 rounded-xl text-xs font-bold transition-all shadow-sm">
                         Send Delay Alert
                       </button>
                     </td>
@@ -166,16 +162,16 @@
 
 <!-- Modal: Send Delay Notice -->
 @if (showDelayModal && selectedAppointment) {
-  <div class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-[#0f121a] border border-white/10 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
-      <h3 class="text-sm font-bold text-white uppercase tracking-wider">Send Patient Delay Notice</h3>
-      <p class="text-xs text-gray-400">
+  <div class="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="glass-card max-w-md w-full p-6 space-y-4 shadow-2xl border border-white/10 animate-fade-in">
+      <h3 class="text-sm font-extrabold text-white uppercase tracking-wider font-poppins">Send Patient Delay Notice</h3>
+      <p class="text-xs text-slate-400 leading-relaxed">
         Sending a delay notice for patient <span class="font-bold text-white">{{ selectedAppointment.patientName }}</span> (Appointment #{{ selectedAppointment.id }}).
       </p>
 
       <div>
-        <label class="block text-xs font-semibold text-gray-300 mb-1">Expected Delay (Minutes) *</label>
-        <select [(ngModel)]="delayMinutes" class="w-full bg-[#141824] border border-white/10 rounded-xl px-3 py-2 text-xs text-white">
+        <label class="block text-xs font-bold text-slate-300 mb-1.5">Expected Delay (Minutes) *</label>
+        <select [(ngModel)]="delayMinutes" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white">
           <option [ngValue]="15">15 Minutes Delay</option>
           <option [ngValue]="30">30 Minutes Delay</option>
           <option [ngValue]="45">45 Minutes Delay</option>
@@ -184,13 +180,13 @@
       </div>
 
       <div>
-        <label class="block text-xs font-semibold text-gray-300 mb-1">Reason / Clinical Note</label>
-        <textarea [(ngModel)]="delayReason" rows="3" class="w-full bg-[#141824] border border-white/10 rounded-xl px-3 py-2 text-xs text-white"></textarea>
+        <label class="block text-xs font-bold text-slate-300 mb-1.5">Reason / Clinical Note</label>
+        <textarea [(ngModel)]="delayReason" rows="3" class="form-input"></textarea>
       </div>
 
-      <div class="flex justify-end gap-2 pt-2">
-        <button (click)="showDelayModal = false" class="px-3 py-1.5 rounded-lg border border-white/10 text-gray-400 text-xs font-semibold hover:bg-white/5">Cancel</button>
-        <button (click)="sendDelayNotification()" [disabled]="isSendingDelay()" class="px-4 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold shadow-md shadow-amber-600/20">
+      <div class="flex justify-end gap-2.5 pt-2">
+        <button (click)="showDelayModal = false" class="px-4 py-2 rounded-xl btn-secondary text-xs font-bold">Cancel</button>
+        <button (click)="sendDelayNotification()" [disabled]="isSendingDelay()" class="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition-all shadow-md shadow-amber-600/20">
           @if (isSendingDelay()) {
             <span>Sending Notification...</span>
           } @else {

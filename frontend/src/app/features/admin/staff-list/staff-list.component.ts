@@ -6,11 +6,12 @@ import { AuthService } from '../../../core/services/auth.service';
 import { StaffService } from '../../../core/services/staff.service';
 import { StaffMember, StaffType } from '../../../core/models/staff.model';
 import { NormalizedError } from '../../../core/interceptors/error.interceptor';
+import { NotificationBellComponent } from '../../../components/notification-bell/notification-bell.component';
 
 @Component({
   selector: 'app-staff-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, RouterLink, FormsModule, NotificationBellComponent],
   templateUrl: './staff-list.component.html',
   styleUrl: './staff-list.component.css',
 })

@@ -12,11 +12,12 @@ import {
   StaffType,
 } from '../../../core/models/staff.model';
 import { NormalizedError } from '../../../core/interceptors/error.interceptor';
+import { NotificationBellComponent } from '../../../components/notification-bell/notification-bell.component';
 
 @Component({
   selector: 'app-staff-form',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, RouterLink, FormsModule, NotificationBellComponent],
   templateUrl: './staff-form.component.html',
   styleUrl: './staff-form.component.css',
 })

@@ -1,5 +1,5 @@
-﻿import { Component, OnInit, computed, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
@@ -10,11 +10,12 @@ import { AppointmentResponse } from '../../../core/models/appointment.model';
 import { RescheduleRequestResponse } from '../../../core/models/reschedule-request.model';
 import { EmergencyReassignmentResponse } from '../../../core/models/emergency.model';
 import { NormalizedError } from '../../../core/interceptors/error.interceptor';
+import { NotificationBellComponent } from '../../../components/notification-bell/notification-bell.component';
 
 @Component({
   selector: 'app-doctor-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink, NotificationBellComponent],
   templateUrl: './doctor-dashboard.component.html',
   styleUrl: './doctor-dashboard.component.css',
 })

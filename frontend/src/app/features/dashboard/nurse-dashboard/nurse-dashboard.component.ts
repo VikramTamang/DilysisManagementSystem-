@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -8,11 +8,12 @@ import { NotificationService } from '../../../core/services/notification.service
 import { AppointmentResponse } from '../../../core/models/appointment.model';
 import { DelayNotificationRequest } from '../../../core/models/notification.model';
 import { NormalizedError } from '../../../core/interceptors/error.interceptor';
+import { NotificationBellComponent } from '../../../components/notification-bell/notification-bell.component';
 
 @Component({
   selector: 'app-nurse-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, RouterLink, FormsModule, NotificationBellComponent],
   templateUrl: './nurse-dashboard.component.html',
   styleUrl: './nurse-dashboard.component.css',
 })
