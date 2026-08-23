@@ -1,0 +1,55 @@
+<div class="relative">
+  <!-- Bell trigger -->
+  <button
+    (click)="toggleDropdown()"
+    class="relative p-2.5 rounded-xl border border-white/5 hover:border-accent bg-[#121620]/50 hover:bg-[#121620]/75 transition-colors cursor-pointer"
+  >
+    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+    </svg>
+    @if (hasUnread()) {
+      <span class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-rose-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-[#0a0a0c]">
+        {{ unreadCount() > 9 ? '9+' : unreadCount() }}
+      </span>
+    }
+  </button>
+
+  <!-- Dropdown panel -->
+  @if (isOpen()) {
+    <div class="absolute right-0 mt-3 w-96 max-h-[28rem] overflow-hidden flex flex-col rounded-2xl border border-white/10 bg-[#0c0d0f] shadow-2xl z-50">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-white/5">
+        <h3 class="text-sm font-extrabold text-white font-poppins">Notifications</h3>
+        @if (hasUnread()) {
+          <button (click)="markAllAsRead()" class="text-[11px] font-bold text-blue-400 hover:text-blue-300 transition-colors">
+            Mark all as read
+          </button>
+        }
+      </div>
+
+      <div class="overflow-y-auto flex-grow">
+        @if (isLoading()) {
+          <div class="p-6 text-center text-xs text-gray-500 font-medium">Loading...</div>
+        } @else if (notifications().length === 0) {
+          <div class="p-6 text-center text-xs text-gray-500 font-medium">No notifications yet.</div>
+        } @else {
+          @for (notification of notifications(); track notification.id) {
+            <button
+              (click)="markAsRead(notification, $event)"
+              class="w-full text-left px-5 py-3.5 border-b border-white/5 last:border-0 hover:bg-white/[0.02] transition-colors flex items-start gap-3"
+              [class.bg-blue-950]="!notification.read"
+              [class.bg-opacity-20]="!notification.read"
+            >
+              <div class="w-2 h-2 rounded-full mt-1.5 shrink-0" [class.bg-blue-400]="!notification.read" [class.bg-transparent]="notification.read"></div>
+              <div class="flex-grow min-w-0">
+                <p class="text-xs leading-relaxed" [class.text-white]="!notification.read" [class.font-semibold]="!notification.read" [class.text-gray-400]="notification.read">
+                  {{ notification.message }}
+                </p>
+                <p class="text-[10px] text-gray-500 mt-1 font-medium">{{ timeAgo(notification.createdAt) }}</p>
+              </div>
+            </button>
+          }
+        }
+      </div>
+    </div>
+  }
+</div>

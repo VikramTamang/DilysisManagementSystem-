@@ -1,0 +1,156 @@
+<div class="min-h-screen bg-bg-clinical text-text-clinical flex font-sans selection:bg-accent/20 selection:text-primary">
+  <!-- Sidebar -->
+  <aside
+    [class.w-64]="isSidebarExpanded"
+    [class.w-16]="!isSidebarExpanded"
+    class="bg-[#08080a] border-r border-white/5 flex flex-col justify-between shrink-0 transition-all duration-300 h-screen sticky top-0 z-30"
+  >
+    <div>
+      <div class="h-16 border-b border-white/5 flex items-center px-4 gap-3 overflow-hidden">
+        <div class="w-8 h-8 rounded-none bg-blue-600 flex items-center justify-center shrink-0">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        @if (isSidebarExpanded) {
+          <span class="text-xs font-black tracking-wider uppercase text-white truncate font-poppins">DiaCare Console</span>
+        }
+      </div>
+
+      <nav class="py-2 space-y-1">
+        <a [routerLink]="dashboardPath()" class="nav-link-console cursor-pointer">
+          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z" /></svg></span>
+          @if (isSidebarExpanded) { <span>Dashboard</span> }
+        </a>
+        <a routerLink="/appointments" class="nav-link-console active cursor-pointer">
+          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg></span>
+          @if (isSidebarExpanded) { <span>Appointments</span> }
+        </a>
+      </nav>
+    </div>
+
+    <div class="p-2 border-t border-white/5">
+      <button (click)="logout()" class="w-full flex items-center gap-3.5 px-3 py-2 text-xs font-bold text-emergency hover:bg-rose-950/20 transition-all rounded-none">
+        <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg></span>
+        @if (isSidebarExpanded) { <span class="truncate">Sign Out</span> }
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <div class="flex-grow flex flex-col min-h-screen">
+    <header class="h-16 bg-[#08080a] border-b border-white/5 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-3">
+        <button (click)="toggleSidebar()" class="p-1.5 rounded-none border border-white/5 hover:border-accent bg-[#121620]/50 text-gray-400 transition-colors cursor-pointer">
+          <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        </button>
+        <h1 class="text-sm font-black uppercase text-white tracking-widest font-poppins">Appointments</h1>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-3 border-l border-white/5 pl-4">
+          <div class="w-8 h-8 rounded-none bg-blue-600 flex items-center justify-center font-bold text-white text-xs">
+            {{ initials() }}
+          </div>
+          <div class="hidden md:block text-left leading-tight">
+            <div class="text-xs font-bold text-white">{{ currentUser()?.name }}</div>
+            <div class="text-[9px] text-accent font-bold uppercase tracking-wider">{{ currentUser()?.role }}</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow p-6 space-y-4 max-w-7xl w-full mx-auto">
+      <!-- Toolbar -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div class="flex items-center gap-2 flex-wrap">
+          <select
+            [(ngModel)]="statusFilter"
+            (ngModelChange)="onFilterChange()"
+            class="px-3 py-1.5 bg-[#0c0d0f] border border-white/5 text-xs text-white focus:outline-none focus:border-blue-500"
+          >
+            <option value="ALL">All Statuses</option>
+            <option value="SCHEDULED">Scheduled</option>
+            <option value="RESCHEDULED">Rescheduled</option>
+            <option value="CANCELLED">Cancelled</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="PENDING_REASSIGNMENT">Pending Reassignment</option>
+          </select>
+
+          <input
+            type="date"
+            [(ngModel)]="dateFilter"
+            (ngModelChange)="onFilterChange()"
+            class="px-3 py-1.5 bg-[#0c0d0f] border border-white/5 text-xs text-white focus:outline-none focus:border-blue-500 [color-scheme:dark]"
+          />
+        </div>
+
+        <a routerLink="/appointments/new" class="px-4 py-2 text-xs font-bold uppercase tracking-wider bg-blue-600 hover:bg-blue-700 text-white transition-colors text-center">
+          + New Appointment
+        </a>
+      </div>
+
+      @if (errorMessage()) {
+        <div class="p-3 border border-rose-950 bg-rose-950/20 text-rose-400 text-xs font-medium">
+          {{ errorMessage() }}
+        </div>
+      }
+
+      <!-- Table -->
+      <div class="console-card overflow-x-auto">
+        @if (isLoading()) {
+          <div class="p-8 text-center text-xs text-gray-500 font-semibold">Loading appointments...</div>
+        } @else if (appointments().length === 0) {
+          <div class="p-8 text-center text-xs text-gray-500 font-semibold">No appointments found.</div>
+        } @else {
+          <table class="w-full text-left">
+            <thead>
+            <tr class="border-b border-white/5">
+              <th class="p-3 text-[9px] font-black text-gray-500 uppercase tracking-widest">Patient</th>
+              <th class="p-3 text-[9px] font-black text-gray-500 uppercase tracking-widest">Staff</th>
+              <th class="p-3 text-[9px] font-black text-gray-500 uppercase tracking-widest">Room</th>
+              <th class="p-3 text-[9px] font-black text-gray-500 uppercase tracking-widest">Machine</th>
+              <th class="p-3 text-[9px] font-black text-gray-500 uppercase tracking-widest">Scheduled</th>
+              <th class="p-3 text-[9px] font-black text-gray-500 uppercase tracking-widest">Status</th>
+              <th class="p-3 text-[9px] font-black text-gray-500 uppercase tracking-widest text-right">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+              @for (appointment of appointments(); track appointment.id) {
+                <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+                  <td class="p-3 text-xs font-bold text-white">{{ appointment.patientName }}</td>
+                  <td class="p-3 text-xs text-gray-400">{{ appointment.staffName }}</td>
+                  <td class="p-3 text-xs text-gray-400">{{ appointment.roomNumber }}</td>
+                  <td class="p-3 text-xs text-gray-400">{{ appointment.machineSerialNumber }}</td>
+                  <td class="p-3 text-xs text-gray-400">{{ formatDate(appointment.scheduledStart) }}</td>
+                  <td class="p-3">
+                    <span [class]="'px-2 py-1 text-[10px] font-bold uppercase tracking-wider ' + statusBadgeClass(appointment.status)">
+                      {{ appointment.status }}
+                    </span>
+                  </td>
+                  <td class="p-3 text-right space-x-2 whitespace-nowrap">
+                    @if (appointment.status !== 'CANCELLED' && appointment.status !== 'COMPLETED') {
+                      <button
+                        (click)="editAppointment(appointment)"
+                        class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider border border-white/10 text-gray-300 hover:text-white hover:border-white/30 transition-colors"
+                      >
+                        Reschedule
+                      </button>
+                      <button
+                        (click)="cancelAppointment(appointment)"
+                        [disabled]="cancellingId() === appointment.id"
+                        class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider border border-white/10 text-rose-400 hover:border-rose-900 transition-colors disabled:opacity-40"
+                      >
+                        {{ cancellingId() === appointment.id ? '...' : 'Cancel' }}
+                      </button>
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        }
+      </div>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+export enum Role {
+  ADMIN = 'ADMIN',
+  DOCTOR = 'DOCTOR',
+  NURSE = 'NURSE',
+  PATIENT = 'PATIENT',
+}
+
+export enum AppointmentStatus {
+  SCHEDULED = 'SCHEDULED',
+  RESCHEDULED = 'RESCHEDULED',
+  CANCELLED = 'CANCELLED',
+  COMPLETED = 'COMPLETED',
+  PENDING_REASSIGNMENT = 'PENDING_REASSIGNMENT',
+}
+
+export enum RoomStatus {
+  AVAILABLE = 'AVAILABLE',
+  MAINTENANCE = 'MAINTENANCE',
+  CLEANING = 'CLEANING',
+}
+
+export enum MachineStatus {
+  AVAILABLE = 'AVAILABLE',
+  MAINTENANCE = 'MAINTENANCE',
+}

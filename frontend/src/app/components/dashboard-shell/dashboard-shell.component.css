@@ -1,0 +1,51 @@
+.sidebar {
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link.active {
+  background-color: #E8F5E9; /* light green/mint */
+  color: #2E7D32; /* dark green */
+  border-left: 3px solid #66BB6A; /* medium green */
+  font-weight: 600;
+}
+
+.nav-link {
+  border-left: 3px solid transparent;
+}
+
+.status-in-progress {
+  color: #2E7D32; /* dark green */
+  background-color: #E8F5E9; /* light green */
+  border: 1px solid rgba(102, 187, 106, 0.2);
+}
+
+.status-scheduled {
+  color: #1e3a8a; /* dark blue */
+  background-color: #dbeafe; /* light blue */
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.metric-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.metric-card:hover {
+  border-color: rgba(102, 187, 106, 0.4);
+  box-shadow: 0 4px 20px -5px rgba(102, 187, 106, 0.15);
+  transform: translateY(-2px);
+}

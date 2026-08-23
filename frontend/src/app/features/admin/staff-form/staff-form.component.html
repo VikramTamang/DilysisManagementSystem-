@@ -1,0 +1,207 @@
+<div class="min-h-screen bg-bg-clinical text-text-clinical flex font-sans selection:bg-accent/20 selection:text-primary">
+  <!-- Sidebar -->
+  <aside
+    [class.w-64]="isSidebarExpanded"
+    [class.w-16]="!isSidebarExpanded"
+    class="bg-[#08080a] border-r border-white/5 flex flex-col justify-between shrink-0 transition-all duration-300 h-screen sticky top-0 z-30"
+  >
+    <div>
+      <div class="h-16 border-b border-white/5 flex items-center px-4 gap-3 overflow-hidden">
+        <div class="w-8 h-8 rounded-none bg-blue-600 flex items-center justify-center shrink-0">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        @if (isSidebarExpanded) {
+          <span class="text-xs font-black tracking-wider uppercase text-white truncate font-poppins">DiaCare Console</span>
+        }
+      </div>
+
+      <nav class="py-2 space-y-1">
+        <a routerLink="/dashboard/admin" class="nav-link-console cursor-pointer">
+          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z" /></svg></span>
+          @if (isSidebarExpanded) { <span>Dashboard</span> }
+        </a>
+        <a class="nav-link-console cursor-pointer">
+          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg></span>
+          @if (isSidebarExpanded) { <span>Appointments</span> }
+        </a>
+        <a class="nav-link-console cursor-pointer">
+          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 01-6-6V7zm-9 0V7a4 4 0 11-8 0v4h8z" /></svg></span>
+          @if (isSidebarExpanded) { <span>Patients</span> }
+        </a>
+        <a routerLink="/dashboard/admin/staff" class="nav-link-console active cursor-pointer">
+          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1z" /></svg></span>
+          @if (isSidebarExpanded) { <span>Doctors & Nurses</span> }
+        </a>
+        <a class="nav-link-console cursor-pointer">
+          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg></span>
+          @if (isSidebarExpanded) { <span>Rooms & Machines</span> }
+        </a>
+        <a class="nav-link-console cursor-pointer">
+          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a4 4 0 014-4h4m0 0l-4-4m4 4l-4 4M5 7h5m-5 4h3m-3 4h3" /></svg></span>
+          @if (isSidebarExpanded) { <span>Reports & Audit</span> }
+        </a>
+      </nav>
+    </div>
+
+    <div class="p-2 border-t border-white/5">
+      <button (click)="logout()" class="w-full flex items-center gap-3.5 px-3 py-2 text-xs font-bold text-emergency hover:bg-rose-950/20 transition-all rounded-none">
+        <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg></span>
+        @if (isSidebarExpanded) { <span class="truncate">Sign Out</span> }
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <div class="flex-grow flex flex-col min-h-screen">
+    <header class="h-16 bg-[#08080a] border-b border-white/5 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-3">
+        <button (click)="toggleSidebar()" class="p-1.5 rounded-none border border-white/5 hover:border-accent bg-[#121620]/50 text-gray-400 transition-colors cursor-pointer">
+          <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        </button>
+        <h1 class="text-sm font-black uppercase text-white tracking-widest font-poppins">
+          {{ isEditMode ? 'Edit Staff Member' : 'Add Staff Member' }}
+        </h1>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-3 border-l border-white/5 pl-4">
+          <div class="w-8 h-8 rounded-none bg-blue-600 flex items-center justify-center font-bold text-white text-xs">
+            {{ initials() }}
+          </div>
+          <div class="hidden md:block text-left leading-tight">
+            <div class="text-xs font-bold text-white">{{ currentUser()?.name }}</div>
+            <div class="text-[9px] text-accent font-bold uppercase tracking-wider">{{ currentUser()?.role }}</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow p-6 max-w-3xl w-full mx-auto">
+      <a routerLink="/dashboard/admin/staff" class="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-white font-semibold mb-4 transition-colors">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+        Back to Staff List
+      </a>
+
+      @if (isLoading()) {
+        <div class="console-card p-8 text-center text-xs text-gray-500 font-semibold">Loading...</div>
+      } @else {
+        <div class="console-card p-6">
+          <div class="mb-6">
+            <label class="block text-[9px] font-black text-gray-500 uppercase tracking-widest mb-2">Staff Type</label>
+            <div class="grid grid-cols-2 gap-1 bg-black/40 p-1 border border-white/5 max-w-xs">
+              <button
+                type="button"
+                (click)="selectType('DOCTOR')"
+                [disabled]="isEditMode"
+                [class.bg-blue-600]="staffType === 'DOCTOR'"
+                [class.text-white]="staffType === 'DOCTOR'"
+                class="py-2 text-xs font-bold uppercase tracking-wider transition-colors text-gray-400 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                Doctor
+              </button>
+              <button
+                type="button"
+                (click)="selectType('NURSE')"
+                [disabled]="isEditMode"
+                [class.bg-blue-600]="staffType === 'NURSE'"
+                [class.text-white]="staffType === 'NURSE'"
+                class="py-2 text-xs font-bold uppercase tracking-wider transition-colors text-gray-400 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                Nurse
+              </button>
+            </div>
+            @if (isEditMode) {
+              <p class="text-[10px] text-gray-500 mt-1.5">Staff type can't be changed after creation.</p>
+            }
+          </div>
+
+          @if (errorMessage()) {
+            <div class="mb-4 p-3 border border-rose-950 bg-rose-950/20 text-rose-400 text-xs font-medium">
+              {{ errorMessage() }}
+            </div>
+          }
+
+          <form (submit)="onSubmit(); $event.preventDefault()" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-1.5">
+                <label class="block text-[9px] font-black text-gray-500 uppercase tracking-widest">Full Name</label>
+                <input type="text" name="name" [(ngModel)]="name" required class="form-input" />
+              </div>
+              <div class="space-y-1.5">
+                <label class="block text-[9px] font-black text-gray-500 uppercase tracking-widest">Email</label>
+                <input type="email" name="email" [(ngModel)]="email" required [disabled]="isEditMode" class="form-input disabled:opacity-50" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-1.5">
+                <label class="block text-[9px] font-black text-gray-500 uppercase tracking-widest">
+                  Password {{ isEditMode ? '(leave blank to keep current)' : '' }}
+                </label>
+                <input type="password" name="password" [(ngModel)]="password" [required]="!isEditMode" class="form-input" />
+              </div>
+              <div class="space-y-1.5">
+                <label class="block text-[9px] font-black text-gray-500 uppercase tracking-widest">Phone</label>
+                <input type="tel" name="phone" [(ngModel)]="phone" class="form-input" />
+              </div>
+            </div>
+
+            <div class="space-y-1.5">
+              <label class="block text-[9px] font-black text-gray-500 uppercase tracking-widest">Experience (Years)</label>
+              <input type="number" name="experienceYears" [(ngModel)]="experienceYears" min="0" class="form-input max-w-[160px]" />
+            </div>
+
+            @if (staffType === 'DOCTOR') {
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-white/5">
+                <div class="space-y-1.5">
+                  <label class="block text-[9px] font-black text-gray-500 uppercase tracking-widest">License Number</label>
+                  <input type="text" name="licenseNumber" [(ngModel)]="licenseNumber" class="form-input" />
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-[9px] font-black text-gray-500 uppercase tracking-widest">Specialization</label>
+                  <input type="text" name="specialization" [(ngModel)]="specialization" class="form-input" />
+                </div>
+              </div>
+              <div class="space-y-1.5">
+                <label class="block text-[9px] font-black text-gray-500 uppercase tracking-widest">Consultation Fee</label>
+                <input type="number" name="consultationFee" [(ngModel)]="consultationFee" min="0" step="0.01" class="form-input max-w-[200px]" />
+              </div>
+            }
+
+            @if (staffType === 'NURSE') {
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-white/5">
+                <div class="space-y-1.5">
+                  <label class="block text-[9px] font-black text-gray-500 uppercase tracking-widest">Qualification</label>
+                  <input type="text" name="qualification" [(ngModel)]="qualification" class="form-input" />
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-[9px] font-black text-gray-500 uppercase tracking-widest">Shift</label>
+                  <input type="text" name="shift" [(ngModel)]="shift" placeholder="e.g. Morning, Night" class="form-input" />
+                </div>
+              </div>
+              <div class="space-y-1.5">
+                <label class="block text-[9px] font-black text-gray-500 uppercase tracking-widest">Assigned Department</label>
+                <input type="text" name="assignedDepartment" [(ngModel)]="assignedDepartment" class="form-input max-w-[280px]" />
+              </div>
+            }
+
+            <div class="flex gap-3 pt-4">
+              <button
+                type="submit"
+                [disabled]="isSubmitting()"
+                class="px-6 py-2.5 text-xs font-bold uppercase tracking-wider bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white transition-colors"
+              >
+                {{ isSubmitting() ? 'Saving...' : (isEditMode ? 'Save Changes' : 'Create Staff Account') }}
+              </button>
+              <a routerLink="/dashboard/admin/staff" class="px-6 py-2.5 text-xs font-bold uppercase tracking-wider border border-white/10 text-gray-300 hover:text-white transition-colors">
+                Cancel
+              </a>
+            </div>
+          </form>
+        </div>
+      }
+    </main>
+  </div>
+</div>

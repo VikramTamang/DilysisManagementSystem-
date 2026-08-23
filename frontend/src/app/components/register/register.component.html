@@ -1,0 +1,202 @@
+<div class="min-h-screen bg-bg-clinical text-text-clinical flex flex-col items-center justify-center font-sans px-4 py-6 relative overflow-hidden selection:bg-accent/30 selection:text-primary">
+  <!-- Decorative Glowing Orbs -->
+  <div class="absolute top-[10%] left-[20%] w-[450px] h-[450px] bg-blue-500/10 rounded-full blur-[100px] -z-10 animate-blob"></div>
+  <div class="absolute bottom-[10%] right-[20%] w-[450px] h-[450px] bg-indigo-500/10 rounded-full blur-[100px] -z-10 animate-blob animate-delay-2000"></div>
+
+  <!-- Header Logo -->
+  <div class="mb-5 flex flex-col items-center">
+    <a routerLink="/" class="flex items-center gap-2.5 group">
+      <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:scale-105 transition-transform duration-300">
+        <span class="font-poppins font-black text-white text-base">D</span>
+      </div>
+      <span class="text-xl font-black tracking-tight text-white font-poppins">
+        DiaCare
+      </span>
+    </a>
+  </div>
+
+  <!-- Glassmorphic Register Card -->
+  <div class="w-full max-w-md glass-register-card rounded-2xl p-6 backdrop-blur-3xl relative border border-white/10 shadow-2xl">
+
+    @if (isSuccess()) {
+      <!-- Success State -->
+      <div class="text-center py-4 space-y-4">
+        <div class="w-14 h-14 mx-auto rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center">
+          <svg class="w-7 h-7 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <div>
+          <h2 class="text-lg font-extrabold text-white font-poppins">Account created</h2>
+          <p class="text-xs text-gray-400 mt-1">You can now sign in with your email and password.</p>
+        </div>
+        <button
+          type="button"
+          (click)="goToLogin()"
+          class="w-full py-3 rounded-xl font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-xl shadow-blue-500/10 hover:shadow-blue-500/20 transform hover:-translate-y-0.5 transition-all duration-300"
+        >
+          Go to Login
+        </button>
+      </div>
+    } @else {
+      <!-- Form State -->
+      <div class="text-center space-y-1 mb-5">
+        <h2 class="text-xl font-extrabold text-white tracking-tight font-poppins">Create your account</h2>
+        <p class="text-[11px] text-gray-400 font-medium">Patient registration — for staff accounts, contact your administrator</p>
+      </div>
+
+      <!-- Error message banner -->
+      @if (errorMessage) {
+        <div class="mb-4 p-3 rounded-lg border border-rose-950 bg-rose-950/20 backdrop-blur-md text-rose-400 text-xs flex items-center gap-2 animate-shake">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <span class="font-medium">{{ errorMessage }}</span>
+        </div>
+      }
+
+      <form (submit)="onSubmit(); $event.preventDefault()" class="space-y-4">
+        <!-- Name -->
+        <div class="space-y-1.5">
+          <label for="name" class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            [(ngModel)]="name"
+            placeholder="Your full name"
+            required
+            class="w-full px-4 py-3 bg-white/5 hover:bg-white/8 border border-white/10 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 shadow-sm"
+          />
+        </div>
+
+        <!-- Email -->
+        <div class="space-y-1.5">
+          <label for="email" class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            [(ngModel)]="email"
+            placeholder="name@example.com"
+            required
+            class="w-full px-4 py-3 bg-white/5 hover:bg-white/8 border border-white/10 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 shadow-sm"
+          />
+        </div>
+
+        <!-- Password + Confirm -->
+        <div class="grid grid-cols-2 gap-3">
+          <div class="space-y-1.5">
+            <label for="password" class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider">Password</label>
+            <div class="relative">
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                id="password"
+                name="password"
+                [(ngModel)]="password"
+                placeholder="••••••••"
+                required
+                class="w-full pl-4 pr-9 py-3 bg-white/5 hover:bg-white/8 border border-white/10 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 shadow-sm"
+              />
+              <button
+                type="button"
+                (click)="togglePasswordVisibility()"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-200 transition-colors"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="space-y-1.5">
+            <label for="confirmPassword" class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider">Confirm Password</label>
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              id="confirmPassword"
+              name="confirmPassword"
+              [(ngModel)]="confirmPassword"
+              placeholder="••••••••"
+              required
+              class="w-full px-4 py-3 bg-white/5 hover:bg-white/8 border border-white/10 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 shadow-sm"
+            />
+          </div>
+        </div>
+
+        <!-- Phone + Blood Group -->
+        <div class="grid grid-cols-2 gap-3">
+          <div class="space-y-1.5">
+            <label for="phone" class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider">Phone</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              [(ngModel)]="phone"
+              placeholder="98XXXXXXXX"
+              class="w-full px-4 py-3 bg-white/5 hover:bg-white/8 border border-white/10 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 shadow-sm"
+            />
+          </div>
+          <div class="space-y-1.5">
+            <label for="bloodGroup" class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider">Blood Group</label>
+            <input
+              type="text"
+              id="bloodGroup"
+              name="bloodGroup"
+              [(ngModel)]="bloodGroup"
+              placeholder="O+"
+              class="w-full px-4 py-3 bg-white/5 hover:bg-white/8 border border-white/10 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 shadow-sm"
+            />
+          </div>
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="space-y-1.5">
+          <label for="dateOfBirth" class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider">Date of Birth</label>
+          <input
+            type="date"
+            id="dateOfBirth"
+            name="dateOfBirth"
+            [(ngModel)]="dateOfBirth"
+            class="w-full px-4 py-3 bg-white/5 hover:bg-white/8 border border-white/10 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 shadow-sm [color-scheme:dark]"
+          />
+        </div>
+
+        <!-- Address -->
+        <div class="space-y-1.5">
+          <label for="address" class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider">Address</label>
+          <input
+            type="text"
+            id="address"
+            name="address"
+            [(ngModel)]="address"
+            placeholder="Street, City"
+            class="w-full px-4 py-3 bg-white/5 hover:bg-white/8 border border-white/10 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 shadow-sm"
+          />
+        </div>
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          [disabled]="isSubmitting()"
+          class="w-full py-3 rounded-xl font-bold bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white shadow-xl shadow-blue-500/10 hover:shadow-blue-500/20 transform hover:-translate-y-0.5 transition-all duration-300"
+        >
+          {{ isSubmitting() ? 'Creating account...' : 'Create Account' }}
+        </button>
+      </form>
+
+      <p class="text-center text-[11px] text-gray-400 mt-4">
+        Already have an account?
+        <a routerLink="/login" class="text-blue-400 hover:text-blue-300 font-bold transition-colors">Sign in</a>
+      </p>
+    }
+  </div>
+
+  <!-- Back to Home link -->
+  <a routerLink="/" class="mt-5 text-xs text-gray-500 hover:text-blue-400 font-semibold flex items-center gap-1.5 group transition-colors">
+    <svg class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+    Back to Home
+  </a>
+</div>

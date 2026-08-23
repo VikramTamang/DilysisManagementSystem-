@@ -1,0 +1,39 @@
+<nav
+  class="flex items-center justify-between bg-[#66BB6A] px-6 py-4 shadow-md"
+>
+  <h1 class="text-xl font-bold text-black">
+    {{ hospitalName }}
+  </h1>
+
+  <div class="flex items-center gap-4">
+
+    @if (isLoggedIn) {
+      <span class="font-medium text-black">
+        Welcome, {{ userName }}
+      </span>
+
+      <button
+        type="button"
+        class="rounded-lg bg-white px-4 py-2 font-semibold text-black shadow-sm transition hover:bg-[#A5D6A7] disabled:cursor-not-allowed disabled:opacity-50"
+        [disabled]="isProcessing"
+        (click)="logout()"
+      >
+        {{ isProcessing ? 'Logging out...' : 'Logout' }}
+      </button>
+    } @else {
+      <span class="font-medium text-black">
+        Please log in
+      </span>
+
+      <button
+        type="button"
+        class="rounded-lg bg-black px-4 py-2 font-semibold text-white shadow-sm transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
+        [disabled]="isProcessing"
+        (click)="login()"
+      >
+        {{ isProcessing ? 'Logging in...' : 'Login' }}
+      </button>
+    }
+
+  </div>
+</nav>

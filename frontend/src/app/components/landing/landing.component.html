@@ -1,0 +1,309 @@
+<div class="landing-container landing-dark-theme min-h-screen relative overflow-hidden font-inter">
+  <!-- Glowing Orbs in background -->
+  <div class="absolute top-[5%] left-[20%] w-[600px] h-[600px] glowing-orb -z-10"></div>
+  <div class="absolute top-[40%] right-[10%] w-[500px] h-[500px] glowing-orb -z-10"></div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-[#050505]/80 backdrop-blur-md border-b border-white/5 py-4 px-6 md:px-12 flex items-center justify-between">
+    <!-- Logo -->
+    <a routerLink="/" class="flex items-center gap-3.5 group">
+      <div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center font-poppins font-black text-white text-lg tracking-wider shadow-lg shadow-blue-500/20">
+        D
+      </div>
+      <span class="text-xl font-bold tracking-tight text-white font-poppins group-hover:text-blue-400 transition-colors">
+        DiaCare
+      </span>
+    </a>
+
+    <!-- Menu Links -->
+    <nav class="hidden md:flex items-center gap-10 text-sm font-semibold text-gray-400">
+      <a href="#features" class="hover:text-white transition-colors">Features</a>
+      <a href="#benefits" class="hover:text-white transition-colors">Benefits</a>
+    </nav>
+
+    <!-- CTA -->
+    <div class="flex items-center gap-3">
+      <a routerLink="/login" class="px-5 py-2.5 text-sm font-bold rounded-xl text-gray-300 hover:text-white transition-colors">
+        Login
+      </a>
+      <a routerLink="/register" class="px-5 py-2.5 text-sm font-bold rounded-xl btn-primary">
+        Get Started
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="max-w-6xl mx-auto px-6 pt-20 pb-24 flex flex-col items-center text-center">
+    <!-- Trust Badge -->
+    <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full trust-badge text-xs font-bold text-blue-300 mb-8 animate-fade-in">
+      <span class="w-2 h-2 rounded-full bg-blue-500 shadow-sm animate-pulse"></span>
+      Trusted by leading dialysis centers
+    </div>
+
+    <!-- Headline -->
+    <h1 class="text-5xl md:text-7xl font-poppins font-extrabold tracking-tight text-white leading-tight mb-8 max-w-4xl">
+      Advanced Dialysis Management <span class="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">Made Simple</span>
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="text-base md:text-lg text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
+      Streamline clinic operations, optimize scheduling, and deliver exceptional patient care with our intelligent dialysis management platform.
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4.5 mb-20 w-full sm:w-auto">
+      <a routerLink="/register" class="w-full sm:w-auto px-8 py-4 text-base font-bold rounded-2xl btn-primary flex items-center justify-center gap-2">
+        Create Patient Account
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+      </a>
+      <a routerLink="/login" class="w-full sm:w-auto px-8 py-4 text-base font-bold rounded-2xl btn-secondary">
+        Staff & Admin Login
+      </a>
+    </div>
+
+    <!-- Metrics -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-12 max-w-4xl w-full border-t border-white/5 pt-16">
+      <div>
+        <div class="text-4xl md:text-5xl font-poppins font-extrabold text-blue-400 mb-2">500+</div>
+        <div class="text-xs font-bold text-gray-500 uppercase tracking-widest">Active Clinics</div>
+      </div>
+      <div>
+        <div class="text-4xl md:text-5xl font-poppins font-extrabold text-blue-400 mb-2">50K+</div>
+        <div class="text-xs font-bold text-gray-500 uppercase tracking-widest">Patients Managed</div>
+      </div>
+      <div>
+        <div class="text-4xl md:text-5xl font-poppins font-extrabold text-blue-400 mb-2">99.9%</div>
+        <div class="text-xs font-bold text-gray-500 uppercase tracking-widest">Uptime SLA</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="max-w-6xl mx-auto px-6 py-24 border-t border-white/5">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-poppins font-extrabold text-white tracking-tight mb-4">
+        Powerful Features Built for Results
+      </h2>
+      <p class="text-sm md:text-base text-gray-400 max-w-lg mx-auto font-normal">
+        Everything you need to run a modern, efficient dialysis clinic.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- 1. Intelligent Scheduling -->
+      <div class="feature-card rounded-3xl p-8 flex flex-col items-start text-left">
+        <div class="w-12 h-12 rounded-2xl icon-box flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-3">Intelligent Scheduling</h3>
+        <p class="text-sm text-gray-400 leading-relaxed">
+          AI-powered appointment scheduling that optimizes room usage and minimizes patient wait times.
+        </p>
+      </div>
+
+      <!-- 2. Patient Management -->
+      <div class="feature-card rounded-3xl p-8 flex flex-col items-start text-left">
+        <div class="w-12 h-12 rounded-2xl icon-box flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-3">Patient Management</h3>
+        <p class="text-sm text-gray-400 leading-relaxed">
+          Comprehensive patient profiles with medical history, treatment plans, and real-time monitoring.
+        </p>
+      </div>
+
+      <!-- 3. Emergency Reassignment -->
+      <div class="feature-card rounded-3xl p-8 flex flex-col items-start text-left">
+        <div class="w-12 h-12 rounded-2xl icon-box flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-3">Emergency Reassignment</h3>
+        <p class="text-sm text-gray-400 leading-relaxed">
+          Instant automated reassignment when emergencies occur, ensuring seamless patient care continuity.
+        </p>
+      </div>
+
+      <!-- 4. Analytics Dashboard -->
+      <div class="feature-card rounded-3xl p-8 flex flex-col items-start text-left">
+        <div class="w-12 h-12 rounded-2xl icon-box flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-3">Analytics Dashboard</h3>
+        <p class="text-sm text-gray-400 leading-relaxed">
+          Real-time insights into clinic performance, resource utilization, and patient outcomes.
+        </p>
+      </div>
+
+      <!-- 5. Secure & Compliant -->
+      <div class="feature-card rounded-3xl p-8 flex flex-col items-start text-left">
+        <div class="w-12 h-12 rounded-2xl icon-box flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-3">Secure & Compliant</h3>
+        <p class="text-sm text-gray-400 leading-relaxed">
+          HIPAA-compliant infrastructure with end-to-end encryption and comprehensive audit trails.
+        </p>
+      </div>
+
+      <!-- 6. Staff Coordination -->
+      <div class="feature-card rounded-3xl p-8 flex flex-col items-start text-left">
+        <div class="w-12 h-12 rounded-2xl icon-box flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-3">Staff Coordination</h3>
+        <p class="text-sm text-gray-400 leading-relaxed">
+          Seamless team coordination tools that keep staff informed and reduce operational friction.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section id="benefits" class="max-w-6xl mx-auto px-6 py-24 border-t border-white/5">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <!-- Left Column: text + stats -->
+      <div class="text-left space-y-8">
+        <h2 class="text-3xl md:text-5xl font-poppins font-extrabold text-white tracking-tight leading-tight">
+          Why Clinics Choose DiaCare
+        </h2>
+        <p class="text-sm md:text-base text-gray-400 leading-relaxed font-normal">
+          Our comprehensive platform transforms how dialysis clinics operate, delivering measurable improvements across all aspects of your business.
+        </p>
+
+        <!-- Stats List -->
+        <div class="space-y-6 pt-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-10 rounded-xl bg-blue-900/40 text-blue-300 flex items-center justify-center text-sm font-extrabold font-poppins shrink-0">
+              40%
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white mb-1">Faster Scheduling</h4>
+              <p class="text-xs text-gray-400 leading-relaxed">Reduce appointment setup time with AI-powered scheduling algorithms</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-10 rounded-xl bg-blue-900/40 text-blue-300 flex items-center justify-center text-sm font-extrabold font-poppins shrink-0">
+              35%
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white mb-1">Reduced Downtime</h4>
+              <p class="text-xs text-gray-400 leading-relaxed">Emergency reassignment eliminates treatment delays and improves patient satisfaction</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-10 rounded-xl bg-blue-900/40 text-blue-300 flex items-center justify-center text-sm font-extrabold font-poppins shrink-0">
+              50%
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white mb-1">Less Paperwork</h4>
+              <p class="text-xs text-gray-400 leading-relaxed">Digital workflows eliminate manual documentation and streamline operations</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: segment/target cards -->
+      <div class="space-y-4">
+        <!-- Clinic Managers -->
+        <div class="benefit-card rounded-2xl p-6 text-left">
+          <h4 class="text-sm font-extrabold text-blue-400 mb-2 tracking-wide font-poppins">For Clinic Managers</h4>
+          <p class="text-xs text-gray-300 leading-relaxed font-normal">
+            Full operational visibility with real-time dashboards and automated reporting.
+          </p>
+        </div>
+        <!-- Staff -->
+        <div class="benefit-card rounded-2xl p-6 text-left">
+          <h4 class="text-sm font-extrabold text-blue-400 mb-2 tracking-wide font-poppins">For Staff</h4>
+          <p class="text-xs text-gray-300 leading-relaxed font-normal">
+            Intuitive tools that reduce manual work and improve coordination across shifts.
+          </p>
+        </div>
+        <!-- Patients -->
+        <div class="benefit-card rounded-2xl p-6 text-left">
+          <h4 class="text-sm font-extrabold text-blue-400 mb-2 tracking-wide font-poppins">For Patients</h4>
+          <p class="text-xs text-gray-300 leading-relaxed font-normal">
+            Reliable scheduling, minimal wait times, and consistent quality of care.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section id="contact" class="max-w-6xl mx-auto px-6 py-24 border-t border-white/5 text-center">
+    <h2 class="text-3xl md:text-5xl font-poppins font-extrabold text-white tracking-tight leading-tight mb-6">
+      Ready to Get Started?
+    </h2>
+    <p class="text-sm md:text-base text-gray-400 max-w-xl mx-auto mb-10 leading-relaxed">
+      Patients can create an account in minutes. Staff and admin accounts are set up by your clinic administrator.
+    </p>
+
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4.5 mb-8 w-full sm:w-auto">
+      <a routerLink="/register" class="w-full sm:w-auto px-8 py-4 text-sm font-bold rounded-xl btn-primary">
+        Create Patient Account
+      </a>
+      <a routerLink="/login" class="w-full sm:w-auto px-8 py-4 text-sm font-bold rounded-xl btn-secondary">
+        Login
+      </a>
+    </div>
+
+    <!-- Feature Checkmarks List -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-6 text-xs text-gray-400 font-medium">
+      <span class="flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+        </svg>
+        Secure & HIPAA compliant
+      </span>
+      <span class="flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+        </svg>
+        Fast, simple registration
+      </span>
+      <span class="flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+        </svg>
+        24/7 appointment access
+      </span>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/5 py-12 px-6 md:px-12 bg-[#030303]">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center font-poppins font-black text-white text-xs">
+          D
+        </div>
+        <span class="text-sm font-bold text-white font-poppins">
+          DiaCare
+        </span>
+      </div>
+
+      <p class="text-xs text-gray-500 font-medium md:order-first">
+        © 2026 DiaCare. All rights reserved.
+      </p>
+
+      <div class="flex items-center gap-8 text-xs text-gray-500 font-medium">
+        <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+</div>

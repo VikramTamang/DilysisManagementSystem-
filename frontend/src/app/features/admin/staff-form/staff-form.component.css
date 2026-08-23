@@ -1,0 +1,46 @@
+.console-card {
+  background-color: #0c0d0f;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-link-console {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #94a3b8;
+  border-left: 4px solid transparent;
+  transition: all 0.15s ease-in-out;
+}
+
+.nav-link-console.active {
+  background-color: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  border-left-color: #3b82f6;
+}
+
+.nav-link-console:hover:not(.active) {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+  font-size: 0.8rem;
+  color: white;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.form-input::placeholder {
+  color: #6b7280;
+}

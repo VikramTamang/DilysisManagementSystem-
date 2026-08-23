@@ -1,0 +1,107 @@
+<div class="min-h-screen bg-bg-clinical text-text-clinical flex font-sans selection:bg-accent/20 selection:text-primary">
+  <!-- Sidebar -->
+  <aside
+    [class.w-64]="isSidebarExpanded"
+    [class.w-16]="!isSidebarExpanded"
+    class="bg-[#08080a] border-r border-white/5 flex flex-col justify-between shrink-0 transition-all duration-300 h-screen sticky top-0 z-30"
+  >
+    <div>
+      <div class="h-16 border-b border-white/5 flex items-center px-4 gap-3 overflow-hidden">
+        <div class="w-8 h-8 rounded-none bg-blue-600 flex items-center justify-center shrink-0">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        @if (isSidebarExpanded) {
+          <span class="text-xs font-black tracking-wider uppercase text-white truncate font-poppins">DiaCare Console</span>
+        }
+      </div>
+
+      <nav class="py-2 space-y-1">
+        <a routerLink="/dashboard/admin" class="nav-link-console active cursor-pointer">
+          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z" /></svg></span>
+          @if (isSidebarExpanded) { <span>Dashboard</span> }
+        </a>
+        <a routerLink="/appointments" class="nav-link-console cursor-pointer">
+          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg></span>
+          @if (isSidebarExpanded) { <span>Appointments</span> }
+        </a>
+        <a class="nav-link-console cursor-pointer">
+          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 01-6-6V7zm-9 0V7a4 4 0 11-8 0v4h8z" /></svg></span>
+          @if (isSidebarExpanded) { <span>Patients</span> }
+        </a>
+        <a routerLink="/dashboard/admin/staff" class="nav-link-console cursor-pointer">
+          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1z" /></svg></span>
+          @if (isSidebarExpanded) { <span>Doctors & Nurses</span> }
+        </a>
+        <a class="nav-link-console cursor-pointer">
+          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg></span>
+          @if (isSidebarExpanded) { <span>Rooms & Machines</span> }
+        </a>
+        <a class="nav-link-console cursor-pointer">
+          <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a4 4 0 014-4h4m0 0l-4-4m4 4l-4 4M5 7h5m-5 4h3m-3 4h3" /></svg></span>
+          @if (isSidebarExpanded) { <span>Reports & Audit</span> }
+        </a>
+      </nav>
+    </div>
+
+    <div class="p-2 border-t border-white/5">
+      <button (click)="logout()" class="w-full flex items-center gap-3.5 px-3 py-2 text-xs font-bold text-emergency hover:bg-rose-950/20 transition-all rounded-none">
+        <span class="shrink-0"><svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg></span>
+        @if (isSidebarExpanded) { <span class="truncate">Sign Out</span> }
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <div class="flex-grow flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="h-16 bg-[#08080a] border-b border-white/5 flex items-center justify-between px-6 z-20">
+      <div class="flex items-center gap-3">
+        <button (click)="toggleSidebar()" class="p-1.5 rounded-none border border-white/5 hover:border-accent bg-[#121620]/50 text-gray-400 transition-colors cursor-pointer">
+          <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        </button>
+        <h1 class="text-sm font-black uppercase text-white tracking-widest font-poppins">Admin Overview</h1>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-3 border-l border-white/5 pl-4">
+          <div class="w-8 h-8 rounded-none bg-blue-600 flex items-center justify-center font-bold text-white text-xs">
+            {{ initials() }}
+          </div>
+          <div class="hidden md:block text-left leading-tight">
+            <div class="text-xs font-bold text-white">{{ currentUser()?.name }}</div>
+            <div class="text-[9px] text-accent font-bold uppercase tracking-wider">{{ currentUser()?.role }}</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow p-6 space-y-6 max-w-7xl w-full mx-auto">
+      <!-- Welcome Info Panel -->
+      <div class="p-4 border-l-4 border-blue-600 bg-[#0c0d0f] border border-white/5 text-gray-300 text-xs flex items-start gap-3 shadow-none">
+        <div class="w-5 h-5 bg-[#121620]/50 border border-white/5 flex items-center justify-center shrink-0">
+          <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        </div>
+        <div class="leading-relaxed font-semibold">
+          Authorized Session: <span class="text-blue-400 font-black">{{ currentUser()?.name }}</span> is active with system administrator credentials. All actions are logged.
+        </div>
+      </div>
+
+      <!-- Metrics -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        @for (metric of metrics; track metric.label) {
+          <div class="console-card p-4 rounded-none shadow-none">
+            <p class="text-[9px] font-black text-gray-500 uppercase tracking-widest mb-1">{{ metric.label }}</p>
+            <p class="text-2xl font-bold text-white">{{ metric.value }}</p>
+          </div>
+        }
+      </section>
+
+      <!-- Panel placeholder -->
+      <section class="console-card p-6 rounded-none shadow-none text-xs text-gray-500 font-semibold border-dashed border-2 border-white/10 text-center">
+        CONSOLE PANEL ACTIVE — Real-time Audit logs, Bed Management, and Patient scheduling tables will render here.
+      </section>
+    </main>
+  </div>
+</div>
