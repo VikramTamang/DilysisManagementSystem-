@@ -1,5 +1,10 @@
 export type AppointmentStatus =
-  'SCHEDULED' | 'RESCHEDULED' | 'CANCELLED' | 'COMPLETED' | 'PENDING_REASSIGNMENT';
+  | 'SCHEDULED'
+  | 'RESCHEDULED'
+  | 'CANCELLED'
+  | 'COMPLETED'
+  | 'PENDING_REASSIGNMENT'
+  | 'EMERGENCY';
 
 export interface AppointmentResponse {
   id: number;
@@ -17,12 +22,14 @@ export interface AppointmentResponse {
 }
 
 export interface AppointmentRequest {
-  patientId: number;
-  staffId: number;
+  patientId?: number;
+  staffId?: number;
   roomId?: number;
   machineId?: number;
   scheduledStart: string;
   scheduledEnd: string;
+  isEmergency?: boolean;
+  notes?: string;
 }
 
 export interface RescheduleAppointmentRequest {

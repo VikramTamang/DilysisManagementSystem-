@@ -1,4 +1,4 @@
-﻿export type NotificationType =
+export type NotificationType =
   | 'APPOINTMENT_CONFIRMED'
   | 'APPOINTMENT_RESCHEDULED'
   | 'APPOINTMENT_CANCELLED'
@@ -15,8 +15,6 @@ export interface NotificationItem {
 }
 
 export interface DelayNotificationRequest {
-  patientId: number;
   appointmentId: number;
-  delayMinutes: number;
-  reason?: string;
+  message: string;
 }

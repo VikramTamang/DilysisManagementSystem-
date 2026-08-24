@@ -46,12 +46,22 @@ public class GetAvailabilityService {
                 .collect(Collectors.toList());
 
         List<StaffAvailability> staff = staffReportRepository.findAll().stream()
-                .map(s -> StaffAvailability.builder()
-                        .id(s.getStaffId())
-                        .name(s.getName())
-                        .email(s.getEmail())
-                        .available(!appointmentRepository.isStaffBooked(s.getStaffId(), start, end, null))
-                        .build())
+                .map(s -> {
+                    boolean isBooked = appointmentRepository.isStaffBooked(s.getStaffId(), start, end, null);
+                    boolean isActive = "ACTIVE".equalsIgnoreCase(s.getStatus());
+                    boolean available = isActive && !isBooked;
+                    String status = isBooked ? "OCCUPIED" : (isActive ? "AVAILABLE" : "UNAVAILABLE");
+
+                    return StaffAvailability.builder()
+                            .id(s.getStaffId())
+                            .name(s.getName())
+                            .email(s.getEmail())
+                            .role(s.getRole())
+                            .specialization(s.getSpecializationOrQualification())
+                            .status(status)
+                            .available(available)
+                            .build();
+                })
                 .collect(Collectors.toList());
 
         return AvailabilityResponse.builder()

@@ -25,27 +25,19 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard/admin/staff',
-    component: StaffListComponent,
-    canActivate: [authGuard, roleGuard],
-    data: { roles: [Role.ADMIN] },
+    redirectTo: () => '/dashboard/admin?tab=staff',
   },
   {
     path: 'dashboard/admin/staff/new',
-    component: StaffFormComponent,
-    canActivate: [authGuard, roleGuard],
-    data: { roles: [Role.ADMIN] },
+    redirectTo: () => '/dashboard/admin?tab=staff',
   },
   {
     path: 'dashboard/admin/staff/edit/:type/:id',
-    component: StaffFormComponent,
-    canActivate: [authGuard, roleGuard],
-    data: { roles: [Role.ADMIN] },
+    redirectTo: () => '/dashboard/admin?tab=staff',
   },
   {
     path: 'appointments',
-    component: AppointmentListComponent,
-    canActivate: [authGuard, roleGuard],
-    data: { roles: [Role.ADMIN, Role.DOCTOR, Role.NURSE] },
+    redirectTo: () => '/dashboard/admin?tab=appointments',
   },
   {
     path: 'dashboard/doctor',

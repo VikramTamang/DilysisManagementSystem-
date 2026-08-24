@@ -70,12 +70,17 @@ public class RescheduleAppointmentService {
         PatientIdentity patient = patientIdentityRepository.findById(appointment.getPatientId())
                 .orElseThrow(() -> new AppException("Patient not found", HttpStatus.NOT_FOUND, "PATIENT_NOT_FOUND"));
 
+        // Patient availability at the new time
+        if (appointmentRepository.isPatientBooked(patient.getId(), request.getScheduledStart(), request.getScheduledEnd(), appointment.getId())) {
+            throw new AppException("Patient already has an active appointment booked during this time slot", HttpStatus.BAD_REQUEST, "PATIENT_ALREADY_BOOKED");
+        }
+
         StaffReport staff = staffReportRepository.findById(appointment.getStaffId())
                 .orElseThrow(() -> new AppException("Staff member not found", HttpStatus.NOT_FOUND, "STAFF_NOT_FOUND"));
 
         // Staff availability at the new time
         if (appointmentRepository.isStaffBooked(staff.getStaffId(), request.getScheduledStart(), request.getScheduledEnd(), appointment.getId())) {
-            throw new AppException("Staff is already booked during this time", HttpStatus.BAD_REQUEST, "STAFF_ALREADY_BOOKED");
+            throw new AppException("Doctor/Staff is already occupied during this time slot", HttpStatus.BAD_REQUEST, "STAFF_ALREADY_BOOKED");
         }
 
         // Resolve room: keep the current one unless a new one is requested

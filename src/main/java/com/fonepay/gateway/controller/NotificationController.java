@@ -24,12 +24,14 @@ public class NotificationController {
 
     private final NotificationService notificationService;
 
-    @PreAuthorize("hasRole('PATIENT')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR', 'NURSE', 'PATIENT')")
     @GetMapping
     public ResponseEntity<ApiResponse<List<NotificationResponse>>> getMyNotifications(
             @AuthenticationPrincipal User currentUser) {
 
-        List<NotificationResponse> list = notificationService.getNotificationsForPatient(currentUser.getId());
+        List<NotificationResponse> list = (currentUser.getRole() == com.fonepay.gateway.entity.enums.Role.PATIENT)
+                ? notificationService.getNotificationsForPatient(currentUser.getId())
+                : List.of();
 
         ApiResponse<List<NotificationResponse>> response = ApiResponse.<List<NotificationResponse>>builder()
                 .success(true)
@@ -40,12 +42,14 @@ public class NotificationController {
         return ResponseEntity.ok(response);
     }
 
-    @PreAuthorize("hasRole('PATIENT')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR', 'NURSE', 'PATIENT')")
     @GetMapping("/unread-count")
     public ResponseEntity<ApiResponse<Map<String, Long>>> getUnreadCount(
             @AuthenticationPrincipal User currentUser) {
 
-        long count = notificationService.getUnreadCount(currentUser.getId());
+        long count = (currentUser.getRole() == com.fonepay.gateway.entity.enums.Role.PATIENT)
+                ? notificationService.getUnreadCount(currentUser.getId())
+                : 0L;
 
         ApiResponse<Map<String, Long>> response = ApiResponse.<Map<String, Long>>builder()
                 .success(true)
@@ -73,10 +77,12 @@ public class NotificationController {
         return ResponseEntity.ok(response);
     }
 
-    @PreAuthorize("hasRole('PATIENT')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR', 'NURSE', 'PATIENT')")
     @PatchMapping("/read-all")
     public ResponseEntity<ApiResponse<Void>> markAllAsRead(@AuthenticationPrincipal User currentUser) {
-        notificationService.markAllAsRead(currentUser.getId());
+        if (currentUser.getRole() == com.fonepay.gateway.entity.enums.Role.PATIENT) {
+            notificationService.markAllAsRead(currentUser.getId());
+        }
 
         ApiResponse<Void> response = ApiResponse.<Void>builder()
                 .success(true)

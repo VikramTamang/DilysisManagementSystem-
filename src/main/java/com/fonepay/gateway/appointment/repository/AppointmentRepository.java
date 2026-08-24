@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
-    @Query("SELECT COUNT(a) > 0 FROM Appointment a WHERE a.status <> 'CANCELLED' " +
+    @Query("SELECT COUNT(a) > 0 FROM Appointment a WHERE a.status NOT IN ('CANCELLED', 'COMPLETED') " +
             "AND a.scheduledStart < :end AND a.scheduledEnd > :start " +
             "AND a.staffId = :staffId " +
             "AND (:excludeId IS NULL OR a.id <> :excludeId)")
@@ -22,7 +22,16 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
                           @Param("end") LocalDateTime end,
                           @Param("excludeId") Long excludeId);
 
-    @Query("SELECT COUNT(a) > 0 FROM Appointment a WHERE a.status <> 'CANCELLED' " +
+    @Query("SELECT COUNT(a) > 0 FROM Appointment a WHERE a.status NOT IN ('CANCELLED', 'COMPLETED') " +
+            "AND a.scheduledStart < :end AND a.scheduledEnd > :start " +
+            "AND a.patientId = :patientId " +
+            "AND (:excludeId IS NULL OR a.id <> :excludeId)")
+    boolean isPatientBooked(@Param("patientId") Long patientId,
+                            @Param("start") LocalDateTime start,
+                            @Param("end") LocalDateTime end,
+                            @Param("excludeId") Long excludeId);
+
+    @Query("SELECT COUNT(a) > 0 FROM Appointment a WHERE a.status NOT IN ('CANCELLED', 'COMPLETED') " +
             "AND a.scheduledStart < :end AND a.scheduledEnd > :start " +
             "AND a.roomId = :roomId " +
             "AND (:excludeId IS NULL OR a.id <> :excludeId)")
@@ -31,7 +40,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
                          @Param("end") LocalDateTime end,
                          @Param("excludeId") Long excludeId);
 
-    @Query("SELECT COUNT(a) > 0 FROM Appointment a WHERE a.status <> 'CANCELLED' " +
+    @Query("SELECT COUNT(a) > 0 FROM Appointment a WHERE a.status NOT IN ('CANCELLED', 'COMPLETED') " +
             "AND a.scheduledStart < :end AND a.scheduledEnd > :start " +
             "AND a.machineId = :machineId " +
             "AND (:excludeId IS NULL OR a.id <> :excludeId)")
@@ -52,7 +61,12 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     List<Appointment> findByPatientId(Long patientId);
 
-    @Query("SELECT a FROM Appointment a WHERE a.status <> 'CANCELLED' " +
+    @Query("SELECT a FROM Appointment a WHERE a.patientId = :patientId " +
+            "AND a.status NOT IN ('CANCELLED', 'COMPLETED') " +
+            "ORDER BY a.scheduledStart ASC")
+    List<Appointment> findActiveAppointmentsByPatientId(@Param("patientId") Long patientId);
+
+    @Query("SELECT a FROM Appointment a WHERE a.status NOT IN ('CANCELLED', 'COMPLETED') " +
             "AND a.scheduledStart < :end AND a.scheduledEnd > :start")
     List<Appointment> findAppointmentsInWindow(@Param("start") LocalDateTime start,
                                                @Param("end") LocalDateTime end);

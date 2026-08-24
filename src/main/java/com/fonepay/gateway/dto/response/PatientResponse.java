@@ -24,4 +24,9 @@ public class PatientResponse {
     private String treatmentNotes;
     private Integer totalSessions;
     private String accountStatus;
+
+    // Scheduling status information
+    private String schedulingStatus; // SCHEDULED or UNSCHEDULED
+    private Long activeAppointmentId;
+    private String nextScheduledAppointment;
 }

@@ -43,6 +43,9 @@ public class AvailabilityResponse {
         private Long id;
         private String name;
         private String email;
+        private String role; // DOCTOR or NURSE
+        private String status; // AVAILABLE or OCCUPIED
+        private String specialization;
         private boolean available;
     }
 }

@@ -18,20 +18,25 @@
       </div>
 
       <nav class="py-4 px-3 space-y-1.5">
-        <button (click)="activeTab = 'appointments'" [class.bg-blue-600]="activeTab === 'appointments'" [class.text-white]="activeTab === 'appointments'" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all text-left">
+        <button (click)="switchTab('appointments')" [class.bg-blue-600]="activeTab === 'appointments'" [class.text-white]="activeTab === 'appointments'" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all text-left">
           <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
           @if (isSidebarExpanded) { <span>My Appointments</span> }
         </button>
 
-        <button (click)="activeTab = 'reschedules'" [class.bg-blue-600]="activeTab === 'reschedules'" [class.text-white]="activeTab === 'reschedules'" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all text-left">
+        <button (click)="switchTab('reschedules')" [class.bg-blue-600]="activeTab === 'reschedules'" [class.text-white]="activeTab === 'reschedules'" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all text-left">
           <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
           @if (isSidebarExpanded) { <span>Reschedule Status</span> }
         </button>
 
-        <button (click)="activeTab = 'records'" [class.bg-blue-600]="activeTab === 'records'" [class.text-white]="activeTab === 'records'" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all text-left">
+        <button (click)="switchTab('records')" [class.bg-blue-600]="activeTab === 'records'" [class.text-white]="activeTab === 'records'" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all text-left">
           <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
           @if (isSidebarExpanded) { <span>Clinical Records</span> }
         </button>
+
+        <a routerLink="/appointments" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all text-left">
+          <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+          @if (isSidebarExpanded) { <span>Book Dialysis</span> }
+        </a>
       </nav>
     </div>
 
@@ -56,9 +61,19 @@
         </h1>
       </div>
 
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-3">
+        <button (click)="openBookModal(true)" class="px-3.5 py-2 btn-danger text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-rose-600/25">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+          <span class="hidden sm:inline">Emergency Dialysis</span>
+        </button>
+
+        <button (click)="openBookModal(false)" class="px-4 py-2 btn-primary text-xs font-bold flex items-center gap-2 shadow-lg shadow-blue-500/25">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" /></svg>
+          <span>Book Session</span>
+        </button>
+
         <app-notification-bell></app-notification-bell>
-        <div class="flex items-center gap-3 border-l border-white/10 pl-4">
+        <div class="flex items-center gap-3 border-l border-white/10 pl-3">
           <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center font-bold text-white text-xs shadow-md shadow-blue-500/20">
             {{ initials() }}
           </div>
@@ -151,6 +166,7 @@
                       <td class="py-3.5 px-3">
                         <span class="badge"
                           [class.badge-scheduled]="appt.status === 'SCHEDULED'"
+                          [class.badge-emergency]="appt.status === 'EMERGENCY'"
                           [class.badge-rescheduled]="appt.status === 'RESCHEDULED'"
                           [class.badge-cancelled]="appt.status === 'CANCELLED'"
                           [class.badge-completed]="appt.status === 'COMPLETED'"
@@ -158,10 +174,13 @@
                           {{ appt.status }}
                         </span>
                       </td>
-                      <td class="py-3.5 px-3 text-right">
-                        @if (appt.status === 'SCHEDULED' || appt.status === 'RESCHEDULED') {
+                      <td class="py-3.5 px-3 text-right space-x-2">
+                        @if (appt.status === 'SCHEDULED' || appt.status === 'RESCHEDULED' || appt.status === 'EMERGENCY') {
                           <button (click)="openRescheduleModal(appt)" class="text-xs text-blue-400 hover:text-blue-300 font-semibold underline">
                             Reschedule
+                          </button>
+                          <button (click)="cancelAppointment(appt)" [disabled]="cancellingId() === appt.id" class="text-xs text-rose-400 hover:text-rose-300 font-semibold underline">
+                            Cancel
                           </button>
                         } @else {
                           <span class="text-slate-500">—</span>
@@ -286,6 +305,117 @@
           } @else {
             <span>Submit Request</span>
           }
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Modal: Book / Emergency Dialysis Appointment -->
+@if (showBookModal) {
+  <div class="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="glass-card max-w-xl w-full p-6 space-y-4 shadow-2xl border border-white/10 animate-fade-in"
+         [class.border-rose-500-40]="isEmergencyBooking">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white text-xs"
+               [class.bg-rose-600]="isEmergencyBooking"
+               [class.bg-blue-600]="!isEmergencyBooking">
+            @if (isEmergencyBooking) { 🚨 } @else { 📅 }
+          </div>
+          <div>
+            <h3 class="text-sm font-extrabold text-white uppercase tracking-wider font-poppins">
+              {{ isEmergencyBooking ? 'Urgent Emergency Dialysis Request' : 'Schedule Dialysis Session' }}
+            </h3>
+            <p class="text-[11px] text-slate-400">
+              {{ isEmergencyBooking ? 'Immediate priority request with automated on-duty staff assignment' : 'Self-service appointment booking for your dialysis treatment' }}
+            </p>
+          </div>
+        </div>
+        <button (click)="showBookModal = false" class="text-slate-400 hover:text-white">&times;</button>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Patient Profile</label>
+          <input type="text" [value]="currentUser()?.name + ' (' + (patientProfile()?.bloodGroup || 'Blood: N/A') + ')'" disabled class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-slate-400" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Attending Nephrologist / Staff</label>
+          <input type="text" value="Assigned Clinician On-Duty (Auto-Assigned)" disabled class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-slate-400" />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Start Date & Time *</label>
+          <input type="datetime-local" [(ngModel)]="bookStart" (change)="setSlotDuration(4)" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">End Date & Time *</label>
+          <input type="datetime-local" [(ngModel)]="bookEnd" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+        <div class="flex items-center gap-1.5">
+          <span class="text-[11px] text-slate-400 font-semibold">Slot Presets:</span>
+          <button (click)="setSlotDuration(3)" class="px-2 py-1 rounded-md bg-white/5 hover:bg-white/10 text-[10px] font-bold text-slate-300">3 Hours</button>
+          <button (click)="setSlotDuration(4)" class="px-2 py-1 rounded-md bg-white/5 hover:bg-white/10 text-[10px] font-bold text-blue-300">4 Hours (Standard)</button>
+          <button (click)="setSlotDuration(5)" class="px-2 py-1 rounded-md bg-white/5 hover:bg-white/10 text-[10px] font-bold text-slate-300">5 Hours</button>
+        </div>
+
+        <button (click)="checkSlotAvailability()" [disabled]="isCheckingAvailability()" class="px-3 py-1.5 rounded-xl border border-blue-500/30 text-blue-400 text-xs font-semibold hover:bg-blue-600/10">
+          @if (isCheckingAvailability()) { <span>Checking slot...</span> } @else { <span>Check Slot Availability</span> }
+        </button>
+      </div>
+
+      @if (availability()) {
+        <div class="bg-black/30 p-3.5 rounded-xl text-xs space-y-1 text-slate-300 border border-white/5">
+          <p class="font-bold text-white mb-1">Clinic Availability for this Window:</p>
+          <div class="flex flex-wrap gap-4">
+            <span>Available Rooms: <b class="text-emerald-400">{{ (availability()?.rooms || []).filter(r => r.available).length }}</b></span>
+            <span>Available Machines: <b class="text-purple-400">{{ (availability()?.machines || []).filter(m => m.available).length }}</b></span>
+            <span>Staff on Duty: <b class="text-blue-400">{{ (availability()?.staff || []).filter(s => s.available).length }}</b></span>
+          </div>
+        </div>
+      }
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Room (Optional)</label>
+          <select [(ngModel)]="bookRoomId" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white">
+            <option [ngValue]="null">Auto Assign Available Room</option>
+            @for (r of rooms(); track r.id) {
+              <option [ngValue]="r.id">{{ r.roomNumber }} ({{ r.status }})</option>
+            }
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Dialysis Machine (Optional)</label>
+          <select [(ngModel)]="bookMachineId" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white">
+            <option [ngValue]="null">Auto Assign Available Machine</option>
+            @for (m of machines(); track m.id) {
+              <option [ngValue]="m.id">{{ m.serialNumber }} ({{ m.status }})</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-300 mb-1.5">Symptoms / Notes for Clinician</label>
+        <input type="text" [(ngModel)]="bookNotes" placeholder="e.g. Regular weekly dialysis / shortness of breath / swelling in legs" class="form-input" />
+      </div>
+
+      <div class="flex justify-end gap-2.5 pt-2 border-t border-white/5">
+        <button (click)="showBookModal = false" class="px-4 py-2 rounded-xl btn-secondary text-xs font-bold">Cancel</button>
+        <button (click)="createAppointment()" [disabled]="isBooking()"
+                class="px-5 py-2 rounded-xl text-xs font-bold shadow-lg"
+                [class.btn-danger]="isEmergencyBooking"
+                [class.btn-primary]="!isEmergencyBooking">
+          @if (isBooking()) { <span>Booking...</span> } @else { <span>{{ isEmergencyBooking ? 'Confirm Emergency Request' : 'Confirm Booking' }}</span> }
         </button>
       </div>
     </div>

@@ -53,6 +53,25 @@ public class AppointmentAuditLogService {
         save(entry);
     }
 
+    @Transactional("appointmentTransactionManager")
+    public void logCompleted(Appointment before, Long performedByUserId, String performedByRole) {
+        AppointmentAuditLog entry = AppointmentAuditLog.builder()
+                .appointmentId(before.getId())
+                .action(AuditAction.COMPLETED)
+                .performedByUserId(performedByUserId)
+                .performedByRole(performedByRole)
+                .oldStatus(before.getStatus())
+                .newStatus(com.fonepay.gateway.entity.enums.AppointmentStatus.COMPLETED)
+                .oldScheduledStart(before.getScheduledStart())
+                .oldScheduledEnd(before.getScheduledEnd())
+                .oldRoomId(before.getRoomId())
+                .oldMachineId(before.getMachineId())
+                .oldStaffId(before.getStaffId())
+                .build();
+
+        save(entry);
+    }
+
     /**
      * Logs an UPDATE or RESCHEDULE. Pass a snapshot of the appointment
      * BEFORE mutation, and the same (now-mutated) appointment AFTER.

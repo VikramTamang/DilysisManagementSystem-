@@ -1,10 +1,10 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ApiResponse } from '../models/api-response.model';
 import { PatientSummary } from '../models/patient-summary.model';
-import { PatientRegistrationRequest, PatientRegistrationResponse } from '../models/patient.model';
+import { PatientRegistrationRequest, PatientRegistrationResponse, PatientRequest, PatientResponse } from '../models/patient.model';
 
 @Injectable({ providedIn: 'root' })
 export class PatientService {
@@ -12,8 +12,8 @@ export class PatientService {
 
   constructor(private http: HttpClient) {}
 
-  getAllPatients(): Observable<ApiResponse<PatientSummary[]>> {
-    return this.http.get<ApiResponse<PatientSummary[]>>(this.baseUrl);
+  getAllPatients(): Observable<ApiResponse<PatientResponse[]>> {
+    return this.http.get<ApiResponse<PatientResponse[]>>(this.baseUrl);
   }
 
   getPatientById(id: number): Observable<ApiResponse<PatientRegistrationResponse>> {

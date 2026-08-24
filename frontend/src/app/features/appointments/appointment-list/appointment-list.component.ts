@@ -7,8 +7,9 @@ import { AppointmentService } from '../../../core/services/appointment.service';
 import { PatientService } from '../../../core/services/patient.service';
 import { StaffService } from '../../../core/services/staff.service';
 import { ResourceService } from '../../../core/services/resource.service';
+import { EmergencyService } from '../../../core/services/emergency.service';
 import { AppointmentRequest, AppointmentResponse, AppointmentStatus, RescheduleAppointmentRequest } from '../../../core/models/appointment.model';
-import { PatientSummary } from '../../../core/models/patient-summary.model';
+import { PatientResponse } from '../../../core/models/patient.model';
 import { StaffMember } from '../../../core/models/staff.model';
 import { RoomResponse, MachineResponse } from '../../../core/models/resource.model';
 import { AvailabilityResponse } from '../../../core/models/availability.model';
@@ -32,11 +33,13 @@ export class AppointmentListComponent implements OnInit {
   private patientService = inject(PatientService);
   private staffService = inject(StaffService);
   private resourceService = inject(ResourceService);
+  private emergencyService = inject(EmergencyService);
 
   isSidebarExpanded = true;
 
   readonly currentUser = this.authService.currentUser;
   readonly initials = computed(() => this.getInitials(this.currentUser()?.name));
+  readonly userRole = computed(() => this.currentUser()?.role);
   readonly dashboardPath = computed(() => {
     const role = this.currentUser()?.role;
     return role ? getDashboardPathForRole(role) : '/login';
@@ -48,7 +51,7 @@ export class AppointmentListComponent implements OnInit {
 
   // Data lists
   readonly appointments = signal<AppointmentResponse[]>([]);
-  readonly patients = signal<PatientSummary[]>([]);
+  readonly patients = signal<PatientResponse[]>([]);
   readonly staffList = signal<StaffMember[]>([]);
   readonly rooms = signal<RoomResponse[]>([]);
   readonly machines = signal<MachineResponse[]>([]);
@@ -62,15 +65,18 @@ export class AppointmentListComponent implements OnInit {
   // Filters
   statusFilter: AppointmentStatus | 'ALL' = 'ALL';
   dateFilter = '';
+  searchTerm = '';
 
   // Book Appointment Modal State
   showBookModal = false;
+  isEmergencyBooking = false;
   bookPatientId: number | null = null;
   bookStaffId: number | null = null;
   bookRoomId: number | null = null;
   bookMachineId: number | null = null;
   bookStart = '';
   bookEnd = '';
+  bookNotes = '';
   readonly isBooking = signal(false);
   readonly availability = signal<AvailabilityResponse | null>(null);
   readonly isCheckingAvailability = signal(false);
@@ -89,6 +95,20 @@ export class AppointmentListComponent implements OnInit {
   selectedApptId: number | null = null;
   readonly historyLogs = signal<AuditLogResponse[]>([]);
   readonly isLoadingHistory = signal(false);
+
+  readonly filteredAppointments = computed(() => {
+    const term = this.searchTerm.trim().toLowerCase();
+    return this.appointments().filter((a) => {
+      if (!term) return true;
+      return (
+        a.patientName.toLowerCase().includes(term) ||
+        a.staffName.toLowerCase().includes(term) ||
+        a.roomNumber.toLowerCase().includes(term) ||
+        a.machineSerialNumber.toLowerCase().includes(term) ||
+        a.id.toString().includes(term)
+      );
+    });
+  });
 
   ngOnInit() {
     this.loadAppointments();
@@ -137,15 +157,29 @@ export class AppointmentListComponent implements OnInit {
     this.loadAppointments();
   }
 
-  openBookModal() {
-    this.bookPatientId = null;
+  openBookModal(emergency: boolean = false) {
+    this.isEmergencyBooking = emergency;
+    this.bookPatientId = this.userRole() === Role.PATIENT ? (this.currentUser()?.id ?? null) : null;
     this.bookStaffId = null;
     this.bookRoomId = null;
     this.bookMachineId = null;
-    this.bookStart = '';
-    this.bookEnd = '';
+
+    const now = new Date();
+    now.setMinutes(Math.ceil(now.getMinutes() / 15) * 15, 0, 0);
+    const end = new Date(now.getTime() + 4 * 60 * 60 * 1000);
+
+    this.bookStart = this.toLocalIsoString(now);
+    this.bookEnd = this.toLocalIsoString(end);
+    this.bookNotes = emergency ? 'Urgent Dialysis Emergency Session' : '';
     this.availability.set(null);
     this.showBookModal = true;
+  }
+
+  setSlotDuration(hours: number) {
+    if (!this.bookStart) return;
+    const start = new Date(this.bookStart);
+    const end = new Date(start.getTime() + hours * 60 * 60 * 1000);
+    this.bookEnd = this.toLocalIsoString(end);
   }
 
   checkSlotAvailability() {
@@ -167,26 +201,41 @@ export class AppointmentListComponent implements OnInit {
   }
 
   createAppointment() {
-    if (!this.bookPatientId || !this.bookStaffId || !this.bookStart || !this.bookEnd) {
-      this.errorMessage.set('Please fill out all required fields.');
+    if (!this.bookStart || !this.bookEnd) {
+      this.errorMessage.set('Start and end time are required.');
+      return;
+    }
+
+    if (this.userRole() !== Role.PATIENT && !this.bookPatientId) {
+      this.errorMessage.set('Please select a patient.');
       return;
     }
 
     this.isBooking.set(true);
     const req: AppointmentRequest = {
-      patientId: this.bookPatientId,
-      staffId: this.bookStaffId,
+      patientId: this.bookPatientId || (this.userRole() === Role.PATIENT ? this.currentUser()?.id : undefined),
+      staffId: this.bookStaffId || undefined,
       roomId: this.bookRoomId || undefined,
       machineId: this.bookMachineId || undefined,
       scheduledStart: this.bookStart,
       scheduledEnd: this.bookEnd,
+      isEmergency: this.isEmergencyBooking,
+      notes: this.bookNotes || undefined,
     };
 
-    this.appointmentService.createAppointment(req).subscribe({
+    const action$ = this.isEmergencyBooking
+      ? this.emergencyService.createEmergencyAppointment(req)
+      : this.appointmentService.createAppointment(req);
+
+    action$.subscribe({
       next: () => {
         this.isBooking.set(false);
         this.showBookModal = false;
-        this.successMessage.set('Dialysis appointment created successfully.');
+        this.successMessage.set(
+          this.isEmergencyBooking
+            ? 'Emergency dialysis session confirmed and resources allocated.'
+            : 'Dialysis appointment created successfully.'
+        );
         this.loadAppointments();
       },
       error: (err: NormalizedError) => {
@@ -194,6 +243,11 @@ export class AppointmentListComponent implements OnInit {
         this.errorMessage.set(err.message);
       },
     });
+  }
+
+  private toLocalIsoString(date: Date): string {
+    const pad = (n: number) => (n < 10 ? '0' + n : n);
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
   }
 
   openRescheduleModal(appt: AppointmentResponse) {

@@ -86,8 +86,12 @@ public class UpdateAppointmentService {
                 || !appointment.getStaffId().equals(staff.getStaffId());
 
         if (timesOrResourcesChanged) {
+            if (appointmentRepository.isPatientBooked(patient.getId(), request.getScheduledStart(), request.getScheduledEnd(), appointment.getId())) {
+                throw new AppException("Patient already has an active appointment booked during this time slot", HttpStatus.BAD_REQUEST, "PATIENT_ALREADY_BOOKED");
+            }
+
             if (appointmentRepository.isStaffBooked(staff.getStaffId(), request.getScheduledStart(), request.getScheduledEnd(), appointment.getId())) {
-                throw new AppException("Staff is already booked during this time", HttpStatus.BAD_REQUEST, "STAFF_ALREADY_BOOKED");
+                throw new AppException("Doctor/Staff is already occupied during this time slot", HttpStatus.BAD_REQUEST, "STAFF_ALREADY_BOOKED");
             }
 
             if (room.getStatus() != RoomStatus.AVAILABLE) {

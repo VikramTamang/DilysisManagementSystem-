@@ -32,25 +32,43 @@ public class CreatePatientService {
 
     @Transactional("userTransactionManager")
     public PatientResponse registerSelf(PatientRegistrationRequest request) {
-        log.info("Patient self-registering for email: {}", request.getEmail());
-        PatientRequest patientRequest = PatientRequest.builder()
+        log.info("Self-registering new patient with email: {}", request.getEmail());
+
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new AppException("Email already exists", HttpStatus.BAD_REQUEST, "EMAIL_ALREADY_EXISTS");
+        }
+
+        User user = User.builder()
                 .name(request.getName())
                 .email(request.getEmail())
-                .password(request.getPassword())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(Role.PATIENT)
+                .accountStatus("ACTIVE")
+                .build();
+        User savedUser = userRepository.save(user);
+
+        PatientIdentity identity = PatientIdentity.builder()
+                .id(savedUser.getId())
+                .name(request.getName())
                 .phone(request.getPhone())
                 .address(request.getAddress())
                 .dateOfBirth(request.getDateOfBirth())
                 .bloodGroup(request.getBloodGroup())
-                .assignedDoctorId(null)
-                .dialysisHistory(null)
-                .treatmentNotes(null)
                 .build();
-        return createPatient(patientRequest);
+        PatientIdentity savedIdentity = patientIdentityRepository.save(identity);
+
+        PatientOperational operational = PatientOperational.builder()
+                .patientId(savedUser.getId())
+                .totalSessions(0)
+                .build();
+        PatientOperational savedOperational = patientOperationalRepository.save(operational);
+
+        return mapToResponse(savedUser, savedIdentity, savedOperational, "UNSCHEDULED", null, null);
     }
 
     @Transactional("userTransactionManager")
     public PatientResponse createPatient(PatientRequest request) {
-        log.info("Creating patient account for email: {}", request.getEmail());
+        log.info("Admin creating new patient with email: {}", request.getEmail());
 
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new AppException("Email already exists", HttpStatus.BAD_REQUEST, "EMAIL_ALREADY_EXISTS");
@@ -60,11 +78,15 @@ public class CreatePatientService {
             throw new AppException("Assigned doctor not found", HttpStatus.NOT_FOUND, "DOCTOR_NOT_FOUND");
         }
 
+        String rawPassword = (request.getPassword() != null && !request.getPassword().isBlank())
+                ? request.getPassword()
+                : "Patient@123";
+
         // 1. UserDB: Save central auth User
         User user = User.builder()
                 .name(request.getName())
                 .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .password(passwordEncoder.encode(rawPassword))
                 .role(Role.PATIENT)
                 .accountStatus("ACTIVE")
                 .build();
@@ -91,10 +113,15 @@ public class CreatePatientService {
                 .build();
         PatientOperational savedOperational = patientOperationalRepository.save(operational);
 
-        return mapToResponse(savedUser, savedIdentity, savedOperational);
+        return mapToResponse(savedUser, savedIdentity, savedOperational, "UNSCHEDULED", null, null);
     }
 
     public static PatientResponse mapToResponse(User user, PatientIdentity identity, PatientOperational operational) {
+        return mapToResponse(user, identity, operational, "UNSCHEDULED", null, null);
+    }
+
+    public static PatientResponse mapToResponse(User user, PatientIdentity identity, PatientOperational operational,
+                                                String schedulingStatus, Long activeAppointmentId, String nextScheduledAppointment) {
         return PatientResponse.builder()
                 .id(identity.getId())
                 .name(identity.getName())
@@ -108,6 +135,9 @@ public class CreatePatientService {
                 .treatmentNotes(operational != null ? operational.getTreatmentNotes() : null)
                 .totalSessions(operational != null ? operational.getTotalSessions() : 0)
                 .accountStatus(user != null ? user.getAccountStatus() : "ACTIVE")
+                .schedulingStatus(schedulingStatus != null ? schedulingStatus : "UNSCHEDULED")
+                .activeAppointmentId(activeAppointmentId)
+                .nextScheduledAppointment(nextScheduledAppointment)
                 .build();
     }
 }

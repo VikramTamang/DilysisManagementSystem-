@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -7,6 +7,8 @@ import {
   EmergencyReassignmentResponse,
   StaffUnavailabilityRequest,
 } from '../models/emergency.model';
+
+import { AppointmentRequest, AppointmentResponse } from '../models/appointment.model';
 
 @Injectable({ providedIn: 'root' })
 export class EmergencyService {
@@ -20,6 +22,21 @@ export class EmergencyService {
     return this.http.post<ApiResponse<EmergencyReassignmentResponse>>(
       `${this.baseUrl}/staff-unavailable`,
       request,
+    );
+  }
+
+  createEmergencyAppointment(
+    request: AppointmentRequest,
+  ): Observable<ApiResponse<AppointmentResponse>> {
+    return this.http.post<ApiResponse<AppointmentResponse>>(
+      `${this.baseUrl}/appointment`,
+      request,
+    );
+  }
+
+  getEmergencyAppointments(): Observable<ApiResponse<AppointmentResponse[]>> {
+    return this.http.get<ApiResponse<AppointmentResponse[]>>(
+      `${this.baseUrl}/appointments`,
     );
   }
 }

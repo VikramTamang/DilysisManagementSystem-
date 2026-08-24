@@ -1,6 +1,7 @@
 package com.fonepay.gateway.controller;
 
 import com.fonepay.gateway.appointment.service.appointment.CancelAppointmentService;
+import com.fonepay.gateway.appointment.service.appointment.CompleteAppointmentService;
 import com.fonepay.gateway.appointment.service.appointment.CreateAppointmentService;
 import com.fonepay.gateway.appointment.service.appointment.GetAllAppointmentsService;
 import com.fonepay.gateway.appointment.service.appointment.GetAppointmentService;
@@ -43,13 +44,18 @@ public class AppointmentController {
     private final GetAllAppointmentsService getAllAppointmentsService;
     private final GetAvailabilityService getAvailabilityService;
     private final RescheduleAppointmentService rescheduleAppointmentService;
+    private final CompleteAppointmentService completeAppointmentService;
     private final GetAuditLogService getAuditLogService;
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR', 'NURSE')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR', 'NURSE', 'PATIENT')")
     @PostMapping
     public ResponseEntity<ApiResponse<AppointmentResponse>> createAppointment(
             @Valid @RequestBody AppointmentRequest request,
             @AuthenticationPrincipal User currentUser) {
+
+        if (currentUser.getRole() == Role.PATIENT) {
+            request.setPatientId(currentUser.getId());
+        }
 
         AppointmentResponse created = createAppointmentService.createAppointment(
                 request, currentUser.getId(), currentUser.getRole().name());
@@ -101,7 +107,25 @@ public class AppointmentController {
         return ResponseEntity.ok(response);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR', 'NURSE')")
+    @PatchMapping("/{id}/complete")
+    public ResponseEntity<ApiResponse<AppointmentResponse>> completeAppointment(
+            @PathVariable Long id,
+            @AuthenticationPrincipal User currentUser) {
+
+        AppointmentResponse completed = completeAppointmentService.completeAppointment(
+                id, currentUser.getId(), currentUser.getRole().name());
+
+        ApiResponse<AppointmentResponse> response = ApiResponse.<AppointmentResponse>builder()
+                .success(true)
+                .message("Appointment session marked as completed")
+                .data(completed)
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR', 'NURSE')")
     @GetMapping("/{id}/history")
     public ResponseEntity<ApiResponse<List<AuditLogResponse>>> getAppointmentHistory(@PathVariable Long id) {
         List<AuditLogResponse> history = getAuditLogService.getHistoryForAppointment(id);
@@ -115,11 +139,19 @@ public class AppointmentController {
         return ResponseEntity.ok(response);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR', 'NURSE')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR', 'NURSE', 'PATIENT')")
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> cancelAppointment(
             @PathVariable Long id,
             @AuthenticationPrincipal User currentUser) {
+
+        if (currentUser.getRole() == Role.PATIENT) {
+            AppointmentResponse appt = getAppointmentService.getAppointmentById(id);
+            if (!appt.getPatientId().equals(currentUser.getId())) {
+                throw new AppException("Access denied: You can only cancel your own appointments.", HttpStatus.FORBIDDEN, "ACCESS_DENIED");
+            }
+        }
+
         cancelAppointmentService.cancelAppointment(id, currentUser.getId(), currentUser.getRole().name());
 
         ApiResponse<Void> response = ApiResponse.<Void>builder()
@@ -173,7 +205,7 @@ public class AppointmentController {
         return ResponseEntity.ok(response);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR', 'NURSE')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR', 'NURSE', 'PATIENT')")
     @GetMapping("/availability")
     public ResponseEntity<ApiResponse<AvailabilityResponse>> checkAvailability(
             @RequestParam(required = false) String date,

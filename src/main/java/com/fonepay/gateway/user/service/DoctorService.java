@@ -41,10 +41,14 @@ public class DoctorService {
 
         String displayName = withDoctorTitle(request.getName());
 
+        String rawPassword = (request.getPassword() != null && !request.getPassword().isBlank())
+                ? request.getPassword()
+                : "Doctor@123";
+
         User user = User.builder()
                 .name(displayName)
                 .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .password(passwordEncoder.encode(rawPassword))
                 .role(Role.DOCTOR)
                 .accountStatus("ACTIVE")
                 .build();

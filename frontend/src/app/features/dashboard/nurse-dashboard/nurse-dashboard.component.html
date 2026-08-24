@@ -18,7 +18,7 @@
       </div>
 
       <nav class="py-4 px-3 space-y-1.5">
-        <button class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 transition-all shadow-sm text-left">
+        <button (click)="switchTab('overview')" [class.bg-emerald-600]="activeTab === 'overview'" [class.text-white]="activeTab === 'overview'" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all text-left">
           <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
           @if (isSidebarExpanded) { <span>Dialysis Roster</span> }
         </button>
@@ -27,6 +27,11 @@
           <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
           @if (isSidebarExpanded) { <span>All Appointments</span> }
         </a>
+
+        <button (click)="switchTab('emergency')" [class.bg-rose-600]="activeTab === 'emergency'" [class.text-white]="activeTab === 'emergency'" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-rose-400 hover:text-white hover:bg-rose-950/40 transition-all text-left">
+          <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+          @if (isSidebarExpanded) { <span>Emergency Leave</span> }
+        </button>
       </nav>
     </div>
 
@@ -49,9 +54,19 @@
         <h1 class="text-sm font-extrabold uppercase text-white tracking-wider font-poppins">Nurse Station Dashboard</h1>
       </div>
 
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-3">
+        <button (click)="openBookModal(true)" class="px-3.5 py-2 btn-danger text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-rose-600/25">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+          <span class="hidden sm:inline">Emergency Booking</span>
+        </button>
+
+        <button (click)="openBookModal(false)" class="px-4 py-2 btn-primary text-xs font-bold flex items-center gap-2 shadow-lg shadow-emerald-500/25 bg-emerald-600 hover:bg-emerald-500">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" /></svg>
+          <span>Book Session</span>
+        </button>
+
         <app-notification-bell></app-notification-bell>
-        <div class="flex items-center gap-3 border-l border-white/10 pl-4">
+        <div class="flex items-center gap-3 border-l border-white/10 pl-3">
           <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-600 flex items-center justify-center font-bold text-white text-xs shadow-md shadow-emerald-500/20">
             {{ initials() }}
           </div>
@@ -156,6 +171,45 @@
           </div>
         }
       </div>
+      @if (activeTab === 'emergency') {
+        <div class="glass-card p-6 shadow-xl space-y-5 max-w-2xl">
+          <div>
+            <h2 class="text-sm font-bold uppercase tracking-wider text-white">Declare Nurse Emergency Leave</h2>
+            <p class="text-xs text-slate-400 mt-1">Register emergency unavailability. Any scheduled treatments assigned to you will automatically be reassigned or prioritized.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Unavailability Start *</label>
+              <input type="datetime-local" [(ngModel)]="emergencyStart" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Unavailability End *</label>
+              <input type="datetime-local" [(ngModel)]="emergencyEnd" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Reason for Emergency Leave</label>
+            <input type="text" [(ngModel)]="emergencyReason" placeholder="e.g. Sudden medical emergency / urgent leave" class="form-input" />
+          </div>
+
+          <button (click)="submitNurseEmergency()" [disabled]="isSubmittingEmergency()" class="px-6 py-3 btn-danger text-xs font-bold transition-all">
+            @if (isSubmittingEmergency()) {
+              <span>Reassigning Floor Patients...</span>
+            } @else {
+              <span>Submit Emergency Unavailability</span>
+            }
+          </button>
+
+          @if (emergencyResult()) {
+            <div class="border border-white/10 rounded-xl p-4 bg-black/30 space-y-2 text-xs">
+              <p class="font-bold text-white">Floor Reassignment Summary:</p>
+              <p class="text-slate-300">Total Affected: <span class="font-bold text-white">{{ emergencyResult()?.totalAffected }}</span> | Reassigned: <span class="font-bold text-emerald-400">{{ emergencyResult()?.reassignedCount }}</span> | Pending: <span class="font-bold text-amber-400">{{ emergencyResult()?.pendingCount }}</span></p>
+            </div>
+          }
+        </div>
+      }
     </main>
   </div>
 </div>
@@ -192,6 +246,122 @@
           } @else {
             <span>Notify Patient</span>
           }
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Modal: Book / Emergency Appointment -->
+@if (showBookModal) {
+  <div class="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="glass-card max-w-xl w-full p-6 space-y-4 shadow-2xl border border-white/10 animate-fade-in"
+         [class.border-rose-500-40]="isEmergencyBooking">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white text-xs"
+               [class.bg-rose-600]="isEmergencyBooking"
+               [class.bg-emerald-600]="!isEmergencyBooking">
+            @if (isEmergencyBooking) { 🚨 } @else { 📅 }
+          </div>
+          <div>
+            <h3 class="text-sm font-extrabold text-white uppercase tracking-wider font-poppins">
+              {{ isEmergencyBooking ? 'Nurse Emergency Priority Booking' : 'Schedule Dialysis Session' }}
+            </h3>
+            <p class="text-[11px] text-slate-400">
+              {{ isEmergencyBooking ? 'Urgent slot booking with instant machine and floor allocation' : 'Book a scheduled dialysis session for floor patient' }}
+            </p>
+          </div>
+        </div>
+        <button (click)="showBookModal = false" class="text-slate-400 hover:text-white">&times;</button>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Patient *</label>
+          <select [(ngModel)]="bookPatientId" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white">
+            <option [ngValue]="null">Select Patient</option>
+            @for (p of patients(); track p.id) {
+              <option [ngValue]="p.id">{{ p.name }} (ID: #{{ p.id }} - {{ p.bloodGroup || 'Blood: N/A' }})</option>
+            }
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Floor Nurse</label>
+          <input type="text" [value]="currentUser()?.name + ' (You)'" disabled class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-slate-400" />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Start Date & Time *</label>
+          <input type="datetime-local" [(ngModel)]="bookStart" (change)="setSlotDuration(4)" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">End Date & Time *</label>
+          <input type="datetime-local" [(ngModel)]="bookEnd" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+        <div class="flex items-center gap-1.5">
+          <span class="text-[11px] text-slate-400 font-semibold">Slot Presets:</span>
+          <button (click)="setSlotDuration(3)" class="px-2 py-1 rounded-md bg-white/5 hover:bg-white/10 text-[10px] font-bold text-slate-300">3 Hours</button>
+          <button (click)="setSlotDuration(4)" class="px-2 py-1 rounded-md bg-white/5 hover:bg-white/10 text-[10px] font-bold text-emerald-300">4 Hours (Standard)</button>
+          <button (click)="setSlotDuration(5)" class="px-2 py-1 rounded-md bg-white/5 hover:bg-white/10 text-[10px] font-bold text-slate-300">5 Hours</button>
+        </div>
+
+        <button (click)="checkSlotAvailability()" [disabled]="isCheckingAvailability()" class="px-3 py-1.5 rounded-xl border border-emerald-500/30 text-emerald-400 text-xs font-semibold hover:bg-emerald-600/10">
+          @if (isCheckingAvailability()) { <span>Checking slot...</span> } @else { <span>Check Slot Availability</span> }
+        </button>
+      </div>
+
+      @if (availability()) {
+        <div class="bg-black/30 p-3.5 rounded-xl text-xs space-y-1 text-slate-300 border border-white/5">
+          <p class="font-bold text-white mb-1">Slot Availability Result:</p>
+          <div class="flex flex-wrap gap-4">
+            <span>Available Rooms: <b class="text-emerald-400">{{ (availability()?.rooms || []).filter(r => r.available).length }}</b></span>
+            <span>Available Machines: <b class="text-purple-400">{{ (availability()?.machines || []).filter(m => m.available).length }}</b></span>
+            <span>Staff on Duty: <b class="text-emerald-400">{{ (availability()?.staff || []).filter(s => s.available).length }}</b></span>
+          </div>
+        </div>
+      }
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Room (Optional)</label>
+          <select [(ngModel)]="bookRoomId" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white">
+            <option [ngValue]="null">Auto Assign Available Room</option>
+            @for (r of rooms(); track r.id) {
+              <option [ngValue]="r.id">{{ r.roomNumber }} ({{ r.status }})</option>
+            }
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Dialysis Machine (Optional)</label>
+          <select [(ngModel)]="bookMachineId" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white">
+            <option [ngValue]="null">Auto Assign Available Machine</option>
+            @for (m of machines(); track m.id) {
+              <option [ngValue]="m.id">{{ m.serialNumber }} ({{ m.status }})</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-300 mb-1.5">Clinical Notes / Reason</label>
+        <input type="text" [(ngModel)]="bookNotes" placeholder="e.g. Regular floor session / catheter maintenance" class="form-input" />
+      </div>
+
+      <div class="flex justify-end gap-2.5 pt-2 border-t border-white/5">
+        <button (click)="showBookModal = false" class="px-4 py-2 rounded-xl btn-secondary text-xs font-bold">Cancel</button>
+        <button (click)="createAppointment()" [disabled]="isBooking()"
+                class="px-5 py-2 rounded-xl text-xs font-bold shadow-lg"
+                [class.btn-danger]="isEmergencyBooking"
+                [class.bg-emerald-600]="!isEmergencyBooking">
+          @if (isBooking()) { <span>Booking...</span> } @else { <span>{{ isEmergencyBooking ? 'Confirm Emergency Allocation' : 'Confirm Booking' }}</span> }
         </button>
       </div>
     </div>

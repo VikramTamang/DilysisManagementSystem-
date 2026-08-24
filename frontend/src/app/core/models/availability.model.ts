@@ -1,4 +1,4 @@
-﻿export interface RoomAvailability {
+export interface RoomAvailability {
   id: number;
   roomNumber: string;
   available: boolean;
@@ -14,6 +14,9 @@ export interface StaffAvailability {
   id: number;
   name: string;
   email: string;
+  role?: string;
+  status?: string; // AVAILABLE or OCCUPIED
+  specialization?: string;
   available: boolean;
 }
 

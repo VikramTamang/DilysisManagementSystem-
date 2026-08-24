@@ -6,6 +6,7 @@
     class="bg-[#0b0e17] border-r border-white/5 flex flex-col justify-between shrink-0 transition-all duration-300 h-screen sticky top-0 z-30 shadow-2xl"
   >
     <div>
+      <!-- App Brand -->
       <div class="h-16 border-b border-white/5 flex items-center px-4 gap-3 overflow-hidden">
         <div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/20 font-poppins font-black text-white text-base">
           D
@@ -17,39 +18,81 @@
         }
       </div>
 
+      <!-- Navigation Links -->
       <nav class="py-4 px-3 space-y-1.5">
-        <button (click)="switchTab('overview')" [class.bg-blue-600]="activeTab === 'overview'" [class.text-white]="activeTab === 'overview'" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all text-left">
+        <button (click)="switchTab('overview')"
+                [class.bg-blue-600]="activeTab === 'overview'"
+                [class.text-white]="activeTab === 'overview'"
+                [class.shadow-md]="activeTab === 'overview'"
+                [class.shadow-blue-500-20]="activeTab === 'overview'"
+                class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all text-left">
           <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z" /></svg>
           @if (isSidebarExpanded) { <span>Overview</span> }
         </button>
 
-        <a routerLink="/appointments" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+        <button (click)="switchTab('appointments')"
+                [class.bg-blue-600]="activeTab === 'appointments'"
+                [class.text-white]="activeTab === 'appointments'"
+                [class.shadow-md]="activeTab === 'appointments'"
+                [class.shadow-blue-500-20]="activeTab === 'appointments'"
+                class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all text-left">
           <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
           @if (isSidebarExpanded) { <span>Appointments</span> }
-        </a>
+        </button>
 
-        <a routerLink="/dashboard/admin/staff" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+        <button (click)="switchTab('staff')"
+                [class.bg-blue-600]="activeTab === 'staff'"
+                [class.text-white]="activeTab === 'staff'"
+                [class.shadow-md]="activeTab === 'staff'"
+                [class.shadow-blue-500-20]="activeTab === 'staff'"
+                class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all text-left">
           <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
           @if (isSidebarExpanded) { <span>Medical Staff</span> }
-        </a>
+        </button>
 
-        <button (click)="switchTab('resources')" [class.bg-blue-600]="activeTab === 'resources'" [class.text-white]="activeTab === 'resources'" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all text-left">
+        <button (click)="switchTab('patients')"
+                [class.bg-blue-600]="activeTab === 'patients'"
+                [class.text-white]="activeTab === 'patients'"
+                [class.shadow-md]="activeTab === 'patients'"
+                [class.shadow-blue-500-20]="activeTab === 'patients'"
+                class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all text-left">
+          <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+          @if (isSidebarExpanded) { <span>Patients Directory</span> }
+        </button>
+
+        <button (click)="switchTab('resources')"
+                [class.bg-blue-600]="activeTab === 'resources'"
+                [class.text-white]="activeTab === 'resources'"
+                [class.shadow-md]="activeTab === 'resources'"
+                [class.shadow-blue-500-20]="activeTab === 'resources'"
+                class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all text-left">
           <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
           @if (isSidebarExpanded) { <span>Rooms & Machines</span> }
         </button>
 
-        <button (click)="switchTab('reports')" [class.bg-blue-600]="activeTab === 'reports'" [class.text-white]="activeTab === 'reports'" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all text-left">
+        <button (click)="switchTab('reports')"
+                [class.bg-blue-600]="activeTab === 'reports'"
+                [class.text-white]="activeTab === 'reports'"
+                [class.shadow-md]="activeTab === 'reports'"
+                [class.shadow-blue-500-20]="activeTab === 'reports'"
+                class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all text-left">
           <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
           @if (isSidebarExpanded) { <span>Reports & Audit</span> }
         </button>
 
-        <button (click)="switchTab('emergency')" [class.bg-rose-600]="activeTab === 'emergency'" [class.text-white]="activeTab === 'emergency'" class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-rose-400 hover:text-white hover:bg-rose-950/40 transition-all text-left">
+        <button (click)="switchTab('emergency')"
+                [class.bg-rose-600]="activeTab === 'emergency'"
+                [class.text-white]="activeTab === 'emergency'"
+                [class.shadow-md]="activeTab === 'emergency'"
+                [class.shadow-rose-600-20]="activeTab === 'emergency'"
+                class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-rose-400 hover:text-white hover:bg-rose-950/40 transition-all text-left">
           <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
           @if (isSidebarExpanded) { <span>Emergency Console</span> }
         </button>
       </nav>
     </div>
 
+    <!-- Sign Out -->
     <div class="p-3 border-t border-white/5">
       <button (click)="logout()" class="w-full flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-rose-400 hover:bg-rose-950/30 transition-all rounded-xl">
         <svg class="w-4.5 h-4.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
@@ -71,9 +114,19 @@
         </h1>
       </div>
 
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-3">
+        <button (click)="openBookModal(true)" class="px-3.5 py-2 btn-danger text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-rose-600/25">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+          <span class="hidden sm:inline">Emergency Booking</span>
+        </button>
+
+        <button (click)="openBookModal(false)" class="px-4 py-2 btn-primary text-xs font-bold flex items-center gap-2 shadow-lg shadow-blue-500/25">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" /></svg>
+          <span>Book Appointment</span>
+        </button>
+
         <app-notification-bell></app-notification-bell>
-        <div class="flex items-center gap-3 border-l border-white/10 pl-4">
+        <div class="flex items-center gap-3 border-l border-white/10 pl-3">
           <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center font-bold text-white text-xs shadow-md shadow-blue-500/20">
             {{ initials() }}
           </div>
@@ -85,95 +138,112 @@
       </div>
     </header>
 
-    <main class="flex-grow p-6 space-y-6 max-w-7xl w-full mx-auto animate-fade-in">
+    <main class="flex-grow p-6 space-y-6 max-w-7xl w-full mx-auto">
       <!-- Alerts -->
       @if (errorMessage()) {
-        <div class="p-4 rounded-xl border border-rose-500/20 bg-rose-950/40 text-rose-300 text-xs font-medium flex items-center justify-between animate-shake">
+        <div class="p-4 rounded-xl bg-rose-950/40 border border-rose-800/60 text-rose-300 text-xs font-semibold flex items-center justify-between shadow-lg">
           <span>{{ errorMessage() }}</span>
-          <button (click)="errorMessage.set('')" class="text-rose-400 hover:text-white">&times;</button>
+          <button (click)="errorMessage.set('')" class="text-rose-400 hover:text-white font-bold text-base">&times;</button>
         </div>
       }
       @if (successMessage()) {
-        <div class="p-4 rounded-xl border border-emerald-500/20 bg-emerald-950/40 text-emerald-300 text-xs font-medium flex items-center justify-between">
+        <div class="p-4 rounded-xl bg-emerald-950/40 border border-emerald-800/60 text-emerald-300 text-xs font-semibold flex items-center justify-between shadow-lg">
           <span>{{ successMessage() }}</span>
-          <button (click)="successMessage.set('')" class="text-emerald-400 hover:text-white">&times;</button>
+          <button (click)="successMessage.set('')" class="text-emerald-400 hover:text-white font-bold text-base">&times;</button>
         </div>
       }
-
-      <!-- LIVE METRIC CARDS -->
-      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div class="glass-card glass-card-hover p-6">
-          <div class="flex items-center justify-between">
-            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Registered Patients</p>
-            <span class="p-2.5 rounded-xl bg-blue-600/10 text-blue-400 border border-blue-500/20"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg></span>
-          </div>
-          <p class="text-3xl font-black text-white mt-3">{{ totalPatients() }}</p>
-        </div>
-
-        <div class="glass-card glass-card-hover p-6">
-          <div class="flex items-center justify-between">
-            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Today's Appointments</p>
-            <span class="p-2.5 rounded-xl bg-emerald-600/10 text-emerald-400 border border-emerald-500/20"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg></span>
-          </div>
-          <p class="text-3xl font-black text-white mt-3">{{ todayAppointmentsCount() }}</p>
-        </div>
-
-        <div class="glass-card glass-card-hover p-6">
-          <div class="flex items-center justify-between">
-            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Available Rooms</p>
-            <span class="p-2.5 rounded-xl bg-purple-600/10 text-purple-400 border border-purple-500/20"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg></span>
-          </div>
-          <p class="text-3xl font-black text-white mt-3">{{ availableRoomsCount() }} <span class="text-sm font-normal text-slate-500">/ {{ totalRoomsCount() }}</span></p>
-        </div>
-
-        <div class="glass-card glass-card-hover p-6">
-          <div class="flex items-center justify-between">
-            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Dialysis Machines</p>
-            <span class="p-2.5 rounded-xl bg-amber-600/10 text-amber-400 border border-amber-500/20"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg></span>
-          </div>
-          <p class="text-3xl font-black text-white mt-3">{{ availableMachinesCount() }} <span class="text-sm font-normal text-slate-500">/ {{ totalMachinesCount() }}</span></p>
-        </div>
-      </section>
 
       <!-- TAB 1: OVERVIEW -->
       @if (activeTab === 'overview') {
         <div class="space-y-6">
-          <div class="glass-card p-6 shadow-xl">
-            <div class="flex items-center justify-between mb-5">
-              <h2 class="text-sm font-bold uppercase tracking-wider text-white">Today's Appointments Roster</h2>
-              <a routerLink="/appointments" class="text-xs text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-1.5 group">
-                View All Appointments <span class="group-hover:translate-x-0.5 transition-transform">&rarr;</span>
-              </a>
+          <!-- Metrics Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="glass-card p-5 space-y-2 border-l-4 border-l-blue-500">
+              <span class="text-slate-400 font-bold uppercase tracking-wider text-[10px]">Registered Patients</span>
+              <div class="text-2xl font-extrabold text-white">{{ totalPatients() }}</div>
+              <p class="text-[11px] text-slate-400">Total active dialysis profiles</p>
+            </div>
+
+            <div class="glass-card p-5 space-y-2 border-l-4 border-l-indigo-500">
+              <span class="text-slate-400 font-bold uppercase tracking-wider text-[10px]">Today's Dialysis Sessions</span>
+              <div class="text-2xl font-extrabold text-white">{{ todayAppointmentsCount() }}</div>
+              <p class="text-[11px] text-slate-400">Scheduled treatments</p>
+            </div>
+
+            <div class="glass-card p-5 space-y-2 border-l-4 border-l-emerald-500">
+              <span class="text-slate-400 font-bold uppercase tracking-wider text-[10px]">Dialysis Rooms</span>
+              <div class="text-2xl font-extrabold text-emerald-400">{{ availableRoomsCount() }} / {{ totalRoomsCount() }}</div>
+              <p class="text-[11px] text-slate-400">Available / Total capacity</p>
+            </div>
+
+            <div class="glass-card p-5 space-y-2 border-l-4 border-l-cyan-500">
+              <span class="text-slate-400 font-bold uppercase tracking-wider text-[10px]">Dialysis Machines</span>
+              <div class="text-2xl font-extrabold text-cyan-400">{{ availableMachinesCount() }} / {{ totalMachinesCount() }}</div>
+              <p class="text-[11px] text-slate-400">Ready for treatment</p>
+            </div>
+          </div>
+
+          <!-- Quick Navigation Actions -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div (click)="switchTab('appointments')" class="glass-card glass-card-hover p-5 cursor-pointer flex items-center justify-between group">
+              <div>
+                <h3 class="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">Manage Appointments</h3>
+                <p class="text-xs text-slate-400 mt-1">Schedule, reschedule, or cancel treatments</p>
+              </div>
+              <span class="text-blue-400 font-bold text-lg">&rarr;</span>
+            </div>
+
+            <div (click)="switchTab('staff')" class="glass-card glass-card-hover p-5 cursor-pointer flex items-center justify-between group">
+              <div>
+                <h3 class="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">Medical Staff Roster</h3>
+                <p class="text-xs text-slate-400 mt-1">Manage doctors, nurses, and active status</p>
+              </div>
+              <span class="text-blue-400 font-bold text-lg">&rarr;</span>
+            </div>
+
+            <div (click)="switchTab('patients')" class="glass-card glass-card-hover p-5 cursor-pointer flex items-center justify-between group">
+              <div>
+                <h3 class="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">Patients Directory</h3>
+                <p class="text-xs text-slate-400 mt-1">Search patient blood profiles and history</p>
+              </div>
+              <span class="text-blue-400 font-bold text-lg">&rarr;</span>
+            </div>
+          </div>
+
+          <!-- Recent Appointments Table -->
+          <div class="glass-card p-6 shadow-xl space-y-4">
+            <div class="flex items-center justify-between">
+              <h2 class="text-sm font-bold uppercase tracking-wider text-white font-poppins">Recent Dialysis Sessions</h2>
+              <button (click)="switchTab('appointments')" class="text-xs text-blue-400 hover:text-blue-300 font-semibold underline">View All</button>
             </div>
 
             @if (recentAppointments().length === 0) {
-              <p class="text-xs text-slate-500 py-8 text-center font-medium">No appointments scheduled for today.</p>
+              <div class="p-8 text-center text-xs text-slate-500 font-medium">No recent appointments recorded today.</div>
             } @else {
               <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
-                  <thead class="text-slate-400 uppercase tracking-wider border-b border-white/5 pb-2 text-[10px] font-bold">
+                  <thead class="border-b border-white/5 text-slate-400 uppercase tracking-wider text-[10px] font-bold">
                     <tr>
                       <th class="py-3 px-3">Patient</th>
-                      <th class="py-3 px-3">Assigned Staff</th>
+                      <th class="py-3 px-3">Staff / Doctor</th>
                       <th class="py-3 px-3">Room / Machine</th>
-                      <th class="py-3 px-3">Time Window</th>
+                      <th class="py-3 px-3">Schedule</th>
                       <th class="py-3 px-3">Status</th>
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-white/5 text-slate-300">
                     @for (appt of recentAppointments(); track appt.id) {
                       <tr class="hover:bg-white/[0.02] transition-colors">
-                        <td class="py-3.5 px-3 font-semibold text-white">{{ appt.patientName }}</td>
-                        <td class="py-3.5 px-3 text-slate-300">{{ appt.staffName }}</td>
-                        <td class="py-3.5 px-3 font-mono text-slate-400">{{ appt.roomNumber }} / {{ appt.machineSerialNumber }}</td>
-                        <td class="py-3.5 px-3 text-slate-400">{{ formatDate(appt.scheduledStart) }} - {{ formatDate(appt.scheduledEnd) }}</td>
-                        <td class="py-3.5 px-3">
+                        <td class="py-3 px-3 font-semibold text-white">{{ appt.patientName }}</td>
+                        <td class="py-3 px-3">{{ appt.staffName }}</td>
+                        <td class="py-3 px-3">{{ appt.roomNumber }} - {{ appt.machineSerialNumber }}</td>
+                        <td class="py-3 px-3">{{ formatDate(appt.scheduledStart) }}</td>
+                        <td class="py-3 px-3">
                           <span class="badge"
                             [class.badge-scheduled]="appt.status === 'SCHEDULED'"
-                            [class.badge-rescheduled]="appt.status === 'RESCHEDULED'"
-                            [class.badge-cancelled]="appt.status === 'CANCELLED'"
                             [class.badge-completed]="appt.status === 'COMPLETED'"
-                            [class.badge-reassignment]="appt.status === 'PENDING_REASSIGNMENT'">
+                            [class.badge-cancelled]="appt.status === 'CANCELLED'"
+                            [class.badge-emergency]="appt.status === 'EMERGENCY'">
                             {{ appt.status }}
                           </span>
                         </td>
@@ -187,162 +257,548 @@
         </div>
       }
 
-      <!-- TAB 2: ROOMS & MACHINES -->
-      @if (activeTab === 'resources') {
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <!-- Rooms Card -->
-          <div class="glass-card p-6 shadow-xl space-y-4">
-            <div class="flex items-center justify-between">
-              <h2 class="text-sm font-bold uppercase tracking-wider text-white">Dialysis Rooms</h2>
-              <button (click)="showAddRoomModal = true" class="px-4 py-2 btn-primary text-xs font-bold shadow-md shadow-blue-500/20">
-                + Add Room
-              </button>
+      <!-- TAB 2: APPOINTMENTS CONSOLE -->
+      @if (activeTab === 'appointments') {
+        <div class="space-y-4">
+          <!-- Appointments Toolbar -->
+          <div class="glass-card p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex flex-wrap items-center gap-2">
+              @for (st of appointmentStatusFilterOptions; track st) {
+                <button
+                  (click)="setApptStatusFilter(st)"
+                  [class.btn-primary]="appointmentStatusFilter() === st"
+                  [class.btn-secondary]="appointmentStatusFilter() !== st"
+                  class="px-2.5 py-1 text-[11px] font-bold rounded-lg transition-all uppercase"
+                >
+                  {{ st }}
+                </button>
+              }
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              @for (room of rooms(); track room.id) {
-                <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex items-center justify-between">
-                  <div>
-                    <p class="text-sm font-bold text-white">{{ room.roomNumber }}</p>
-                    <span class="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full inline-block mt-1.5"
-                      [class.bg-emerald-950]="room.status === 'AVAILABLE'"
-                      [class.text-emerald-400]="room.status === 'AVAILABLE'"
-                      [class.bg-rose-950]="room.status === 'MAINTENANCE'"
-                      [class.text-rose-400]="room.status === 'MAINTENANCE'">
-                      {{ room.status }}
-                    </span>
-                  </div>
-                  <button (click)="toggleRoomStatus(room)" class="text-xs px-3 py-1.5 rounded-lg btn-secondary">
-                    Toggle
-                  </button>
-                </div>
-              }
+            <div class="flex items-center gap-3">
+              <input
+                type="date"
+                [ngModel]="appointmentDateFilter()"
+                (ngModelChange)="appointmentDateFilter.set($event)"
+                class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-blue-500"
+              />
+              <div class="relative flex-grow md:w-64">
+                <input
+                  type="text"
+                  [ngModel]="appointmentSearchTerm()"
+                  (ngModelChange)="appointmentSearchTerm.set($event)"
+                  placeholder="Search patient, doctor, room..."
+                  class="w-full pl-9 pr-4 py-2 bg-white/5 border border-white/10 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                />
+                <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
             </div>
           </div>
 
-          <!-- Machines Card -->
+          <!-- Appointments Table -->
           <div class="glass-card p-6 shadow-xl space-y-4">
             <div class="flex items-center justify-between">
-              <h2 class="text-sm font-bold uppercase tracking-wider text-white">Dialysis Machines</h2>
-              <button (click)="showAddMachineModal = true" class="px-4 py-2 bg-gradient-to-tr from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-purple-600/20">
-                + Add Machine
+              <div>
+                <h2 class="text-sm font-bold uppercase tracking-wider text-white font-poppins">Dialysis Sessions Roster</h2>
+                <p class="text-xs text-slate-400">Total: {{ allAppointments().length }} | Matching Filter: {{ filteredAppointments().length }}</p>
+              </div>
+              <button (click)="loadAppointments()" class="text-xs text-blue-400 hover:text-blue-300 font-semibold underline">Refresh</button>
+            </div>
+
+            @if (filteredAppointments().length === 0) {
+              <div class="p-12 text-center text-xs text-slate-500 font-medium">No dialysis appointments match your filter criteria.</div>
+            } @else {
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead class="border-b border-white/5 text-slate-400 uppercase tracking-wider text-[10px] font-bold">
+                    <tr>
+                      <th class="py-3 px-3">Appt #</th>
+                      <th class="py-3 px-3">Patient Profile</th>
+                      <th class="py-3 px-3">Assigned Staff</th>
+                      <th class="py-3 px-3">Room & Machine</th>
+                      <th class="py-3 px-3">Schedule Time</th>
+                      <th class="py-3 px-3">Status</th>
+                      <th class="py-3 px-3 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-white/5 text-slate-300">
+                    @for (appt of filteredAppointments(); track appt.id) {
+                      <tr class="hover:bg-white/[0.02] transition-colors">
+                        <td class="py-3.5 px-3 font-mono font-bold text-white">#{{ appt.id }}</td>
+                        <td class="py-3.5 px-3">
+                          <div class="font-bold text-white">{{ appt.patientName }}</div>
+                          <div class="text-[10px] text-slate-500 font-mono">ID: #{{ appt.patientId }}</div>
+                        </td>
+                        <td class="py-3.5 px-3">
+                          <div class="font-semibold text-slate-200">{{ appt.staffName }}</div>
+                        </td>
+                        <td class="py-3.5 px-3">
+                          <span class="font-bold text-white">{{ appt.roomNumber }}</span>
+                          <span class="text-[11px] text-slate-400 ml-1.5 font-mono">({{ appt.machineSerialNumber }})</span>
+                        </td>
+                        <td class="py-3.5 px-3">
+                          <div class="font-medium text-white">{{ formatDate(appt.scheduledStart) }}</div>
+                          <div class="text-[10px] text-slate-400">until {{ formatDate(appt.scheduledEnd) }}</div>
+                        </td>
+                        <td class="py-3.5 px-3">
+                          <span class="badge"
+                            [class.badge-scheduled]="appt.status === 'SCHEDULED'"
+                            [class.badge-completed]="appt.status === 'COMPLETED'"
+                            [class.badge-cancelled]="appt.status === 'CANCELLED'"
+                            [class.badge-rescheduled]="appt.status === 'RESCHEDULED'"
+                            [class.badge-emergency]="appt.status === 'EMERGENCY'">
+                            {{ appt.status }}
+                          </span>
+                        </td>
+                        <td class="py-3.5 px-3 text-right space-x-1.5 whitespace-nowrap">
+                          <button (click)="openApptHistoryModal(appt)" title="View Audit Trail" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-semibold border border-white/5 transition-all">
+                            Logs
+                          </button>
+                          @if (appt.status === 'SCHEDULED' || appt.status === 'RESCHEDULED' || appt.status === 'EMERGENCY') {
+                            <button (click)="completeAppointment(appt.id)" [disabled]="completingApptId() === appt.id" class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-sm transition-all">
+                              {{ completingApptId() === appt.id ? '...' : '✓ Complete' }}
+                            </button>
+                            <button (click)="openRescheduleModal(appt)" class="px-2.5 py-1 rounded-lg btn-secondary text-xs font-semibold">
+                              Reschedule
+                            </button>
+                            <button (click)="cancelAppointment(appt.id)" [disabled]="cancellingApptId() === appt.id" class="px-2.5 py-1 rounded-lg btn-danger text-xs font-semibold">
+                              {{ cancellingApptId() === appt.id ? '...' : 'Cancel' }}
+                            </button>
+                          }
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- TAB 3: MEDICAL STAFF DIRECTORY & MANAGEMENT -->
+      @if (activeTab === 'staff') {
+        <div class="space-y-4">
+          <!-- Staff Toolbar -->
+          <div class="glass-card p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+              <button
+                (click)="staffTypeFilter.set('ALL')"
+                [class.btn-primary]="staffTypeFilter() === 'ALL'"
+                [class.btn-secondary]="staffTypeFilter() !== 'ALL'"
+                class="px-3 py-1.5 text-xs font-bold rounded-xl"
+              >
+                All Staff ({{ allStaff().length }})
+              </button>
+              <button
+                (click)="staffTypeFilter.set('DOCTOR')"
+                [class.btn-primary]="staffTypeFilter() === 'DOCTOR'"
+                [class.btn-secondary]="staffTypeFilter() !== 'DOCTOR'"
+                class="px-3 py-1.5 text-xs font-bold rounded-xl"
+              >
+                Doctors
+              </button>
+              <button
+                (click)="staffTypeFilter.set('NURSE')"
+                [class.btn-primary]="staffTypeFilter() === 'NURSE'"
+                [class.btn-secondary]="staffTypeFilter() !== 'NURSE'"
+                class="px-3 py-1.5 text-xs font-bold rounded-xl"
+              >
+                Nurses
               </button>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              @for (machine of machines(); track machine.id) {
-                <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex items-center justify-between">
-                  <div>
-                    <p class="text-sm font-bold font-mono text-white">{{ machine.serialNumber }}</p>
-                    <span class="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full inline-block mt-1.5"
-                      [class.bg-emerald-950]="machine.status === 'AVAILABLE'"
-                      [class.text-emerald-400]="machine.status === 'AVAILABLE'"
-                      [class.bg-rose-950]="machine.status === 'MAINTENANCE'"
-                      [class.text-rose-400]="machine.status === 'MAINTENANCE'">
-                      {{ machine.status }}
-                    </span>
-                  </div>
-                  <button (click)="toggleMachineStatus(machine)" class="text-xs px-3 py-1.5 rounded-lg btn-secondary">
-                    Toggle
-                  </button>
-                </div>
+            <div class="flex items-center gap-3">
+              <div class="relative flex-grow md:w-64">
+                <input
+                  type="text"
+                  [ngModel]="staffSearchTerm()"
+                  (ngModelChange)="staffSearchTerm.set($event)"
+                  placeholder="Search staff name, email..."
+                  class="w-full pl-9 pr-4 py-2 bg-white/5 border border-white/10 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                />
+                <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+
+              <button (click)="openAddStaffModal('DOCTOR')" class="px-3.5 py-2 btn-primary text-xs font-bold whitespace-nowrap rounded-xl shadow-md shadow-blue-500/20 flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" /></svg>
+                <span>+ Doctor</span>
+              </button>
+              <button (click)="openAddStaffModal('NURSE')" class="px-3.5 py-2 btn-secondary text-xs font-bold whitespace-nowrap rounded-xl hover:bg-white/10 flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" /></svg>
+                <span>+ Nurse</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Staff Table -->
+          <div class="glass-card p-6 shadow-xl space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-sm font-bold uppercase tracking-wider text-white font-poppins">Medical Staff Roster</h2>
+                <p class="text-xs text-slate-400">Total Registered: {{ allStaff().length }} | Active Clinicians: {{ activeStaffCount() }}</p>
+              </div>
+              <button (click)="loadStaff()" class="text-xs text-blue-400 hover:text-blue-300 font-semibold underline">Refresh</button>
+            </div>
+
+            @if (filteredStaff().length === 0) {
+              <div class="p-12 text-center text-xs text-slate-500 font-medium">No medical staff found matching your search.</div>
+            } @else {
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead class="border-b border-white/5 text-slate-400 uppercase tracking-wider text-[10px] font-bold">
+                    <tr>
+                      <th class="py-3 px-3">Clinician</th>
+                      <th class="py-3 px-3">Role</th>
+                      <th class="py-3 px-3">Contact</th>
+                      <th class="py-3 px-3">Specialization / Shift</th>
+                      <th class="py-3 px-3">Status</th>
+                      <th class="py-3 px-3 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-white/5 text-slate-300">
+                    @for (s of filteredStaff(); track s.id + s.staffType) {
+                      <tr class="hover:bg-white/[0.02] transition-colors">
+                        <td class="py-3.5 px-3">
+                          <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 to-blue-600 text-white font-bold text-xs flex items-center justify-center shadow-sm">
+                              {{ s.name.charAt(0) }}
+                            </div>
+                            <div>
+                              <div class="font-bold text-white">{{ s.name }}</div>
+                              <div class="text-[10px] text-slate-500 font-mono">ID: #{{ s.id }}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="py-3.5 px-3">
+                          <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase font-mono"
+                            [class.bg-blue-950]="s.staffType === 'DOCTOR'"
+                            [class.text-blue-300]="s.staffType === 'DOCTOR'"
+                            [class.border-blue-800]="s.staffType === 'DOCTOR'"
+                            [class.bg-teal-950]="s.staffType === 'NURSE'"
+                            [class.text-teal-300]="s.staffType === 'NURSE'"
+                            [class.border-teal-800]="s.staffType === 'NURSE'">
+                            {{ s.staffType }}
+                          </span>
+                        </td>
+                        <td class="py-3.5 px-3">
+                          <div class="text-slate-300 font-medium">{{ s.email }}</div>
+                          <div class="text-[10px] text-slate-500">{{ s.phone || 'No phone' }}</div>
+                        </td>
+                        <td class="py-3.5 px-3">
+                          <div class="text-slate-200 font-semibold">
+                            {{ s.staffType === 'DOCTOR' ? (asDoctor(s.raw).specialization || 'Nephrology') : (asNurse(s.raw).qualification || 'Dialysis Care') }}
+                          </div>
+                          <div class="text-[10px] text-slate-400">
+                            {{ s.staffType === 'DOCTOR' ? ('Lic: ' + (asDoctor(s.raw).licenseNumber || 'N/A')) : ('Shift: ' + (asNurse(s.raw).shift || 'Standard')) }} | Exp: {{ s.experienceYears || 0 }} yrs
+                          </div>
+                        </td>
+                        <td class="py-3.5 px-3">
+                          <button
+                            (click)="toggleStaffStatus(s)"
+                            [disabled]="updatingStaffId() === s.id"
+                            class="px-2.5 py-1 rounded-full text-[10px] font-extrabold tracking-wider uppercase transition-all"
+                            [class.bg-emerald-950]="s.accountStatus === 'ACTIVE'"
+                            [class.text-emerald-300]="s.accountStatus === 'ACTIVE'"
+                            [class.border]="s.accountStatus === 'ACTIVE'"
+                            [class.border-emerald-800]="s.accountStatus === 'ACTIVE'"
+                            [class.bg-rose-950]="s.accountStatus !== 'ACTIVE'"
+                            [class.text-rose-300]="s.accountStatus !== 'ACTIVE'"
+                            [class.border-rose-800]="s.accountStatus !== 'ACTIVE'"
+                          >
+                            {{ updatingStaffId() === s.id ? 'Updating...' : s.accountStatus }}
+                          </button>
+                        </td>
+                        <td class="py-3.5 px-3 text-right space-x-2 whitespace-nowrap">
+                          <button (click)="openEditStaffModal(s)" class="px-3 py-1.5 rounded-lg btn-secondary text-xs font-semibold shadow-sm">
+                            Edit Profile
+                          </button>
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- TAB 4: PATIENTS DIRECTORY -->
+      @if (activeTab === 'patients') {
+        <div class="space-y-4">
+          <!-- Patients Toolbar -->
+          <div class="glass-card p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Blood:</span>
+              @for (bg of ['ALL', 'A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-']; track bg) {
+                <button
+                  (click)="patientBloodFilter.set(bg)"
+                  [class.btn-primary]="patientBloodFilter() === bg"
+                  [class.btn-secondary]="patientBloodFilter() !== bg"
+                  class="px-2 py-1 text-[11px] font-bold rounded-lg transition-all"
+                >
+                  {{ bg }}
+                </button>
               }
+
+              <div class="h-4 w-[1px] bg-white/10 mx-1"></div>
+
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Status:</span>
+              @for (st of ['ALL', 'SCHEDULED', 'UNSCHEDULED']; track st) {
+                <button
+                  (click)="patientSchedulingFilter.set($any(st))"
+                  [class.btn-primary]="patientSchedulingFilter() === st"
+                  [class.btn-secondary]="patientSchedulingFilter() !== st"
+                  class="px-2.5 py-1 text-[11px] font-bold rounded-lg transition-all uppercase"
+                >
+                  {{ st }}
+                </button>
+              }
+            </div>
+
+            <div class="flex items-center gap-3">
+              <div class="relative flex-grow md:w-64">
+                <input
+                  type="text"
+                  [ngModel]="patientSearchTerm()"
+                  (ngModelChange)="patientSearchTerm.set($event)"
+                  placeholder="Search patient, contact, blood..."
+                  class="w-full pl-9 pr-4 py-2 bg-white/5 border border-white/10 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                />
+                <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+
+              <button (click)="openBookModal(false)" class="px-4 py-2 btn-primary text-xs font-bold whitespace-nowrap rounded-xl shadow-md shadow-blue-500/20 flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" /></svg>
+                <span>Book Dialysis</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Patients Table -->
+          <div class="glass-card p-6 shadow-xl space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-sm font-bold uppercase tracking-wider text-white font-poppins">Registered Dialysis Patients Directory</h2>
+                <p class="text-xs text-slate-400">Total Registered: <span class="font-bold text-white">{{ patientList().length }}</span> | Matching: <span class="font-bold text-blue-400">{{ filteredPatients().length }}</span></p>
+              </div>
+              <button (click)="loadAllDashboardData()" class="text-xs text-blue-400 hover:text-blue-300 font-semibold underline">Refresh</button>
+            </div>
+
+            @if (filteredPatients().length === 0) {
+              <div class="p-12 text-center text-xs text-slate-500 font-medium">No dialysis patients match your search criteria.</div>
+            } @else {
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead class="border-b border-white/5 text-slate-400 uppercase tracking-wider text-[10px] font-bold">
+                    <tr>
+                      <th class="py-3 px-3">Patient Profile</th>
+                      <th class="py-3 px-3">Scheduling Status</th>
+                      <th class="py-3 px-3">Contact</th>
+                      <th class="py-3 px-3">Blood Group</th>
+                      <th class="py-3 px-3">Completed Sessions</th>
+                      <th class="py-3 px-3">Clinical Notes / History</th>
+                      <th class="py-3 px-3 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-white/5 text-slate-300">
+                    @for (p of filteredPatients(); track p.id) {
+                      <tr class="hover:bg-white/[0.02] transition-colors">
+                        <td class="py-3.5 px-3">
+                          <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-bold text-xs flex items-center justify-center shadow-sm">
+                              {{ p.name.charAt(0) }}
+                            </div>
+                            <div>
+                              <div class="font-bold text-white">{{ p.name }}</div>
+                              <div class="text-[10px] text-slate-500 font-mono">ID: #{{ p.id }}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="py-3.5 px-3">
+                          <div class="flex items-center gap-2">
+                            <span class="badge"
+                              [class.badge-scheduled]="p.schedulingStatus === 'SCHEDULED'"
+                              [class.badge-cancelled]="p.schedulingStatus !== 'SCHEDULED'">
+                              {{ p.schedulingStatus || 'UNSCHEDULED' }}
+                            </span>
+                          </div>
+                          @if (p.nextScheduledAppointment) {
+                            <div class="text-[10px] text-blue-400 mt-0.5">
+                              Next: {{ formatDate(p.nextScheduledAppointment) }}
+                            </div>
+                          }
+                        </td>
+                        <td class="py-3.5 px-3">
+                          <div class="text-slate-300 font-medium">{{ p.email }}</div>
+                          <div class="text-[10px] text-slate-500">{{ p.phone || 'No phone' }}</div>
+                        </td>
+                        <td class="py-3.5 px-3">
+                          <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase bg-rose-950/60 border border-rose-800 text-rose-300 font-mono">
+                            {{ p.bloodGroup || 'N/A' }}
+                          </span>
+                        </td>
+                        <td class="py-3.5 px-3">
+                          <span class="font-bold text-emerald-400 font-mono">{{ p.totalSessions }}</span>
+                          <span class="text-[11px] text-slate-400 ml-1">sessions</span>
+                        </td>
+                        <td class="py-3.5 px-3 text-slate-400 max-w-xs truncate" [title]="p.treatmentNotes || p.dialysisHistory || 'No notes'">
+                          {{ p.treatmentNotes || p.dialysisHistory || 'Standard dialysis regimen active.' }}
+                        </td>
+                        <td class="py-3.5 px-3 text-right space-x-2 whitespace-nowrap">
+                          <button (click)="bookPatientId = p.id; openBookModal(false)" class="px-3 py-1.5 rounded-lg btn-primary text-xs font-semibold shadow-sm">
+                            Schedule
+                          </button>
+                          <button (click)="bookPatientId = p.id; openBookModal(true)" class="px-3 py-1.5 rounded-lg btn-danger text-xs font-semibold shadow-sm">
+                            🚨 Emergency
+                          </button>
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- TAB 5: ROOMS & DIALYSIS MACHINES -->
+      @if (activeTab === 'resources') {
+        <div class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Rooms Table -->
+            <div class="glass-card p-6 shadow-xl space-y-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h2 class="text-sm font-bold uppercase tracking-wider text-white font-poppins">Dialysis Rooms</h2>
+                  <p class="text-xs text-slate-400">Total Rooms: {{ rooms().length }}</p>
+                </div>
+                <button (click)="showAddRoomModal = true" class="px-3 py-1.5 rounded-xl btn-primary text-xs font-bold shadow-sm">
+                  + Add Room
+                </button>
+              </div>
+
+              <div class="divide-y divide-white/5">
+                @for (room of rooms(); track room.id) {
+                  <div class="py-3 flex items-center justify-between">
+                    <div>
+                      <div class="text-sm font-bold text-white">{{ room.roomNumber }}</div>
+                      <div class="text-[10px] text-slate-500 font-mono">Room ID #{{ room.id }}</div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <span class="badge" [class.badge-completed]="room.status === 'AVAILABLE'" [class.badge-rescheduled]="room.status !== 'AVAILABLE'">
+                        {{ room.status }}
+                      </span>
+                      <button (click)="toggleRoomStatus(room)" class="text-xs text-blue-400 hover:text-blue-300 font-semibold">
+                        Toggle
+                      </button>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+
+            <!-- Machines Table -->
+            <div class="glass-card p-6 shadow-xl space-y-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h2 class="text-sm font-bold uppercase tracking-wider text-white font-poppins">Dialysis Machines</h2>
+                  <p class="text-xs text-slate-400">Total Machines: {{ machines().length }}</p>
+                </div>
+                <button (click)="showAddMachineModal = true" class="px-3 py-1.5 rounded-xl btn-primary text-xs font-bold shadow-sm">
+                  + Add Machine
+                </button>
+              </div>
+
+              <div class="divide-y divide-white/5">
+                @for (machine of machines(); track machine.id) {
+                  <div class="py-3 flex items-center justify-between">
+                    <div>
+                      <div class="text-sm font-bold text-white">{{ machine.serialNumber }}</div>
+                      <div class="text-[10px] text-slate-500 font-mono">Machine ID #{{ machine.id }}</div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <span class="badge" [class.badge-completed]="machine.status === 'AVAILABLE'" [class.badge-rescheduled]="machine.status !== 'AVAILABLE'">
+                        {{ machine.status }}
+                      </span>
+                      <button (click)="toggleMachineStatus(machine)" class="text-xs text-blue-400 hover:text-blue-300 font-semibold">
+                        Toggle
+                      </button>
+                    </div>
+                  </div>
+                }
+              </div>
             </div>
           </div>
         </div>
       }
 
-      <!-- TAB 3: REPORTS & AUDIT -->
+      <!-- TAB 6: REPORTS & AUDIT TRAIL -->
       @if (activeTab === 'reports') {
         <div class="space-y-6">
           <!-- Date Filter Bar -->
-          <div class="glass-card p-4 flex flex-wrap items-center gap-4">
-            <div class="flex items-center gap-2">
-              <label class="text-xs font-semibold text-slate-400">Start Date:</label>
-              <input type="date" [(ngModel)]="reportStart" class="bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
+          <div class="glass-card p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <label class="text-xs font-bold text-slate-400">Date Range:</label>
+              <input type="date" [(ngModel)]="reportStart" class="form-input text-xs" />
+              <span class="text-slate-500">to</span>
+              <input type="date" [(ngModel)]="reportEnd" class="form-input text-xs" />
             </div>
-            <div class="flex items-center gap-2">
-              <label class="text-xs font-semibold text-slate-400">End Date:</label>
-              <input type="date" [(ngModel)]="reportEnd" class="bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white" />
-            </div>
-            <button (click)="loadReports()" class="px-5 py-2 btn-primary text-xs font-bold shadow-md shadow-blue-500/20">
-              Apply Filters
+            <button (click)="loadReports()" class="px-4 py-2 btn-primary text-xs font-bold rounded-xl shadow-md">
+              Generate Report
             </button>
           </div>
 
-          <!-- Utilization Statistics -->
+          <!-- Utilization Summary -->
           @if (utilizationReport()) {
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <!-- Room Utilization -->
-              <div class="glass-card p-6 shadow-xl space-y-4">
-                <h3 class="text-sm font-bold uppercase tracking-wider text-white">Room Occupancy & Utilization</h3>
-                <div class="space-y-3">
-                  @for (r of utilizationReport()?.roomUtilization; track r.roomId) {
-                    <div>
-                      <div class="flex justify-between text-xs font-semibold mb-1">
-                        <span class="text-white">{{ r.roomNumber }}</span>
-                        <span class="text-blue-400">{{ r.utilizationPercentage | number:'1.1-1' }}% ({{ r.utilizedMinutes }} min)</span>
-                      </div>
-                      <div class="w-full h-2.5 rounded-full bg-white/5 overflow-hidden">
-                        <div class="h-full bg-blue-500 rounded-full transition-all duration-500" [style.width.%]="r.utilizationPercentage"></div>
-                      </div>
-                    </div>
-                  }
-                </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="glass-card p-5 border-l-4 border-l-blue-500">
+                <p class="text-[10px] font-bold text-slate-400 uppercase">Total Sessions</p>
+                <p class="text-2xl font-extrabold text-white mt-1">{{ utilizationReport()?.totalAppointments }}</p>
               </div>
-
-              <!-- Machine Utilization -->
-              <div class="glass-card p-6 shadow-xl space-y-4">
-                <h3 class="text-sm font-bold uppercase tracking-wider text-white">Machine Usage Rate</h3>
-                <div class="space-y-3">
-                  @for (m of utilizationReport()?.machineUtilization; track m.machineId) {
-                    <div>
-                      <div class="flex justify-between text-xs font-semibold mb-1">
-                        <span class="text-white font-mono">{{ m.serialNumber }}</span>
-                        <span class="text-purple-400">{{ m.utilizationPercentage | number:'1.1-1' }}% ({{ m.utilizedMinutes }} min)</span>
-                      </div>
-                      <div class="w-full h-2.5 rounded-full bg-white/5 overflow-hidden">
-                        <div class="h-full bg-purple-500 rounded-full transition-all duration-500" [style.width.%]="m.utilizationPercentage"></div>
-                      </div>
-                    </div>
-                  }
-                </div>
+              <div class="glass-card p-5 border-l-4 border-l-emerald-500">
+                <p class="text-[10px] font-bold text-slate-400 uppercase">Monitored Rooms</p>
+                <p class="text-2xl font-extrabold text-emerald-400 mt-1">{{ utilizationReport()?.roomUtilization?.length || 0 }}</p>
+              </div>
+              <div class="glass-card p-5 border-l-4 border-l-cyan-500">
+                <p class="text-[10px] font-bold text-slate-400 uppercase">Active Machines</p>
+                <p class="text-2xl font-extrabold text-cyan-400 mt-1">{{ utilizationReport()?.machineUtilization?.length || 0 }}</p>
               </div>
             </div>
           }
 
-          <!-- Global Audit Logs -->
+          <!-- Audit Logs Table -->
           <div class="glass-card p-6 shadow-xl space-y-4">
-            <h3 class="text-sm font-bold uppercase tracking-wider text-white">System Audit & Action Logs</h3>
+            <h2 class="text-sm font-bold uppercase tracking-wider text-white font-poppins">System Audit Logs</h2>
             <div class="overflow-x-auto">
               <table class="w-full text-left text-xs">
-                <thead class="text-slate-400 uppercase tracking-wider border-b border-white/5 pb-2 text-[10px] font-bold">
+                <thead class="border-b border-white/5 text-slate-400 uppercase tracking-wider text-[10px]">
                   <tr>
-                    <th class="py-3 px-3">Appt #</th>
-                    <th class="py-3 px-3">Action</th>
-                    <th class="py-3 px-3">Role</th>
-                    <th class="py-3 px-3">Status Change</th>
-                    <th class="py-3 px-3">Timestamp</th>
+                    <th class="py-2.5 px-3 font-bold">Timestamp</th>
+                    <th class="py-2.5 px-3 font-bold">Action</th>
+                    <th class="py-2.5 px-3 font-bold">Target</th>
+                    <th class="py-2.5 px-3 font-bold">Role</th>
+                    <th class="py-2.5 px-3 font-bold">Details</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-white/5 text-slate-300">
                   @for (log of auditLogs(); track log.id) {
-                    <tr class="hover:bg-white/[0.02] transition-colors">
-                      <td class="py-3 px-3 font-bold text-white">#{{ log.appointmentId }}</td>
-                      <td class="py-3 px-3">
-                        <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase bg-blue-950/80 border border-blue-800 text-blue-300">
-                          {{ log.action }}
-                        </span>
+                    <tr>
+                      <td class="py-3 px-3 font-mono text-[11px] text-slate-400">{{ formatDate(log.createdAt) }}</td>
+                      <td class="py-3 px-3 font-bold text-white">{{ log.action }}</td>
+                      <td class="py-3 px-3">Appt #{{ log.appointmentId }}</td>
+                      <td class="py-3 px-3 text-blue-400">{{ log.performedByRole || 'SYSTEM' }}</td>
+                      <td class="py-3 px-3 text-slate-400 max-w-xs truncate">
+                        Status: {{ log.oldStatus || 'NONE' }} &rarr; {{ log.newStatus || 'UPDATED' }}
                       </td>
-                      <td class="py-3 px-3 text-slate-400">{{ log.performedByRole || 'SYSTEM' }}</td>
-                      <td class="py-3 px-3">
-                        @if (log.oldStatus || log.newStatus) {
-                          <span class="text-slate-500">{{ log.oldStatus || 'NONE' }}</span> &rarr; <span class="text-white font-semibold">{{ log.newStatus }}</span>
-                        } @else {
-                          <span class="text-slate-500">—</span>
-                        }
-                      </td>
-                      <td class="py-3 px-3 text-slate-400">{{ formatDate(log.createdAt) }}</td>
                     </tr>
                   }
                 </tbody>
@@ -352,105 +808,105 @@
         </div>
       }
 
-      <!-- TAB 4: EMERGENCY CONSOLE -->
+      <!-- TAB 7: EMERGENCY CONSOLE -->
       @if (activeTab === 'emergency') {
-        <div class="glass-card border border-rose-500/30 p-8 shadow-xl space-y-6">
-          <div>
-            <h2 class="text-base font-extrabold text-white flex items-center gap-2.5">
-              <span class="w-3 h-3 rounded-full bg-rose-500 animate-pulse"></span>
-              Emergency Staff Unavailability Trigger
-            </h2>
-            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-              When a doctor or nurse suddenly becomes unavailable, this engine scans active appointments within the window and automatically shifts them to vacant replacement staff.
-            </p>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="space-y-6">
+          <div class="glass-card p-6 shadow-2xl border border-rose-500/20 space-y-5">
             <div>
-              <label class="block text-xs font-bold text-slate-300 mb-1.5">Unavailable Staff Member *</label>
-              <select [(ngModel)]="emergencyStaffId" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white">
-                <option [ngValue]="null">Select Staff Member</option>
-                @for (staff of staffList(); track staff.id) {
-                  <option [ngValue]="staff.id">{{ staff.name }} ({{ staff.staffType }})</option>
-                }
-              </select>
+              <h2 class="text-sm font-extrabold text-rose-400 uppercase tracking-wider font-poppins flex items-center gap-2">
+                <svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                Emergency Staff Unavailability & Auto-Reassignment Engine
+              </h2>
+              <p class="text-xs text-slate-400 mt-1">Declare sudden clinician absence. The scheduling engine will reassign affected dialysis appointments to available qualified staff in real time.</p>
             </div>
 
-            <div>
-              <label class="block text-xs font-bold text-slate-300 mb-1.5">Start Time *</label>
-              <input type="datetime-local" [(ngModel)]="emergencyStart" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white" />
-            </div>
-
-            <div>
-              <label class="block text-xs font-bold text-slate-300 mb-1.5">End Time *</label>
-              <input type="datetime-local" [(ngModel)]="emergencyEnd" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white" />
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1.5">Emergency Reason / Note</label>
-            <input type="text" [(ngModel)]="emergencyReason" placeholder="e.g. Medical emergency / unexpected leave" class="form-input" />
-          </div>
-
-          <button (click)="submitEmergencyLeave()" [disabled]="isProcessingEmergency()" class="px-6 py-3 btn-danger text-xs font-bold transition-all flex items-center gap-2">
-            @if (isProcessingEmergency()) {
-              <span>Executing Reassignment Engine...</span>
-            } @else {
-              <span>Execute Emergency Auto-Reassignment</span>
-            }
-          </button>
-
-          <!-- Emergency Results Output -->
-          @if (emergencyResult()) {
-            <div class="border border-white/10 rounded-xl p-5 bg-black/30 space-y-4">
-              <h3 class="text-sm font-bold text-white">Reassignment Outcome Summary</h3>
-              <div class="grid grid-cols-3 gap-4 text-center">
-                <div class="bg-white/5 p-4 rounded-xl">
-                  <p class="text-[10px] text-slate-400 font-bold uppercase">Total Affected</p>
-                  <p class="text-2xl font-black text-white mt-1">{{ emergencyResult()?.totalAffected }}</p>
-                </div>
-                <div class="bg-emerald-950/50 border border-emerald-500/20 p-4 rounded-xl">
-                  <p class="text-[10px] text-emerald-400 font-bold uppercase">Reassigned</p>
-                  <p class="text-2xl font-black text-emerald-300 mt-1">{{ emergencyResult()?.reassignedCount }}</p>
-                </div>
-                <div class="bg-amber-950/50 border border-amber-500/20 p-4 rounded-xl">
-                  <p class="text-[10px] text-amber-400 font-bold uppercase">Pending Manual Review</p>
-                  <p class="text-2xl font-black text-amber-300 mt-1">{{ emergencyResult()?.pendingCount }}</p>
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Absent Clinician *</label>
+                <select [(ngModel)]="emergencyStaffId" class="form-input">
+                  <option [ngValue]="null">Select Staff Member</option>
+                  @for (s of staffList(); track s.id) {
+                    <option [ngValue]="s.id">{{ s.name }} ({{ s.staffType }})</option>
+                  }
+                </select>
               </div>
 
-              @if ((emergencyResult()?.results ?? []).length > 0) {
-                <div class="overflow-x-auto mt-4">
-                  <table class="w-full text-left text-xs">
-                    <thead class="text-slate-400 uppercase tracking-wider border-b border-white/5 pb-2 text-[10px]">
-                      <tr>
-                        <th class="py-2.5 px-3 font-bold">Appt #</th>
-                        <th class="py-2.5 px-3 font-bold">Outcome</th>
-                        <th class="py-2.5 px-3 font-bold">Assigned Replacement</th>
-                        <th class="py-2.5 px-3 font-bold">Details</th>
-                      </tr>
-                    </thead>
-                    <tbody class="divide-y divide-white/5 text-slate-300">
-                      @for (res of emergencyResult()?.results; track res.appointmentId) {
-                        <tr>
-                          <td class="py-3 px-3 font-bold text-white">#{{ res.appointmentId }}</td>
-                          <td class="py-3 px-3">
-                            <span class="badge"
-                              [class.badge-completed]="res.outcome === 'REASSIGNED'"
-                              [class.badge-rescheduled]="res.outcome === 'PENDING_REASSIGNMENT'">
-                              {{ res.outcome }}
-                            </span>
-                          </td>
-                          <td class="py-3 px-3 font-semibold text-white">{{ res.newStaffName || 'None Available' }}</td>
-                          <td class="py-3 px-3 text-slate-400">{{ res.note }}</td>
-                        </tr>
-                      }
-                    </tbody>
-                  </table>
-                </div>
-              }
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Unavailability Start *</label>
+                <input type="datetime-local" [(ngModel)]="emergencyStart" class="form-input" />
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Unavailability End *</label>
+                <input type="datetime-local" [(ngModel)]="emergencyEnd" class="form-input" />
+              </div>
             </div>
-          }
+
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Emergency Reason / Note</label>
+              <input type="text" [(ngModel)]="emergencyReason" placeholder="e.g. Sudden medical emergency / unexpected leave" class="form-input" />
+            </div>
+
+            <button (click)="submitEmergencyLeave()" [disabled]="isProcessingEmergency()" class="px-6 py-3 btn-danger text-xs font-bold transition-all flex items-center gap-2">
+              @if (isProcessingEmergency()) {
+                <span>Executing Reassignment Engine...</span>
+              } @else {
+                <span>Execute Emergency Auto-Reassignment</span>
+              }
+            </button>
+
+            <!-- Emergency Results Output -->
+            @if (emergencyResult()) {
+              <div class="border border-white/10 rounded-xl p-5 bg-black/30 space-y-4">
+                <h3 class="text-sm font-bold text-white">Reassignment Outcome Summary</h3>
+                <div class="grid grid-cols-3 gap-4 text-center">
+                  <div class="bg-white/5 p-4 rounded-xl">
+                    <p class="text-[10px] text-slate-400 font-bold uppercase">Total Affected</p>
+                    <p class="text-2xl font-black text-white mt-1">{{ emergencyResult()?.totalAffected }}</p>
+                  </div>
+                  <div class="bg-emerald-950/50 border border-emerald-500/20 p-4 rounded-xl">
+                    <p class="text-[10px] text-emerald-400 font-bold uppercase">Reassigned</p>
+                    <p class="text-2xl font-black text-emerald-300 mt-1">{{ emergencyResult()?.reassignedCount }}</p>
+                  </div>
+                  <div class="bg-amber-950/50 border border-amber-500/20 p-4 rounded-xl">
+                    <p class="text-[10px] text-amber-400 font-bold uppercase">Pending Manual Review</p>
+                    <p class="text-2xl font-black text-amber-300 mt-1">{{ emergencyResult()?.pendingCount }}</p>
+                  </div>
+                </div>
+
+                @if ((emergencyResult()?.results ?? []).length > 0) {
+                  <div class="overflow-x-auto mt-4">
+                    <table class="w-full text-left text-xs">
+                      <thead class="text-slate-400 uppercase tracking-wider border-b border-white/5 pb-2 text-[10px]">
+                        <tr>
+                          <th class="py-2.5 px-3 font-bold">Appt #</th>
+                          <th class="py-2.5 px-3 font-bold">Outcome</th>
+                          <th class="py-2.5 px-3 font-bold">Assigned Replacement</th>
+                          <th class="py-2.5 px-3 font-bold">Details</th>
+                        </tr>
+                      </thead>
+                      <tbody class="divide-y divide-white/5 text-slate-300">
+                        @for (res of emergencyResult()?.results; track res.appointmentId) {
+                          <tr>
+                            <td class="py-3 px-3 font-bold text-white">#{{ res.appointmentId }}</td>
+                            <td class="py-3 px-3">
+                              <span class="badge"
+                                [class.badge-completed]="res.outcome === 'REASSIGNED'"
+                                [class.badge-rescheduled]="res.outcome === 'PENDING_REASSIGNMENT'">
+                                {{ res.outcome }}
+                              </span>
+                            </td>
+                            <td class="py-3 px-3 font-semibold text-white">{{ res.newStaffName || 'None Available' }}</td>
+                            <td class="py-3 px-3 text-slate-400">{{ res.note }}</td>
+                          </tr>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                }
+              </div>
+            }
+          </div>
         </div>
       }
     </main>
@@ -460,7 +916,7 @@
 <!-- Modal: Add Room -->
 @if (showAddRoomModal) {
   <div class="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center p-4">
-    <div class="glass-card max-w-sm w-full p-6 space-y-4 shadow-2xl border border-white/10 animate-fade-in">
+    <div class="glass-card max-w-sm w-full p-6 space-y-4 shadow-2xl border border-white/10">
       <h3 class="text-sm font-extrabold text-white uppercase tracking-wider font-poppins">Add New Dialysis Room</h3>
       <div>
         <label class="block text-xs font-bold text-slate-300 mb-1.5">Room Number *</label>
@@ -477,15 +933,303 @@
 <!-- Modal: Add Machine -->
 @if (showAddMachineModal) {
   <div class="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center p-4">
-    <div class="glass-card max-w-sm w-full p-6 space-y-4 shadow-2xl border border-white/10 animate-fade-in">
+    <div class="glass-card max-w-sm w-full p-6 space-y-4 shadow-2xl border border-white/10">
       <h3 class="text-sm font-extrabold text-white uppercase tracking-wider font-poppins">Add Dialysis Machine</h3>
       <div>
-        <label class="block text-xs font-bold text-slate-300 mb-1.5">Machine Serial Number *</label>
-        <input type="text" [(ngModel)]="newMachineSerial" placeholder="e.g. DM-004" class="form-input" />
+        <label class="block text-xs font-bold text-slate-300 mb-1.5">Machine Serial / Code *</label>
+        <input type="text" [(ngModel)]="newMachineSerial" placeholder="e.g. FMC-5008-09" class="form-input" />
       </div>
       <div class="flex justify-end gap-2.5 pt-2">
         <button (click)="showAddMachineModal = false" class="px-4 py-2 rounded-xl btn-secondary text-xs font-bold">Cancel</button>
         <button (click)="createMachine()" class="px-5 py-2 rounded-xl btn-primary text-xs font-bold">Save Machine</button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Modal: Universal Book / Emergency Dialysis -->
+@if (showBookModal) {
+  <div class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="glass-card max-w-lg w-full p-6 space-y-5 shadow-2xl border border-white/10 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-white/5 pb-3">
+        <div>
+          <h3 class="text-sm font-extrabold uppercase tracking-wider font-poppins" [class.text-rose-400]="isEmergencyBooking" [class.text-white]="!isEmergencyBooking">
+            {{ isEmergencyBooking ? '🚨 Emergency Dialysis Allocation' : 'Book Dialysis Appointment' }}
+          </h3>
+          <p class="text-xs text-slate-400">{{ isEmergencyBooking ? 'Urgent auto-allocation bypassing standard queues' : 'Standard 3-tier auto assignment' }}</p>
+        </div>
+        <button (click)="showBookModal = false" class="text-slate-400 hover:text-white font-bold text-lg">&times;</button>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Patient Selector -->
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Select Patient *</label>
+          <select [(ngModel)]="bookPatientId" class="form-input text-xs">
+            <option [ngValue]="null">-- Select Patient Profile --</option>
+            @for (p of patientList(); track p.id) {
+              <option [ngValue]="p.id">{{ p.name }} (Blood: {{ p.bloodGroup || 'N/A' }}, #{{ p.id }})</option>
+            }
+          </select>
+        </div>
+
+        <!-- Optional Staff with Real-Time Occupancy -->
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Assigned Clinician (Optional - System will Auto-Assign if blank)</label>
+          <select [(ngModel)]="bookStaffId" class="form-input text-xs">
+            <option [ngValue]="null">-- Auto-Assign Available Clinician --</option>
+            @for (s of staffList(); track s.id) {
+              <option [ngValue]="s.id">
+                {{ s.name }} ({{ s.staffType }}) {{ availability() ? (getStaffAvailability(s.id)?.available ? '— [✓ Available]' : '— [⚠️ Occupied]') : '' }}
+              </option>
+            }
+          </select>
+          @if (isDoctorOccupied(bookStaffId)) {
+            <div class="mt-1.5 p-2 rounded-lg bg-rose-950/40 border border-rose-800 text-rose-300 text-[11px] flex items-center gap-1.5 font-medium">
+              <span>⚠️ Selected clinician is occupied during this time window. Please pick another clinician or use Auto-Assign.</span>
+            </div>
+          }
+        </div>
+
+        <!-- Date / Time -->
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Start Time *</label>
+            <input type="datetime-local" [(ngModel)]="bookStart" (change)="availability.set(null)" class="form-input text-xs" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">End Time *</label>
+            <input type="datetime-local" [(ngModel)]="bookEnd" (change)="availability.set(null)" class="form-input text-xs" />
+          </div>
+        </div>
+
+        <!-- Quick Slot Presets -->
+        <div class="flex items-center gap-2">
+          <span class="text-[10px] font-bold text-slate-400 uppercase">Quick Duration:</span>
+          <button (click)="setSlotDuration(3)" class="px-2.5 py-1 text-[10px] font-bold btn-secondary rounded-lg">3 Hours</button>
+          <button (click)="setSlotDuration(4)" class="px-2.5 py-1 text-[10px] font-bold btn-secondary rounded-lg">4 Hours</button>
+          <button (click)="setSlotDuration(5)" class="px-2.5 py-1 text-[10px] font-bold btn-secondary rounded-lg">5 Hours</button>
+          <button (click)="checkSlotAvailability()" [disabled]="isCheckingAvailability()" class="ml-auto px-3 py-1 text-[10px] font-bold btn-primary rounded-lg">
+            {{ isCheckingAvailability() ? 'Checking...' : 'Check Availability' }}
+          </button>
+        </div>
+
+        <!-- Slot Availability Feedback -->
+        @if (availability()) {
+          <div class="p-3.5 rounded-xl border text-xs" [class.bg-emerald-950/40]="isSlotAvailable()" [class.border-emerald-800]="isSlotAvailable()" [class.bg-amber-950/40]="!isSlotAvailable()" [class.border-amber-800]="!isSlotAvailable()">
+            <div class="font-bold" [class.text-emerald-300]="isSlotAvailable()" [class.text-amber-300]="!isSlotAvailable()">
+              {{ isSlotAvailable() ? '✓ Time Slot is Available for Booking' : '⚠️ Slot Conflict / Resource Constraints' }}
+            </div>
+            <div class="text-[11px] text-slate-400 mt-1">
+              Available Rooms: {{ availableRoomsCountFromCheck() }} | Available Machines: {{ availableMachinesCountFromCheck() }}
+            </div>
+          </div>
+        }
+
+        <!-- Optional Room & Machine manual override -->
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Room (Optional Auto)</label>
+            <select [(ngModel)]="bookRoomId" class="form-input text-xs">
+              <option [ngValue]="null">-- Auto Room --</option>
+              @for (r of rooms(); track r.id) {
+                <option [ngValue]="r.id">{{ r.roomNumber }}</option>
+              }
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Machine (Optional Auto)</label>
+            <select [(ngModel)]="bookMachineId" class="form-input text-xs">
+              <option [ngValue]="null">-- Auto Machine --</option>
+              @for (m of machines(); track m.id) {
+                <option [ngValue]="m.id">{{ m.serialNumber }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Clinical / Session Notes</label>
+          <input type="text" [(ngModel)]="bookNotes" placeholder="e.g. Standard 4-hour hemodialysis treatment protocol" class="form-input text-xs" />
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-3 border-t border-white/5">
+        <button (click)="showBookModal = false" class="px-4 py-2 rounded-xl btn-secondary text-xs font-bold">Cancel</button>
+        <button (click)="createAppointment()" [disabled]="isBooking()" class="px-5 py-2 rounded-xl text-xs font-bold" [class.btn-danger]="isEmergencyBooking" [class.btn-primary]="!isEmergencyBooking">
+          {{ isBooking() ? 'Booking...' : (isEmergencyBooking ? '🚨 Confirm Emergency Dialysis' : 'Confirm Appointment') }}
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Modal: Direct Reschedule -->
+@if (showRescheduleModal) {
+  <div class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="glass-card max-w-md w-full p-6 space-y-4 shadow-2xl border border-white/10">
+      <div class="flex items-center justify-between border-b border-white/5 pb-2">
+        <h3 class="text-sm font-extrabold text-white uppercase tracking-wider font-poppins">Reschedule Appointment #{{ selectedRescheduleAppt?.id }}</h3>
+        <button (click)="showRescheduleModal = false" class="text-slate-400 hover:text-white font-bold text-lg">&times;</button>
+      </div>
+
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">New Start Time *</label>
+          <input type="datetime-local" [(ngModel)]="rescheduleStart" class="form-input text-xs" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">New End Time *</label>
+          <input type="datetime-local" [(ngModel)]="rescheduleEnd" class="form-input text-xs" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Room</label>
+            <select [(ngModel)]="rescheduleRoomId" class="form-input text-xs">
+              <option [ngValue]="null">Auto / Keep Current</option>
+              @for (r of rooms(); track r.id) {
+                <option [ngValue]="r.id">{{ r.roomNumber }}</option>
+              }
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Machine</label>
+            <select [(ngModel)]="rescheduleMachineId" class="form-input text-xs">
+              <option [ngValue]="null">Auto / Keep Current</option>
+              @for (m of machines(); track m.id) {
+                <option [ngValue]="m.id">{{ m.serialNumber }}</option>
+              }
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-3 border-t border-white/5">
+        <button (click)="showRescheduleModal = false" class="px-4 py-2 rounded-xl btn-secondary text-xs font-bold">Cancel</button>
+        <button (click)="submitReschedule()" [disabled]="isRescheduling()" class="px-5 py-2 rounded-xl btn-primary text-xs font-bold">
+          {{ isRescheduling() ? 'Rescheduling...' : 'Confirm Reschedule' }}
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Modal: Appointment Audit History -->
+@if (showApptHistoryModal) {
+  <div class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="glass-card max-w-lg w-full p-6 space-y-4 shadow-2xl border border-white/10 max-h-[85vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-white/5 pb-2">
+        <h3 class="text-sm font-extrabold text-white uppercase tracking-wider font-poppins">Audit Trail: Appointment #{{ selectedApptHistoryId }}</h3>
+        <button (click)="showApptHistoryModal = false" class="text-slate-400 hover:text-white font-bold text-lg">&times;</button>
+      </div>
+
+      @if (isLoadingApptHistory()) {
+        <div class="p-6 text-center text-xs text-slate-400">Loading audit history...</div>
+      } @else if (apptHistoryLogs().length === 0) {
+        <div class="p-6 text-center text-xs text-slate-500">No previous change logs recorded for this appointment.</div>
+      } @else {
+        <div class="space-y-3">
+          @for (log of apptHistoryLogs(); track log.id) {
+            <div class="p-3 bg-white/5 rounded-xl border border-white/5 space-y-1">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-bold text-blue-400">{{ log.action }}</span>
+                <span class="text-[10px] text-slate-500 font-mono">{{ formatDate(log.createdAt) }}</span>
+              </div>
+              <p class="text-xs text-slate-300">
+                Status: <span class="text-slate-400">{{ log.oldStatus || 'NONE' }}</span> &rarr; <span class="text-emerald-400">{{ log.newStatus || 'UPDATED' }}</span>
+              </p>
+              <div class="text-[10px] text-slate-500">Role: {{ log.performedByRole || 'SYSTEM' }} (User #{{ log.performedByUserId || 'N/A' }})</div>
+            </div>
+          }
+        </div>
+      }
+
+      <div class="flex justify-end pt-2 border-t border-white/5">
+        <button (click)="showApptHistoryModal = false" class="px-4 py-2 rounded-xl btn-secondary text-xs font-bold">Close</button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Modal: Add / Edit Staff Member -->
+@if (showStaffModal) {
+  <div class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="glass-card max-w-lg w-full p-6 space-y-4 shadow-2xl border border-white/10 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-white/5 pb-2">
+        <h3 class="text-sm font-extrabold text-white uppercase tracking-wider font-poppins">
+          {{ isStaffEditMode ? 'Edit ' + staffModalType + ' Profile' : 'Add New ' + staffModalType }}
+        </h3>
+        <button (click)="showStaffModal = false" class="text-slate-400 hover:text-white font-bold text-lg">&times;</button>
+      </div>
+
+      <div class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Full Name *</label>
+          <input type="text" [(ngModel)]="staffName" placeholder="Dr. John Doe / Nurse Jane Smith" class="form-input text-xs" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Email Address *</label>
+            <input type="email" [(ngModel)]="staffEmail" placeholder="clinician@diacare.com" class="form-input text-xs" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">
+              {{ isStaffEditMode ? 'Password (Leave blank to keep)' : 'Password (Optional - default Doctor@12345)' }}
+            </label>
+            <input type="password" [(ngModel)]="staffPassword" placeholder="••••••••" class="form-input text-xs" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Phone Number</label>
+            <input type="tel" [(ngModel)]="staffPhone" placeholder="+977-9800000000" class="form-input text-xs" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Experience (Years)</label>
+            <input type="number" [(ngModel)]="staffExpYears" placeholder="5" class="form-input text-xs" />
+          </div>
+        </div>
+
+        @if (staffModalType === 'DOCTOR') {
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">Medical License #</label>
+              <input type="text" [(ngModel)]="doctorLicense" placeholder="NMC-98765" class="form-input text-xs" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">Specialization</label>
+              <input type="text" [(ngModel)]="doctorSpecialization" placeholder="Nephrology" class="form-input text-xs" />
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Consultation Fee (NPR)</label>
+            <input type="number" [(ngModel)]="doctorFee" placeholder="1500" class="form-input text-xs" />
+          </div>
+        } @else {
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Nursing Qualification</label>
+            <input type="text" [(ngModel)]="nurseQualification" placeholder="B.Sc Nursing (Dialysis Certified)" class="form-input text-xs" />
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">Duty Shift</label>
+              <input type="text" [(ngModel)]="nurseShift" placeholder="Morning / Evening / Night" class="form-input text-xs" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">Department</label>
+              <input type="text" [(ngModel)]="nurseDept" placeholder="Dialysis Unit" class="form-input text-xs" />
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="flex justify-end gap-3 pt-3 border-t border-white/5">
+        <button (click)="showStaffModal = false" class="px-4 py-2 rounded-xl btn-secondary text-xs font-bold">Cancel</button>
+        <button (click)="saveStaff()" [disabled]="isSavingStaff()" class="px-5 py-2 rounded-xl btn-primary text-xs font-bold">
+          {{ isSavingStaff() ? 'Saving...' : (isStaffEditMode ? 'Update Staff Member' : 'Create Staff Member') }}
+        </button>
       </div>
     </div>
   </div>

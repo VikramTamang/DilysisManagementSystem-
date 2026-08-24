@@ -13,10 +13,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AppointmentRequest {
 
-    @NotNull(message = "Patient ID is required")
     private Long patientId;
 
-    @NotNull(message = "Staff ID is required")
     private Long staffId;
 
     private Long roomId;
@@ -28,4 +26,8 @@ public class AppointmentRequest {
 
     @NotNull(message = "Scheduled end time is required")
     private LocalDateTime scheduledEnd;
+
+    private Boolean isEmergency;
+
+    private String notes;
 }
